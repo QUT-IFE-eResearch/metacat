@@ -1,0 +1,353 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Frameset//EN""http://www.w3.org/TR/REC-html40/frameset.dtd">
+<html>
+<head>
+<title>
+<a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008 Overview
+</title>
+<link rel ="stylesheet" type="text/css" href="stylesheet.css" title="Style">
+<script>
+function asd() {
+	
+		parent.document.title="EditButtonBase.js Overview";
+	
+}
+</script>
+</head>
+<body bgcolor="white" onload="asd();">
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> 	<font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top">
+<em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<center>
+	
+	   <h2>EditButtonBase.js</h2>
+	
+</center>
+
+	
+
+
+<h4>Summary</h4>
+<p>
+	
+		No overview generated for 'EditButtonBase.js'<BR/><BR/>
+	
+</p>
+
+<hr>
+
+
+    <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+    <td colspan=2><font size="+2">
+    
+        <b>Class Summary</b>
+    
+    </font></td>
+    </tr>
+    
+    <tr bgcolor="white" class="TableRowColor">
+    <td width="15%"><b><a href="EditButtonBase.html">EditButtonBase</a></b></td>
+    <td>&nbsp;</td>
+    </tr>
+    
+    </table>
+    <hr/> 
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<!-- ========== END METHOD SUMMARY =========== -->
+
+
+        <pre class="sourceview"><span class="comment">/*
+License: LGPL as per: http://www.gnu.org/copyleft/lesser.html
+$Id: EditButtonBase.js 3879 2008-02-27 14:20:29Z gjvoosten $
+*/</span>
+<span class="comment">
+// Ensure this object's dependancies are loaded.</span>
+mapbuilder.loadScript(baseDir+<span class="literal">"/widget/ButtonBase.js"</span>);
+
+<span class="comment">/**
+ * Base class for tools which update GML by clicking on the mapPane.
+ * <span class="attrib">@constructor</span>
+ * <span class="attrib">@base</span> ButtonBase
+ * <span class="attrib">@author</span> Cameron Shorter cameronATshorter.net
+ * <span class="attrib">@param</span> widgetNode The node from the Config XML file.
+ * <span class="attrib">@param</span> model  The ButtonBar widget.
+ */</span>
+<span class="reserved">function</span> EditButtonBase(widgetNode, model) {
+<span class="comment">  // Extend ButtonBase</span>
+  ButtonBase.apply(<span class="reserved">this</span>, new Array(widgetNode, model));
+<span class="comment">
+  // override default cursor by user</span>
+<span class="comment">  // cursor can be changed by specifying a new cursor in config file</span>
+  <span class="reserved">this</span>.cursor = <span class="literal">"crosshair"</span>; 
+
+  <span class="reserved">this</span>.trm=<span class="reserved">this</span>.getProperty(<span class="literal">"mb:transactionResponseModel"</span>);
+
+  <span class="comment">/** Empty GML to load when this tool is selected. */</span>
+  <span class="reserved">this</span>.defaultModelUrl=<span class="reserved">this</span>.getProperty(<span class="literal">"mb:defaultModelUrl"</span>);
+
+  <span class="comment">/** Reference to GML node to update when a feature is added. */</span>
+  <span class="reserved">this</span>.featureXpath=<span class="reserved">this</span>.getProperty(<span class="literal">"mb:featureXpath"</span>);
+
+  <span class="comment">/** Should a new empty feature be appended after creating one? */</span>
+  <span class="reserved">this</span>.appendOnEdit = Mapbuilder.parseBoolean(<span class="reserved">this</span>.getProperty(<span class="literal">"mb:appendOnEdit"</span>, true));
+
+  <span class="comment">/**
+   * OpenLayers DrawFeature control.
+   * <span class="attrib">@param</span> objRef reference to this object.
+   * <span class="attrib">@return</span> {OpenLayers.Control} class of the OL control.
+   */</span>
+  <span class="reserved">this</span>.createControl = <span class="reserved">function</span>(objRef) {
+    <span class="reserved">return</span> OpenLayers.Control.DrawFeature;
+  }
+  
+  <span class="comment">/**
+   * If tool is selected and the Edit Tool has changed (eg, changed from
+   * LineEdit to PointEdit) then load new default feature.
+   * This function is called when a tool is selected or deselected.
+   * <span class="attrib">@param</span> objRef Pointer to this object.
+   * <span class="attrib">@param</span> selected True when selected.
+   */</span>
+  <span class="reserved">this</span>.doSelect = <span class="reserved">function</span>(objRef, selected) {
+    <span class="reserved">if</span> (objRef.control.active) {
+<span class="comment">      // Model that will be populated with the WFS response.</span>
+      <span class="reserved">if</span> (objRef.trm &amp;&amp; !objRef.transactionResponseModel){
+        objRef.transactionResponseModel=window.config.objects[objRef.trm];
+      }
+<span class="comment">      // Remove the transactionResponseModel (and result of last transaction)</span>
+<span class="comment">      // when a transaction button is deselected</span>
+      <span class="reserved">if</span>(!selected &amp;&amp; objRef.transactionResponseModel){
+        objRef.transactionResponseModel.setModel(objRef.transactionResponseModel,null);
+      }
+      
+      config.loadModel(objRef.targetModel.id, objRef.defaultModelUrl);
+    }
+  }
+  
+  <span class="comment">/**
+   * start a new editing session
+   * <span class="attrib">@param</span> objRef reference to this widget
+   */</span>
+  <span class="reserved">this</span>.newSession = <span class="reserved">function</span>(objRef) {
+    objRef.modified = false;
+  }
+
+  <span class="comment">/**
+   * This is called by the OL onFeatureInsert handler. It will
+   * call the superclass's setFeature() method to handle the
+   * created feature.
+   * <span class="attrib">@param</span> feature OpenLayers feature
+   */</span>
+  <span class="reserved">this</span>.handleFeatureInsert = <span class="reserved">function</span>(feature) {
+<span class="comment">    // use the objRef reference stored by setEditingLayer()</span>
+    var objRef = feature.layer.mbButton;
+    objRef.feature = OpenLayers.Util.extend({}, feature);
+    objRef.geometry = OpenLayers.Util.extend({}, feature.geometry);
+    
+    var previousFeatureNode = objRef.targetModel.doc.selectSingleNode(<span class="literal">"/*/*"</span>).cloneNode(true);
+<span class="comment">
+    // add a new empty node if this is not the first feature</span>
+    <span class="reserved">if</span> (objRef.modified &amp;&amp; objRef.appendOnEdit) {
+      objRef.targetModel.doc.selectSingleNode(<span class="literal">"/*"</span>).appendChild(previousFeatureNode);
+    }
+
+    objRef.setFeature(objRef);
+    objRef.modified = true;
+<span class="comment">    
+    // destroy the feature in OL, because we do not use</span>
+<span class="comment">    // the OL vector layer for displaying the feature</span>
+    feature.mbSelectStyle = null;
+    feature.destroy();
+  }
+
+  <span class="comment">/**
+   * Set editing layer and register for editing events in OL,
+   * called after model loads.
+   * <span class="attrib">@param</span> objRef Pointer to this object.
+   */</span>
+  <span class="reserved">this</span>.setEditingLayer = <span class="reserved">function</span>(objRef) {
+    <span class="reserved">if</span> (!objRef.targetContext.featureLayers[objRef.id]) {
+      objRef.featureLayer = new OpenLayers.Layer.Vector(objRef.id);
+<span class="comment">      // layer should always be visible, independent of the resolution</span>
+      objRef.featureLayer.calculateInRange = <span class="reserved">function</span>() {<span class="reserved">return</span> true;};
+<span class="comment">      // set objRef as mbButton attribute of the OL featureLayer,</span>
+<span class="comment">      // because we otherwise don't have it available in</span>
+<span class="comment">      // handleFeatureInsert()</span>
+      objRef.featureLayer.mbButton = objRef;
+      objRef.targetContext.featureLayers[objRef.id] = objRef.featureLayer;
+<span class="comment">      // register OL event handler</span>
+      objRef.featureLayer.onFeatureInsert = objRef.handleFeatureInsert;
+    }
+  }
+
+  <span class="comment">/**
+   * Add a geometry to the enclosing GML model.
+   * <span class="attrib">@param</span> objRef      Pointer to this object.
+   */</span>
+  <span class="reserved">this</span>.setFeature = <span class="reserved">function</span>(objRef) {
+    <span class="reserved">if</span> (!objRef.enabled) {
+      <span class="reserved">return</span>;
+    }
+
+    var gml = new OpenLayers.Format.GML().write([objRef.feature]);
+    var gmlDoc = Sarissa.getDomDocument();
+    gmlDoc = (new DOMParser()).parseFromString(gml, <span class="literal">"text/xml"</span>);
+    <span class="reserved">if</span> (objRef.targetModel.namespace) {
+      Sarissa.setXpathNamespaces(gmlDoc, objRef.targetModel.namespace);
+    }
+    var insertPoint = objRef.featureXpath.lastIndexOf(<span class="literal">"/"</span>)+1;
+    var insertXpath = objRef.featureXpath.substring(insertPoint);
+    var insertNode = gmlDoc.selectSingleNode(<span class="literal">"//"</span>+insertXpath);
+    <span class="reserved">if</span> (!insertNode) {
+      insertNode = gmlDoc.selectSingleNode(<span class="literal">"//gml:featureMember/*/*"</span>);
+    }
+    var targetNode = objRef.targetModel.doc.selectSingleNode(objRef.featureXpath);
+    <span class="reserved">if</span> (targetNode.childNodes.length &gt; 0) {
+      targetNode.removeChild(targetNode.firstChild);
+    }
+
+    try {
+      Sarissa.copyChildNodes(insertNode, targetNode);
+    } catch(e) {
+      alert(mbGetMessage(<span class="literal">"invalidFeatureXpathEditLine"</span>, objRef.featureXpath));      
+    }
+    objRef.targetModel.setParam(<span class="literal">"refresh"</span>);
+  }
+
+  <span class="comment">/**
+   * Create the array that will hold all OL feature layers
+   * for editing buttons. Also register event handler to
+   * create feature layers when the OL map is available.
+   * <span class="attrib">@param</span> objRef Pointer to this object.
+   */</span>
+  <span class="reserved">this</span>.initButton = <span class="reserved">function</span>(objRef) {
+<span class="comment">    // initialize feature layers for the context.</span>
+<span class="comment">    // each editing button gets its own feature layer,</span>
+<span class="comment">    // which is not used for displaying the features,</span>
+<span class="comment">    // because the transaction response model has its</span>
+<span class="comment">    // own feature renderer.</span>
+    <span class="reserved">if</span> (!objRef.targetContext.featureLayers) {
+<span class="comment">    	// this array in the context will hold all</span>
+<span class="comment">    	// featureLayers used by editButton widgets</span>
+    	objRef.targetContext.featureLayers = new Array();
+    }
+<span class="comment">    
+    // feature layers will be created when the OL map is available</span>
+    objRef.targetContext.addFirstListener(<span class="literal">"refresh"</span>,objRef.setEditingLayer, objRef);
+
+    objRef.targetModel.addListener(<span class="literal">"loadModel"</span>, objRef.newSession, objRef);
+  }
+  <span class="reserved">this</span>.model.addListener(<span class="literal">"init"</span>,<span class="reserved">this</span>.initButton, <span class="reserved">this</span>);
+}
+</pre>
+	<hr>
+
+
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> <font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top"><em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<font size="-1">
+
+</font>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Sun Apr 27 20:30:54 2008</div>
+</body>
+</html>

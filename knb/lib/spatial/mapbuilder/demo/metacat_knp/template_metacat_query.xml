@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- $Id$ -->
+<gml:featureMember xmlns:topp="http://www.openplans.org/topp" xmlns:gml="http://www.opengis.net/gml">
+  <topp:metacat_query>
+    <topp:the_geom>
+          <gml:Point srsName="epsg:4326">
+            <gml:coordinates decimal="." cs="," ts=" "></gml:coordinates>
+          </gml:Point>
+    </topp:the_geom>
+    <topp:ID></topp:ID>
+    <topp:url></topp:url>
+  </topp:metacat_query>
+</gml:featureMember>

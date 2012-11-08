@@ -1,0 +1,43 @@
+<!--
+  *  '$RCSfile$'
+  *      Authors: Chad Berkley
+  *    Copyright: 2000 Regents of the University of California and the
+  *               National Center for Ecological Analysis and Synthesis
+  *  For Details: http://www.nceas.ucsb.edu/
+  *
+  *   '$Author: barteau $'
+  *     '$Date: 2008-01-31 09:20:05 +1000 (Thu, 31 Jan 2008) $'
+  * '$Revision: 3714 $'
+  * 
+  * This is an HTML document for loading an xml document into Oracle
+  *
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+  * (at your option) any later version.
+  *
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+  *
+  * You should have received a copy of the GNU General Public License
+  * along with this program; if not, write to the Free Software
+  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+-->
+  <HTML>
+  <HEAD>
+  <TITLE>MetaCat</TITLE>
+  <link rel="stylesheet" type="text/css" href="./rowcol.css">
+  </HEAD> 
+  <FRAMESET COLS="*" FRAMEBORDER=0 BORDER=0>
+
+    <FRAMESET ROWS="*,150"  FRAMEBORDER=0 BORDER=0>
+    
+    <FRAME SRC="replMain.html" BORDER=0 NAME="top">
+
+    <FRAME SRC="../../../servlet/replication?action=servercontrol&subaction=list"
+           name="bottom">
+
+    </FRAMESET>
+  </FRAMESET>

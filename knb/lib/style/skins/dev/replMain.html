@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD html 4.0//EN">
+<!--
+  *  '$RCSfile$'
+  *      Authors: Chad Berkley
+  *    Copyright: 2000 Regents of the University of California and the
+  *               National Center for Ecological Analysis and Synthesis
+  *  For Details: http://www.nceas.ucsb.edu/
+  *
+  *   '$Author: daigle $'
+  *     '$Date: 2009-03-25 03:17:11 +1000 (Wed, 25 Mar 2009) $'
+  * '$Revision: 4856 $'
+  * 
+  * This is an HTML document for loading an xml document into Oracle
+  *
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+  * (at your option) any later version.
+  *
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+  *
+  * You should have received a copy of the GNU General Public License
+  * along with this program; if not, write to the Free Software
+  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+-->
+<html>
+
+<head>
+  <title>Metacat Replication Control Panel</title>
+  <link rel="stylesheet" type="text/css" href="../default/default.css">
+</head>
+<body>
+
+<table class="tabledefault">
+<tr><td rowspan="2"><img src="../knb2/images/KNBLogo.gif"></td>
+<td colspan="7">
+<div class="title">Metacat Replication Control Panel</div>
+</td>
+</tr>
+<tr>
+  <td><a href="." class="toollink"> KNB </a></td>
+  <td><a href="data.html" class="toollink"> Data </a></td>
+  <td><a href="people.html" class="toollink"> People </a></td>
+  <td><a href="informatics" class="toollink"> Informatics </a></td>
+  <td><a href="biodiversity" class="toollink"> Biodiversity </a></td>
+  <td><a href="education" class="toollink"> Education </a></td>
+  <td><a href="software" class="toollink"> Software </a></td>
+</tr>
+</table>
+
+<p>&nbsp;</p>
+
+<table border="0" cellpadding="4" cellspacing="0" width="100%" 
+       class="tablepanel">
+  <tr class="tablehead">
+    <td><b>Time Handler</b></td>
+  </tr>
+  <tr>
+    <td rowspan="2" width="50%">
+    <form action="../../../servlet/replication" method="POST" target="bottom">
+      <input type="radio"  name="action" value="start">Start 
+      &nbsp;&nbsp; Delta T: <input value="172800000" size="15" name="rate"> milliseconds &nbsp;&nbsp; First Time <input value="10:00 PM" size="8" name="firsttime">&nbsp;(The format should be 10:00 AM) <br>
+      <input type="radio"  name="action" value="stop">Stop <br><br>
+      <input type="submit" value="Submit" target="bottom">
+    </form>
+    </td>
+  </tr>
+</table>
+<table border="0" cellpadding="4" cellspacing="0" width="100%" 
+       class="tablepanel">
+  <tr class="tablehead">
+    <td><b>Replicate Now</b></td>
+  </tr>
+  <tr>
+    <td rowspan="2" width="50%">
+    <form action="../../../servlet/replication" method="POST" target="bottom">
+      <input type="hidden"  name="action" value="getall"> 
+      Get All - bring all updated documents from remote hosts to this server<br><br>
+      
+      <input type="submit" value="Submit" target="bottom">
+    </form>
+    </td>
+  </tr>
+</table>
+<table border="1" cellpadding="4" cellspacing="0" width="100%" 
+       class="tablepanel">
+  <tr class="tablehead">
+    <td><b>Servers</b></td>
+  </tr>
+  <tr>
+    <td rowspan="2" width="50%">
+    <form action="../../../servlet/replication" method="POST" target="bottom">
+      <input type="hidden" name="action" value="servercontrol">
+      <input type="radio" name="subaction" value="delete"> Remove this server<br>
+      <input type="radio" name="subaction" value="add"> Add this server<br>
+      <input size="30" name="server" >  <br>
+      Replicate xml doc To server (1 or 0)?: <input size="2" name="replicate"> <br>
+      Replicate data file To server (1 or 0)?: <input size="2" name="datareplicate"> <br>
+      Localhost is a hub to server (1 or 0)?: <input size="2" name="hub"> <br>
+      Download certificate from<br>
+      <input type="text" size="30" name="certificate">
+      <br><br>
+      <input type="submit" value="Submit" target="bottom">
+    </form>
+    </td>
+  </tr>
+</table>
+<a href="../../../servlet/replication?action=servercontrol&subaction=list" target="bottom">
+Refresh Server List</a>
+</body>
+</html>

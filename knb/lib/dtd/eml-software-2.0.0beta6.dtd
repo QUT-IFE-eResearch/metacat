@@ -1,0 +1,75 @@
+<!--         
+       '$RCSfile: eml-software.dtd,v $'
+       Copyright: 2000 Regents of the University of California and the
+                  National Center for Ecological Analysis and Synthesis
+     For Details: http://knb.ecoinformatics.org/
+
+        '$Author: brooke $'
+          '$Date: 2002-05-15 18:22:24 $'
+      '$Revision: 1.11.2.1 $'
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+-->
+<!ELEMENT software ((identifier+, shortName?, title+, originator+, pubDate?, pubPlace?, series?, abstract?, keywordSet*, additionalInfo*, rights*, (onlineURL | offlineMedium)*, triple*), (versionNumber*, sourceModule*, binaryFile*, location*, programmingLanguage*))>
+<!ELEMENT identifier (#PCDATA)>
+<!ATTLIST identifier system CDATA #IMPLIED >
+<!ELEMENT shortName (#PCDATA)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT originator ((individualName | organizationName | positionName), address*, phone*, electronicMailAddress*, onlineLink*, role+)>
+<!ELEMENT pubDate (#PCDATA)>
+<!ELEMENT pubPlace (#PCDATA)>
+<!ELEMENT series (#PCDATA)>
+<!ELEMENT abstract (paragraph+)>
+<!ELEMENT keywordSet (keyword+, keywordThesaurus*)>
+<!ELEMENT additionalInfo (paragraph+)>
+<!ELEMENT rights (paragraph+)>
+<!ELEMENT onlineURL (#PCDATA)>
+<!ELEMENT offlineMedium (medName?, medDensity?, medDensityUnits?, medVol?, medFormat*, medNote?)>
+<!ELEMENT triple (subject, relationship, object)>
+<!ELEMENT versionNumber (#PCDATA)>
+<!ELEMENT sourceModule (#PCDATA)>
+<!ELEMENT binaryFile (#PCDATA)>
+<!ELEMENT location (#PCDATA)>
+<!ELEMENT programmingLanguage (#PCDATA)>
+<!ELEMENT individualName (salutation*, givenName*, surName)>
+<!ELEMENT organizationName (#PCDATA)>
+<!ELEMENT positionName (#PCDATA)>
+<!ELEMENT address (deliveryPoint*, city?, administrativeArea?, postalCode?, country?)>
+<!ELEMENT phone (#PCDATA)>
+<!ATTLIST phone phonetype CDATA #IMPLIED>
+<!ELEMENT electronicMailAddress (#PCDATA)>
+<!ELEMENT onlineLink (#PCDATA)>
+<!ELEMENT role (#PCDATA)>
+<!ELEMENT paragraph (#PCDATA)>
+<!ELEMENT keyword (#PCDATA)>
+<!ATTLIST keyword keywordType (place | stratum | temporal | theme) #IMPLIED>
+<!ELEMENT keywordThesaurus (#PCDATA)>
+<!ELEMENT medName (#PCDATA)>
+<!ELEMENT medDensity (#PCDATA)>
+<!ELEMENT medDensityUnits (#PCDATA)>
+<!ELEMENT medVol (#PCDATA)>
+<!ELEMENT medFormat (#PCDATA)>
+<!ELEMENT medNote (#PCDATA)>
+<!ELEMENT subject (#PCDATA)>
+<!ELEMENT relationship (#PCDATA)>
+<!ELEMENT object (#PCDATA)>
+<!ELEMENT salutation (#PCDATA)>
+<!ELEMENT givenName (#PCDATA)>
+<!ELEMENT surName (#PCDATA)>
+<!ELEMENT deliveryPoint (#PCDATA)>
+<!ELEMENT city (#PCDATA)>
+<!ELEMENT administrativeArea (#PCDATA)>
+<!ELEMENT postalCode (#PCDATA)>
+<!ELEMENT country (#PCDATA)>

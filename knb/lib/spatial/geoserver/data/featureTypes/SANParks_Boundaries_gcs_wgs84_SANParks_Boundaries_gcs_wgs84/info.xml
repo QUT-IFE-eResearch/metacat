@@ -1,0 +1,19 @@
+<featureType datastore = "SANParks_Boundaries_gcs_wgs84" >
+<name>SANParks_Boundaries_gcs_wgs84</name>
+<!--
+native wich EPGS code for the FeatureTypeInfoDTO
+-->
+<SRS>4326</SRS>
+<title>SANParks_Boundaries_gcs_wgs84_Type</title>
+<abstract>Generated from SANParks_Boundaries_gcs_wgs84</abstract>
+<wmspath>/</wmspath>
+<numDecimals value = "8" />
+<keywords>SANParks_Boundaries_gcs_wgs84</keywords>
+<latLonBoundingBox dynamic = "false" miny = "-34.83398366028038" maxy = "-22.16731263561231" maxx = "32.03300854528449" minx = "16.881960695048626"  />
+<!--
+the default style this FeatureTypeInfoDTO can be represented by.
+at least must contain the "default" attribute 
+-->
+<styles default = "SANParks_Boundaries_gcs_wgs84_style"  />
+<cacheinfo enabled = "false" maxage = ""  />
+</featureType>

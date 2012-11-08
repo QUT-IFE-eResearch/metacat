@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<ViewContext version="1.0.0" id="atlas_world"
+xmlns="http://www.opengis.net/context"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.opengis.net/context http://schemas.opengis.net/context/1.0.0/context.xsd">
+
+  <General>
+    <Window width="600" height="300" />
+    <BoundingBox SRS="EPSG:4326" minx="-180" miny="-90" maxx="180"
+    maxy="90" />
+    <Title>metacat data</Title>
+    <KeywordList>
+      <Keyword>metacat</Keyword>
+      <Keyword>EML</Keyword>
+    </KeywordList>
+    <Abstract>Low resolution.</Abstract>
+  </General>
+  <LayerList>
+    
+    <Layer queryable="0" hidden="0">
+      <Server service="wms" version="1.1.0" title="wms">
+        <OnlineResource xlink:type="simple"
+        xlink:href="http://nebulous.msi.ucsb.edu:8090/cgi-bin/mapserv?map=/home/mapdata/aoc_v3/english/pb_world.map" />
+      </Server>
+      <Name>ocean</Name>
+      <Title>ocean area</Title>
+      <SRS>EPSG:4326</SRS>
+      <FormatList>
+        <Format current="1">image/gif</Format>
+      </FormatList>
+    </Layer>
+    
+    <Layer queryable="0" hidden="0">
+          <Server service="wms" version="1.1.0" title="wms">
+                  <OnlineResource xlink:type="simple" xlink:href="http://atlas.gc.ca/cgi-bin/mapserv?map=/home/mapdata/aoc_v3/english/pb_world.map"/>
+                        </Server>
+
+                              <Name>land</Name>
+                                    <Title>land area</Title>
+                                          <SRS>EPSG:4326</SRS>
+                                                <FormatList>
+                                                        <Format current="1">image/gif</Format>
+                                                              </FormatList>
+                                                                  </Layer>
+
+    <Layer queryable="0" hidden="0">
+      <Server service="wms" version="1.1.0" title="wms">
+        <OnlineResource xlink:type="simple"
+        xlink:href="http://nebulous.msi.ucsb.edu:8090/cgi-bin/mapserv?map=/home/mapdata/aoc_v3/english/pb_world.map" />
+      </Server>
+      <Name>rivers</Name>
+      <Title>rivers</Title>
+      <SRS>EPSG:4326</SRS>
+      <FormatList>
+        <Format current="1">image/gif</Format>
+      </FormatList>
+    </Layer>
+    
+    <Layer queryable="0" hidden="0">
+      <Server service="wms" version="1.1.0" title="wms">
+        <OnlineResource xlink:type="simple"
+        xlink:href="http://nebulous.msi.ucsb.edu:8090/cgi-bin/mapserv?map=/home/mapdata/aoc_v3/english/pb_world.map" />
+      </Server>
+      <Name>boundaries</Name>
+      <Title>boundaries</Title>
+      <SRS>EPSG:4326</SRS>
+      <FormatList>
+        <Format current="1">image/gif</Format>
+      </FormatList>
+    </Layer>
+    
+    <Layer queryable="0" hidden="0">
+      <Server service="wms" version="1.1.0" title="wms">
+        <OnlineResource xlink:type="simple"
+        xlink:href="http://nebulous.msi.ucsb.edu:8090/cgi-bin/mapserv?map=/home/mapdata/aoc_v3/english/pb_world.map" />
+      </Server>
+      <Name>country_names</Name>
+      <Title>country names</Title>
+      <SRS>EPSG:4326</SRS>
+      <FormatList>
+        <Format current="1">image/gif</Format>
+      </FormatList>
+    </Layer>
+    
+    <Layer queryable="0" hidden="0">
+      <Server service="wms" version="1.1.0" title="wms">
+        <OnlineResource xlink:type="simple"
+        xlink:href="http://nebulous.msi.ucsb.edu:8090/cgi-bin/mapserv?map=/home/mapdata/aoc_v3/english/pb_world.map" />
+      </Server>
+      <Name>capital</Name>
+      <Title>capitals</Title>
+      <SRS>EPSG:4326</SRS>
+      <FormatList>
+        <Format current="1">image/gif</Format>
+      </FormatList>
+    </Layer>
+    
+    
+    <Layer queryable="1" hidden="0">
+      <Server service="OGC:WMS" version="1.1.1"
+      title="USA known places">
+        <OnlineResource xlink:type="simple" xlink:href="http://nebulous.msi.ucsb.edu:8080/geoserver/wms" />
+      </Server>
+      <Name>topp:places</Name>
+      <Title>USA known places</Title>
+      <SRS>EPSG:4326</SRS>
+      <FormatList>
+        <Format current="1">image/png</Format>
+      </FormatList>
+    </Layer>
+    
+    <Layer queryable="1" hidden="0">
+      <Server service="OGC:WMS" version="1.1.1"
+      title="metacat document data">
+        <OnlineResource xlink:type="simple"
+        xlink:href="../../../../wms" />
+      </Server>
+      <Name>topp:metacat_testdata</Name>
+      <Title>metacat documents</Title>
+      <SRS>EPSG:4326</SRS>
+      <FormatList>
+        <Format current="1">image/png</Format>
+      </FormatList>
+    </Layer>
+  
+  </LayerList>
+</ViewContext>

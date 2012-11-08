@@ -1,0 +1,276 @@
+#map {
+  width: 700px;
+  height: 300px;
+  border: 1px solid #ccc;
+}
+#documentArea, #searchResultArea, #mapArea, #searchArea {
+  padding:20px;
+}
+#documentArea h2 {
+  font-size: 1.3em;
+  font-style: italic;
+}
+#documentArea h3 {
+  font-size: 1.1em;
+}
+
+.resultstable .tablehead {
+  text-align: left;
+}
+
+.shortcutNav a {
+  font-weight:bold;
+}
+
+.ui-tabs-nav {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+.ui-widget-header {
+  border: 1px solid #DDDDDD;
+}
+.ui-widget-content {
+  background:none;
+  border-style: none;
+}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+  border: 1px solid #DDD;
+}
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
+  color: #0073EA;
+}
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+  color: #FF0084;
+}
+.ui-tabs {
+  padding:0;
+}
+.ui-tabs .ui-tabs-panel {
+  padding: 0;
+}
+.ui-tabs .ui-tabs-nav li a {
+  font-weight:bold;
+}
+.ui-widget-content a {
+  color:#0077BB;
+}
+
+.tabs {
+  margin-top:20px;
+}
+.tabs p, .tabs ul {
+  margin: 0.5em 0 1em;
+}
+.tabs ul {
+  padding-left: 2em;
+}
+
+.tabs dl > dd {
+  margin: 0;
+  padding: 0;
+}
+/* table header style */
+.tabs dl.th > dt {
+  text-align:center;
+}
+
+/******* heading-and-content style *******/
+.tabs dl, .tabs dl.section {
+  margin:0.5em 0 1em;
+}
+.tabs dl>dt, .tabs dl.section>dt {
+  font-size: 1.1em;
+  font-weight: bold;
+  border-top: solid #053 2px;
+  border-bottom: solid #053 2px;
+  padding: 0 0 0 10px;
+}
+.tabs dl>dd, .tabs dl.section>dd {
+  padding: 0 0 0 10px;
+}
+/* clear style for the next children of dl */
+.tabs dl dl {
+  margin:0;
+}
+.tabs dl dl>dt {
+  font-size: 1em;
+  font-weight: normal;
+  border: none;
+  padding: 0;
+}
+.tabs dl dl>dd {
+  padding: 0;
+}
+
+/* subheading style */
+.tabs dl.section dl.section
+{
+  margin:5px 0 0 0;
+  border-left:1px solid #CCCCCC;
+  border-bottom:1px solid #CCCCCC;
+}
+.tabs dl.section dl.section > dt
+{
+  font-size: 1.1em;
+  border-top: none;
+  border-bottom: solid black 1px;
+}
+
+/******* two columns key-value table style *******/
+.tabs .physical dl.row dl,
+.tabs dl.entityInfo dl,
+.tabs dl.party dl,
+.tabs dl.centity dl,
+.tabs dl.keywordSet dl,
+.tabs dl.row
+{
+  display:table;
+  overflow: hidden;
+	padding: 0;
+  margin: 0;
+  width: 100%;
+  border:none;
+  border-top:1px solid #CCCCCC;
+  *display: inline-block;
+}
+/* differentiate border style */
+.tabs dl.keywordSet>dd>dl {
+  border-top: none;
+  border-bottom:1px solid #CCCCCC;
+}
+/*
+.tabs dl.centity  dl.boundingCoordinates > dd > dl {
+  border-bottom:1px solid #CCCCCC;
+  border-top:1px solid #CCCCCC;
+}*/
+
+.tabs .physical dl.row dl>dt,
+.tabs dl.entityInfo dl>dt,
+.tabs dl.party dl>dt,
+.tabs dl.centity dl>dt,
+.tabs dl.keywordSet dl>dt,
+.tabs dl.row>dt
+{
+  display:table-cell;
+  width: 80px;
+  padding: 0 5px 2px 3px;
+  margin: 0;
+  border:none;
+  text-align: right;
+  vertical-align: middle;
+  background-color: #E0E0E0;
+  font-size: 1em;
+  font-weight: normal;
+  *float: left;
+  *background-color: transparent;
+}
+.tabs dl.keywordSet dl.th > dt {
+  text-align:center;
+}
+
+.tabs .physical dl.row dl>dd, 
+.tabs dl.entityInfo dl>dd,
+.tabs dl.party dl>dd,
+.tabs dl.centity dl>dd,
+.tabs dl.keywordSet dl > dd,
+.tabs dl.row>dd
+{
+  display:table-cell;
+	margin: 0;
+  padding: 2px 0 0 3px;
+  vertical-align: middle;
+  *margin: 0 0 0 88px;
+  *display: inline-block;
+}
+
+/******* grouped table style for entity such as a contact person *******/
+.tabs dl.party, .tabs dl dl.party, 
+.tabs dl.dentity,
+.tabs dl.centity {
+  display:block;
+  margin:5px 0 5px 0;
+  border:solid #CCCCCC;
+  border-width: 3px 1px 1px 1px;
+  width:auto;
+}
+.tabs dl.party > dt, .tabs dl dl.party > dt,
+.tabs dl.dentity > dt,
+.tabs dl.centity > dt {
+  display:block;
+  background-color:#CCCCCC;
+  padding: 0 0 0 10px;
+  border:none;
+  float:none;
+  width:auto;
+}
+.tabs dl.party > dd, .tabs dl dl.party > dd, 
+.tabs dl.dentity > dd,
+.tabs dl.centity > dd {
+  display:block;
+  padding:0;
+  margin:0;
+}
+
+
+table {
+  width: 100%;
+  border-collapse:collapse;
+}
+
+.taxonomicClassification table {
+  margin-bottom: 5px;
+}
+.taxonomicClassification table th {
+  background-color:#E0E0E0;
+  text-align:left;
+  padding-left:5px;
+}
+.taxonomicClassification table td {
+  padding-left:5px;
+}
+
+.datasetEntity ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+.additionalMetadata dd {
+  overflow: hidden;
+  word-wrap: break-word;
+}
+.additionalMetadata ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px
+}
+.additionalMetadata ul > li {
+  padding: 0px;
+  margin: 5px 10px;
+  float: left;
+  width: 50px;
+}
+
+table.attribute>tbody>tr>th {
+  border-bottom: 2px solid #CCC;
+}
+table.attribute>tbody>tr>td {
+  border-bottom: 1px solid #CCC;
+  text-align:center;
+}
+table.attribute>tbody>tr>td.description {
+  text-align:left;
+}
+table.attribute table>tbody>tr>td {
+  border-top: 1px solid #CCC;
+  text-align:left;
+  min-width:60px;
+}
+table.attribute table>tbody>tr>td:first-child {
+  background-color:#E0E0E0;
+}
+
+/* OpenLayer Google Map hack to remove the pop up box. */
+div.olLayerGoogleCopyright, div.olLayerGooglePoweredBy {
+  display: none !important;
+}

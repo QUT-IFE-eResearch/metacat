@@ -1,0 +1,359 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Frameset//EN""http://www.w3.org/TR/REC-html40/frameset.dtd">
+<html>
+<head>
+<title>
+<a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008 Overview
+</title>
+<link rel ="stylesheet" type="text/css" href="stylesheet.css" title="Style">
+<script>
+function asd() {
+	
+		parent.document.title="FeatureCollection.js Overview";
+	
+}
+</script>
+</head>
+<body bgcolor="white" onload="asd();">
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> 	<font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top">
+<em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<center>
+	
+	   <h2>FeatureCollection.js</h2>
+	
+</center>
+
+	
+
+
+<h4>Summary</h4>
+<p>
+	
+		No overview generated for 'FeatureCollection.js'<BR/><BR/>
+	
+</p>
+
+<hr>
+
+
+    <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+    <td colspan=2><font size="+2">
+    
+        <b>Class Summary</b>
+    
+    </font></td>
+    </tr>
+    
+    <tr bgcolor="white" class="TableRowColor">
+    <td width="15%"><b><a href="FeatureCollection.html">FeatureCollection</a></b></td>
+    <td>&nbsp;</td>
+    </tr>
+    
+    </table>
+    <hr/> 
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<!-- ========== END METHOD SUMMARY =========== -->
+
+
+        <pre class="sourceview"><span class="comment">/*
+License: LGPL as per: http://www.gnu.org/copyleft/lesser.html
+$Id: FeatureCollection.js 3882 2008-02-27 15:41:33Z gjvoosten $
+*/</span>
+<span class="comment">
+// Ensure this object's dependancies are loaded.</span>
+mapbuilder.loadScript(baseDir+<span class="literal">"/model/ModelBase.js"</span>);
+
+<span class="comment">/**
+ * Stores a GML Feature or FeatureCollection as defined by the
+ * Open Geospatial Consortium (http://www.opengeospatial.org/).
+ *
+ * <span class="attrib">@constructor</span>
+ * <span class="attrib">@base</span> ModelBase
+ * <span class="attrib">@author</span> Cameron Shorter
+ * <span class="attrib">@requires</span> Sarissa
+ * <span class="attrib">@param</span> modelNode The model's XML object node from the configuration document.
+ * <span class="attrib">@param</span> parent    The parent model for the object.
+  */</span>
+<span class="reserved">function</span> FeatureCollection(modelNode, parent) {
+<span class="comment">  // Inherit the ModelBase functions and parameters</span>
+  ModelBase.apply(<span class="reserved">this</span>, new Array(modelNode, parent));
+
+  <span class="reserved">this</span>.featureTagName = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:featureTagName"</span>, <span class="literal">"topp:CITY_NAME"</span>);
+  <span class="reserved">this</span>.coordsTagName = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:coordsTagName"</span>, <span class="literal">"//gml:coordinates"</span>);
+  <span class="reserved">this</span>.nodeSelectXpath = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:nodeSelectXpath"</span>);
+  <span class="reserved">this</span>.coordSelectXpath = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:coordSelectXpath"</span>, <span class="literal">"topp:the_geom/gml:MultiPoint/gml:pointMember/gml:Point/gml:coordinates"</span>);
+<span class="comment">
+  // Namespace to use when doing Xpath queries, usually set in config file.</span>
+<span class="comment">  //if (!this.namespace){</span>
+<span class="comment">  //  this.namespace = "xmlns:gml='http://www.opengis.net/gml' xmlns:wfs='http://www.opengis.net/wfs'";</span>
+<span class="comment">  //}</span>
+
+  <span class="comment">/**
+   * convert coordinates in the GML document to the SRS of the map container, 
+   * if required.  The coordinate values are replaced in the GML document.
+   * <span class="attrib">@param</span> objRef Pointer to this object.
+   */</span>
+  <span class="reserved">this</span>.convertCoords = <span class="reserved">function</span>(objRef) {
+  
+    <span class="reserved">if</span>( objRef.doc &amp;&amp; objRef.containerModel &amp;&amp; objRef.containerModel.doc ) {
+		  var coordNodes = objRef.doc.selectNodes( objRef.coordsTagName );
+		  <span class="reserved">if</span> (coordNodes.length&gt;0 &amp;&amp; objRef.containerModel) {
+		    var srsNode = coordNodes[0].selectSingleNode(<span class="literal">"ancestor-or-self::*/@srsName"</span>);
+		    <span class="reserved">if</span>( srsNode &amp;&amp; (srsNode.nodeValue.toUpperCase() != objRef.containerModel.getSRS().toUpperCase()) ) {
+		      var sourceProj = new OpenLayers.Projection(srsNode.nodeValue);
+		      objRef.setParam(<span class="literal">"modelStatus"</span>,mbGetMessage(<span class="literal">"convertingCoords"</span>));
+		      var containerProj = new OpenLayers.Projection(objRef.containerModel.getSRS());
+		      <span class="reserved">for</span> (var i=0; i&lt;coordNodes.length; ++i) {
+		        var coords = getNodeValue(coordNodes[i]);
+		        var coordsArray = coords.split(<span class="literal">' '</span>);
+		        var newCoords = <span class="literal">''</span>;
+		        <span class="reserved">for</span> (var j=0; j&lt;coordsArray.length; ++j) {
+		          var xy = coordsArray[j].split(<span class="literal">','</span>);
+		          <span class="reserved">if</span> (xy.length==2) {
+		            var pt=new OpenLayers.Geometry.Point(xy[0],xy[1]);
+                pt.transform(sourceProj,containerProj);
+		            newCoords += pt.x + <span class="literal">','</span> + pt.y + <span class="literal">' '</span>;
+		          }
+		        }
+		        coordNodes[i].firstChild.nodeValue=newCoords;
+		      }
+		    }
+      }
+    }
+  }
+  
+  <span class="comment">/**
+    * Called when the OWSContext gets loaded
+    */</span>
+  <span class="reserved">this</span>.loadWfsRequests = <span class="reserved">function</span>(objRef) {
+<span class="comment">    //alert( "FeatureCollection loadModel:"+(new XMLSerializer()).serializeToString(objRef.containerModel.doc))</span>
+<span class="comment">    // we need to retrieve all the features</span>
+    <span class="reserved">if</span>( objRef.containerModel.doc != null) {
+<span class="comment">      //alert( "FeatureCollection loadModel:"+(new XMLSerializer()).serializeToString(objRef.containerModel.doc))</span>
+      var featureTypes = objRef.containerModel.doc.selectNodes(<span class="literal">"/wmc:OWSContext/wmc:ResourceList/wmc:FeatureType"</span>);
+      <span class="reserved">if</span>( featureTypes.length &gt; 0 ) {
+        <span class="reserved">for</span>( var i=0; i&lt;featureTypes.length; i++) {
+          var httpPayload = new Object();        
+        
+          var wfsFeature = featureTypes[i]
+<span class="comment">          //alert( "feature:"+ (new XMLSerializer()).serializeToString(wfsFeature) )</span>
+          
+          var server = wfsFeature.selectSingleNode(<span class="literal">"wmc:Server"</span>)
+<span class="comment">          //alert( "server:"+ (new XMLSerializer()).serializeToString(server) )</span>
+          var onlineResource = server.selectSingleNode(<span class="literal">"wmc:OnlineResource"</span>)
+<span class="comment">          //alert( "onlineResource:"+ (new XMLSerializer()).serializeToString(onlineResource) )</span>
+          httpPayload.method = onlineResource.getAttribute(<span class="literal">"method"</span>)
+          httpPayload.url = onlineResource.getAttribute(<span class="literal">"xlink:href"</span>)
+<span class="comment">          //alert( "server:"+ httpPayload.method + " " + httpPayload.url )</span>
+          
+          var query = wfsFeature.selectSingleNode(<span class="literal">"wfs:GetFeature"</span>)
+<span class="comment">          //alert( "query2:"+ (new XMLSerializer()).serializeToString( query ))</span>
+          httpPayload.postData = (new XMLSerializer()).serializeToString( query )
+<span class="comment">          
+          // This does not work on IE for some reaso</span>
+<span class="comment">          // wfsFeature.model = objRef;</span>
+          objRef.wfsFeature = wfsFeature
+          objRef.newRequest(objRef,httpPayload);
+<span class="comment">
+          //objRef.containerModel.setParam('addLayer', wfsFeature);</span>
+<span class="comment">          //var sld = wfsFeature.selectSingleNode("wmc:StyleList")</span>
+        }
+      }
+    }
+  }
+  
+  <span class="reserved">this</span>.addFirstListener(<span class="literal">"loadModel"</span>,<span class="reserved">this</span>.convertCoords,<span class="reserved">this</span>);
+  
+  <span class="reserved">if</span>( <span class="reserved">this</span>.containerModel ) <span class="reserved">this</span>.containerModel.addListener(<span class="literal">"loadModel"</span>,<span class="reserved">this</span>.loadWfsRequests,<span class="reserved">this</span>);
+
+  <span class="comment">/**
+   * Change a feature's visibility.
+   * <span class="attrib">@param</span> featureName The name of the feature to set the hidden value for
+   * <span class="attrib">@param</span> hidden, 1=hidden, 0=not hidden.
+   */</span>
+  <span class="reserved">this</span>.setHidden=<span class="reserved">function</span>(featureName, hidden){
+    <span class="reserved">this</span>.hidden = hidden;
+    <span class="reserved">this</span>.callListeners(<span class="literal">"hidden"</span>, featureName);
+  }
+
+  <span class="comment">/**
+   * Geta feature's visibility.
+   * <span class="attrib">@param</span> featureName The name of the feature to set the hidden value for
+   * <span class="attrib">@return</span> hidden value, true=hidden, false=not hidden.
+   */</span>
+  <span class="reserved">this</span>.getHidden=<span class="reserved">function</span>(layerName){
+    <span class="reserved">return</span> <span class="reserved">this</span>.hidden;
+  }
+  <span class="reserved">this</span>.hidden = false;
+
+  <span class="comment">/**
+   * Returns the list of nodes selected by the nodeSelectpath.  These nodes
+   * will be the individual feature members from the collection.
+   * <span class="attrib">@return</span> list of nodes selected 
+   */</span>
+  <span class="reserved">this</span>.getFeatureNodes = <span class="reserved">function</span>() {
+    <span class="reserved">return</span> <span class="reserved">this</span>.doc.selectNodes(<span class="reserved">this</span>.nodeSelectXpath);
+  }
+
+  <span class="comment">/**
+   * Returns a label for a node in the feature list
+   * <span class="attrib">@param</span> featureNode the feature node to selectfrom
+   * <span class="attrib">@return</span> a label for this feature
+   */</span>
+  <span class="reserved">this</span>.getFeatureName = <span class="reserved">function</span>(featureNode) {
+    var labelNode = featureNode.selectSingleNode(<span class="reserved">this</span>.featureTagName);   //TBD: set <span class="reserved">this</span> dynamically
+    <span class="reserved">return</span> labelNode?getNodeValue(labelNode):mbGetMessage(<span class="literal">"noRssTitle"</span>);
+  }
+
+  <span class="comment">/**
+   * Returns an ID value for a node in the feature list
+   * <span class="attrib">@param</span> featureNode the feature node to selectfrom
+   * <span class="attrib">@return</span> ID for this feature
+   */</span>
+  <span class="reserved">this</span>.getFeatureId = <span class="reserved">function</span>(featureNode) {
+    <span class="reserved">return</span> featureNode.getAttribute(<span class="literal">"fid"</span>)?featureNode.getAttribute(<span class="literal">"fid"</span>):<span class="literal">"no_id"</span>;
+  }
+
+  <span class="comment">/**
+   * Returns a point geometry for the feature
+   * <span class="attrib">@param</span> featureNode the feature node to select from
+   * <span class="attrib">@return</span> the geometric point for the node
+   */</span>
+  <span class="reserved">this</span>.getFeaturePoint = <span class="reserved">function</span>(featureNode) {
+    var coords = featureNode.selectSingleNode(<span class="reserved">this</span>.coordSelectXpath);
+    <span class="reserved">if</span> (coords) {
+      var point = getNodeValue(coords).split(<span class="literal">','</span>);
+      <span class="reserved">return</span> point
+    } <span class="reserved">else</span> {
+      <span class="reserved">return</span> new Array(0,0);  //or some other error to <span class="reserved">return</span>?
+    }
+  }
+  
+ <span class="comment">/**
+   * Returns a GML geometry for the feature
+   * <span class="attrib">@param</span> featureNode the feature node to select from
+   * <span class="attrib">@return</span> the GML for the node
+   */</span>
+  <span class="reserved">this</span>.getFeatureGeometry = <span class="reserved">function</span>(featureNode) {
+    var geometryTag = featureNode.selectSingleNode(<span class="reserved">this</span>.coordsTagName);
+    <span class="reserved">if</span>( geometryTag != null )
+      <span class="reserved">return</span> geometryTag.firstChild;
+    <span class="reserved">else</span> {
+      alert(mbGetMessage(<span class="literal">"invalidGeom"</span>, (new XMLSerializer()).serializeToString(featureNode)));
+    }
+  }
+}
+</pre>
+	<hr>
+
+
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> <font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top"><em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<font size="-1">
+
+</font>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Sun Apr 27 20:30:54 2008</div>
+</body>
+</html>

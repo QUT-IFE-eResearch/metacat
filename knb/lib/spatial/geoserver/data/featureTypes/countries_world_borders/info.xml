@@ -1,0 +1,15 @@
+<featureType datastore = "countries" >
+<name>world_borders</name>
+<SRS>4326</SRS>
+<title>countries_type</title>
+<abstract>Freegis Worlddata Countries</abstract>
+<numDecimals value = "8" />
+<keywords>metacat data</keywords>
+<latLonBoundingBox dynamic = "true" miny = "-90" maxy = "90" maxx = "180" minx = "-180"  />
+<!--
+the default style this FeatureTypeInfoDTO can be represented by.
+at least must contain the "default" attribute 
+-->
+<styles default = "defaultPolygon"  />
+<cacheinfo enabled = "true" maxage = "86400"  />
+</featureType>

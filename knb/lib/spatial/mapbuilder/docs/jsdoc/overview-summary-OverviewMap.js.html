@@ -1,0 +1,355 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Frameset//EN""http://www.w3.org/TR/REC-html40/frameset.dtd">
+<html>
+<head>
+<title>
+<a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008 Overview
+</title>
+<link rel ="stylesheet" type="text/css" href="stylesheet.css" title="Style">
+<script>
+function asd() {
+	
+		parent.document.title="OverviewMap.js Overview";
+	
+}
+</script>
+</head>
+<body bgcolor="white" onload="asd();">
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> 	<font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top">
+<em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<center>
+	
+	   <h2>OverviewMap.js</h2>
+	
+</center>
+
+	
+
+
+<h4>Summary</h4>
+<p>
+	
+		No overview generated for 'OverviewMap.js'<BR/><BR/>
+	
+</p>
+
+<hr>
+
+
+    <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+    <td colspan=2><font size="+2">
+    
+        <b>Class Summary</b>
+    
+    </font></td>
+    </tr>
+    
+    <tr bgcolor="white" class="TableRowColor">
+    <td width="15%"><b><a href="OverviewMap.html">OverviewMap</a></b></td>
+    <td>&nbsp;</td>
+    </tr>
+    
+    </table>
+    <hr/> 
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<!-- ========== END METHOD SUMMARY =========== -->
+
+
+        <pre class="sourceview"><span class="comment">/*
+Author:       Gertjan van Oosten gertjan at west dot nl
+License:      LGPL as per: http://www.gnu.org/copyleft/lesser.html
+
+$Id: OverviewMap.js 3887 2008-02-27 18:18:53Z ahocevar $
+*/</span>
+<span class="comment">
+// Ensure this object's dependancies are loaded.</span>
+mapbuilder.loadScript(baseDir+<span class="literal">"/util/openlayers/OpenLayers.js"</span>);
+mapbuilder.loadScript(baseDir+<span class="literal">"/widget/WidgetBase.js"</span>);
+
+<span class="comment">/**
+ * Widget to add an OL OverviewMap to a main map.
+ * <span class="attrib">@constructor</span>
+ * <span class="attrib">@base</span> WidgetBase
+ * <span class="attrib">@param</span> widgetNode  The widget's XML object node from the configuration document.
+ * <span class="attrib">@param</span> model       The model object that this widget belongs to.
+ */</span>
+<span class="reserved">function</span> OverviewMap(widgetNode, model) {
+  WidgetBase.apply(<span class="reserved">this</span>,new Array(widgetNode, model));
+
+  var width = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:width"</span>);
+  <span class="reserved">if</span> (width) {
+    <span class="reserved">this</span>.width = new Number(width);
+  }
+  var height = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:height"</span>);
+  <span class="reserved">if</span> (height) {
+    <span class="reserved">this</span>.height = new Number(height);
+  }
+  var minRatio = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:minRatio"</span>);
+  <span class="reserved">if</span> (minRatio) {
+    <span class="reserved">this</span>.minRatio = new Number(minRatio);
+  }
+  var maxRatio = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:maxRatio"</span>);
+  <span class="reserved">if</span> (maxRatio) {
+    <span class="reserved">this</span>.maxRatio = new Number(maxRatio);
+  }
+
+  var layersNode = widgetNode.selectSingleNode(<span class="literal">"mb:layers"</span>);
+  <span class="reserved">if</span> (layersNode) {
+    <span class="reserved">this</span>.layerNames = new Array();
+    var layers = layersNode.childNodes;
+    <span class="reserved">for</span> (var i = 0; i &lt; layers.length; i++) {
+      <span class="reserved">if</span> (layers[i].firstChild) {
+        <span class="reserved">this</span>.layerNames.push(getNodeValue(layers[i]));
+      }
+    }
+  }
+
+  <span class="reserved">this</span>.model.addListener(<span class="literal">"refresh"</span>, <span class="reserved">this</span>.addOverviewMap, <span class="reserved">this</span>);
+}
+
+<span class="comment">/**
+ * Add an overview map to the map in this widget's model.
+ * If layers have been specified in the config, clone these layers for the
+ * overview map, otherwise just use the base layer from the main map.
+ * If any of the layers to use are WMS layers it uses an untiled version of them.
+ * <span class="attrib">@param</span> objRef Pointer to widget object.
+ */</span>
+OverviewMap.<span class="reserved">prototype</span>.addOverviewMap = <span class="reserved">function</span>(objRef) {
+  <span class="reserved">if</span> (objRef.model &amp;&amp; objRef.model.map) {
+    var map = objRef.model.map;
+    
+    <span class="comment">/** reference to the OpenLayers OverviewMap control */</span>
+    <span class="reserved">this</span>.control = null
+<span class="comment">
+    // Specify div and layers for overview map.</span>
+    var options = {
+      div: objRef.getNode(),
+      objRef: <span class="reserved">this</span>,
+      destroy: <span class="reserved">function</span>() {
+        OpenLayers.Control.OverviewMap.<span class="reserved">prototype</span>.destroy.apply(<span class="reserved">this</span>, arguments);
+        <span class="reserved">this</span>.div = null;
+        objRef.control = null;
+        objRef = null;
+      },
+      layers: new Array()
+    };
+    
+    <span class="reserved">if</span> (objRef.minRatio) options.minRatio = objRef.minRatio;
+    <span class="reserved">if</span> (objRef.maxRatio) options.maxRatio = objRef.maxRatio;
+<span class="comment">
+    // Clone the base layer. This is not really the OpenLayers base layer, but</span>
+<span class="comment">    // the lowest layer in the Mapbuilder layers stack.</span>
+    <span class="reserved">if</span> (!objRef.layerNames) {
+      <span class="reserved">for</span> (var i in map.mbMapPane.oLlayers) {
+        var oLlayer = map.mbMapPane.oLlayers[i];
+        <span class="reserved">if</span> (oLlayer) {
+          var baseLayer = objRef.getClonedLayer(oLlayer, true);
+          options.layers.push(baseLayer);
+          break;
+        } 
+      }
+    }
+<span class="comment">
+    // Check for specifically requested layers</span>
+    var isBaseLayer = true;
+    <span class="reserved">if</span> (objRef.layerNames) {
+      <span class="reserved">for</span> (var i = 0; i &lt; objRef.layerNames.length; i++) {
+        var oLlayer = map.mbMapPane.getLayer(map.mbMapPane, objRef.layerNames[i]);
+        <span class="reserved">if</span> (oLlayer) {
+          options.layers.push(objRef.getClonedLayer(oLlayer, isBaseLayer));
+          isBaseLayer = false;
+        }
+      }
+    }
+<span class="comment">    
+    // Determine size:</span>
+<span class="comment">    // - if width and height are both set, use these as the size;</span>
+<span class="comment">    // - if only width or height is set, take aspect ratio of main map into account;</span>
+<span class="comment">    // - otherwise, OL defaults to (180,90).</span>
+    var extent = map.getExtent();
+    <span class="reserved">if</span> (objRef.width &amp;&amp; objRef.height) {
+      options.size = new OpenLayers.Size(objRef.width, objRef.height);
+    }
+    <span class="reserved">else</span> <span class="reserved">if</span> (objRef.width) {
+      options.size = new OpenLayers.Size(
+        objRef.width,
+        objRef.width * extent.getHeight() / extent.getWidth());
+    }
+    <span class="reserved">else</span> <span class="reserved">if</span> (objRef.height) {
+      options.size = new OpenLayers.Size(
+        objRef.height * extent.getWidth() / extent.getHeight(),
+        objRef.height);
+    }
+<span class="comment">
+    // Add the overview to the main map</span>
+    <span class="reserved">if</span> (!objRef.control) {
+      objRef.control = new OpenLayers.Control.OverviewMap(options);
+      objRef.control.mapOptions = {theme: null};
+      map.addControl(objRef.control);
+    }
+<span class="comment">
+    // make all layers visible</span>
+    <span class="reserved">for</span> (var i=0; i&lt;options.layers.length; i++) {
+      options.layers[i].setVisibility(true);
+    }
+  }
+}
+
+<span class="comment">/**
+ * Clone a map layer (OpenLayers.Layer subclass).
+ * If the layer is a WMS layer it returns an untiled version of it.
+ * <span class="attrib">@param</span> layer Pointer to layer object.
+ * <span class="attrib">@param</span> isBaseLayer {Boolean} optional parameter: should the layer become
+ * baselayer on the overview map?
+ */</span>
+OverviewMap.<span class="reserved">prototype</span>.getClonedLayer = <span class="reserved">function</span>(layer, isBaseLayer) {
+  <span class="reserved">if</span> (layer == null) {
+    <span class="reserved">return</span> null;
+  }
+  
+  isBaseLayer = isBaseLayer ? true : false;
+
+  <span class="reserved">if</span> (layer instanceof OpenLayers.Layer.WMS) {
+<span class="comment">    // make an untiled wms layer, with ratio 1</span>
+    var layerOptions = {
+      units: layer.units,
+      projection: layer.projection,
+      maxExtent: layer.maxExtent,
+      maxResolution: <span class="literal">"auto"</span>,
+      ratio: 1,
+      singleTile: true,
+      isBaseLayer: isBaseLayer
+    };
+
+    <span class="reserved">return</span> new OpenLayers.Layer.WMS(layer.name,
+      layer.url, {
+        layers: layer.params.LAYERS,
+        format: layer.params.FORMAT,
+        transparent: layer.params.TRANSPARENT,
+        sld: layer.params.SLD,
+        sld_body: layer.params.SLD_BODY,
+        styles: layer.params.STYLES
+      }, layerOptions);
+  }
+  <span class="reserved">else</span> {
+<span class="comment">    // take the layer as-is and clone it</span>
+    var clonedLayer = layer.clone();
+    clonedLayer.setVisibility(true);
+    <span class="reserved">return</span> clonedLayer;
+  }
+}
+  
+</pre>
+	<hr>
+
+
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> <font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top"><em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<font size="-1">
+
+</font>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Sun Apr 27 20:30:54 2008</div>
+</body>
+</html>

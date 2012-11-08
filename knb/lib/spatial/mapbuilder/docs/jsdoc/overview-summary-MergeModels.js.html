@@ -1,0 +1,252 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Frameset//EN""http://www.w3.org/TR/REC-html40/frameset.dtd">
+<html>
+<head>
+<title>
+<a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008 Overview
+</title>
+<link rel ="stylesheet" type="text/css" href="stylesheet.css" title="Style">
+<script>
+function asd() {
+	
+		parent.document.title="MergeModels.js Overview";
+	
+}
+</script>
+</head>
+<body bgcolor="white" onload="asd();">
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> 	<font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top">
+<em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<center>
+	
+	   <h2>MergeModels.js</h2>
+	
+</center>
+
+	
+
+
+<h4>Summary</h4>
+<p>
+	
+		No overview generated for 'MergeModels.js'<BR/><BR/>
+	
+</p>
+
+<hr>
+
+
+    <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+    <td colspan=2><font size="+2">
+    
+        <b>Class Summary</b>
+    
+    </font></td>
+    </tr>
+    
+    <tr bgcolor="white" class="TableRowColor">
+    <td width="15%"><b><a href="MergeModels.html">MergeModels</a></b></td>
+    <td>&nbsp;</td>
+    </tr>
+    
+    </table>
+    <hr/> 
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<!-- ========== END METHOD SUMMARY =========== -->
+
+
+        <pre class="sourceview"><span class="comment">/*
+License: LGPL as per: http://www.gnu.org/copyleft/lesser.html
+$Id: MergeModels.js 3881 2008-02-27 15:41:07Z gjvoosten $
+*/</span>
+<span class="comment">
+// Ensure this object's dependancies are loaded.</span>
+mapbuilder.loadScript(baseDir+<span class="literal">"/tool/ToolBase.js"</span>);
+
+<span class="comment">/**
+ * Model that allows to merge multiple models into one. The first model
+ * determines the root node, other models are appended within the same
+ * root node.
+ * <span class="attrib">@constructor</span>
+ * <span class="attrib">@base</span> ToolBase
+ * <span class="attrib">@author</span> Andreas Hocevar andreas.hocevarATgmail.com
+ * <span class="attrib">@param</span> modelNode The model's XML object node from the configuration document
+ * <span class="attrib">@param</span> model model this tool belongs to.
+ */</span>
+<span class="reserved">function</span> MergeModels(toolNode, model) {
+<span class="comment">  // Inherit the ModelBase functions and parameters</span>
+  ToolBase.apply(<span class="reserved">this</span>, new Array(toolNode, model));
+  
+  <span class="reserved">this</span>.template = null;
+
+  <span class="reserved">this</span>.init = <span class="reserved">function</span>(objRef) {
+    objRef.model.mergeModels = new Array();
+    var models = toolNode.selectSingleNode(<span class="literal">'mb:merges'</span>);
+    <span class="reserved">if</span> (models) {
+      var model = models.childNodes;
+      <span class="reserved">for</span> (var i = 0; i &lt; model.length; i++) {
+        <span class="reserved">if</span> (model[i].firstChild) {
+          objRef.addModel(objRef, config.objects[getNodeValue(model[i])]);
+        }
+      }
+    }
+  }
+<span class="comment">  // it is important to be registered before other tools that</span>
+<span class="comment">  // check for model.mergeModels</span>
+  model.addListener(<span class="literal">'init'</span>, <span class="reserved">this</span>.init, <span class="reserved">this</span>);
+  
+  <span class="reserved">this</span>.getTemplate = <span class="reserved">function</span>(objRef) {
+    objRef.template = objRef.model.doc ? objRef.model.doc.cloneNode(true) : null;
+    <span class="reserved">if</span> (objRef.template) {
+      objRef.model.removeListener(<span class="literal">'loadModel'</span>, objRef.getTemplate, objRef);
+      objRef.buildModel(objRef);
+    }
+  }
+  model.addListener(<span class="literal">'loadModel'</span>, <span class="reserved">this</span>.getTemplate, <span class="reserved">this</span>);
+
+  <span class="reserved">this</span>.addModel = <span class="reserved">function</span>(objRef, model) {
+    objRef.model.mergeModels.push(model);
+    <span class="reserved">if</span> (model.doc) {
+      objRef.mergeModel(objRef, model.doc);
+    }
+    model.addListener(<span class="literal">'refresh'</span>, objRef.buildModel, objRef);
+  }
+  
+  <span class="reserved">this</span>.mergeModel = <span class="reserved">function</span>(objRef, modelToMerge) {
+    var docToMerge = modelToMerge.doc ? modelToMerge.doc.cloneNode(true) : null;
+    var nodes = docToMerge ? docToMerge.selectNodes(<span class="literal">'//*[@fid]'</span>) : null;
+    <span class="reserved">if</span> (!nodes) <span class="reserved">return</span>;
+    var node;
+    <span class="reserved">for</span> (var i=0; i&lt;nodes.length; i++) {
+      node = nodes[i];
+      <span class="reserved">if</span> (node.nodeName) {
+        node.setAttribute(<span class="literal">'sourceModel'</span>, modelToMerge.id);
+      }
+    }    
+    Sarissa.copyChildNodes(docToMerge.documentElement, objRef.model.doc.documentElement, true);
+  }
+  
+  <span class="reserved">this</span>.buildModel = <span class="reserved">function</span>(objRef) {
+    <span class="reserved">if</span> (!objRef.template) <span class="reserved">return</span>;
+    objRef.model.callListeners(<span class="literal">'newModel'</span>);
+    objRef.model.doc = objRef.template.cloneNode(true);
+    <span class="reserved">for</span> (var i=0; i&lt;objRef.model.mergeModels.length; i++) {
+      objRef.mergeModel(objRef, objRef.model.mergeModels[i]);
+    }
+    objRef.model.callListeners(<span class="literal">'loadModel'</span>);
+  }
+}
+</pre>
+	<hr>
+
+
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> <font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top"><em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<font size="-1">
+
+</font>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Sun Apr 27 20:30:54 2008</div>
+</body>
+</html>

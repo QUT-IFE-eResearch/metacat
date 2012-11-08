@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<deployment name="defaultServerConfig" xmlns="http://xml.apache.org/axis/wsdd/"
+	xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+	<service name="edu/ucsb/nceas/metacat/MetacatStringService" provider="java:RPC">
+		<parameter name="allowedMethods" value="*"/>
+		<parameter name="className" value="edu.ucsb.nceas.metacat.stringclient.impl.MetacatStringImpl"/>
+	</service>
+
+</deployment>

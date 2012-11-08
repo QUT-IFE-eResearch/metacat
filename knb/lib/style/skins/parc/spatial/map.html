@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<title>Metacat Spatial Option Demo</title>
+
+<link rel='StyleSheet' type='text/css' href='../../../../spatial/mapbuilder/lib/skin/default/docsStyle.css'>
+<link rel='StyleSheet' type='text/css' href='../../../../spatial/mapbuilder/lib/skin/default/mapStyle.css'>
+<link rel='StyleSheet' type='text/css' href='../../../../spatial/mapbuilder/lib/skin/default/button.css'>
+<link rel='StyleSheet' type='text/css' href='../../../../spatial/mapbuilder/lib/skin/default/scalebar-fat.css'>
+
+<script type="text/javascript">
+  var mbConfigUrl="config.xml";
+</script>
+
+<script type="text/javascript" src="../../../../spatial/mapbuilder/lib/Mapbuilder.js"></script>
+</head>
+<body onload="mbDoLoad()">
+
+    <table border="0">
+            <tr>
+            <td colspan="2">
+              <div id="mainMapPane" style="background-color:#b8d5f5;" />
+              <div id="loading">
+               <p> Loading Map
+                <img src="../../../../spatial/mapbuilder/lib/skin/default/images/Loading.gif"/>
+               </p>
+             </div>
+            </td>
+
+            </tr>
+            <tr align="left">
+                    <td>
+
+                    <table border="0" width="100%">
+                                    <tr valign="top"> 
+                                      <td id="legend" align="left"/>
+                                      <td width="45%" align="right">
+                                        <table>
+                                          <tr>
+                                            <td align="center" id="cursorTrack" />
+                                            <td align="right" id="mainButtonBar" /> 
+                                          </tr>
+                                          <tr><td colspan="2" align="right" id="locationsSelect" /> </tr>
+                                          <!-- <tr><td colspan="2" align="right" id="scalebar"/> </tr> -->
+                                          <tr> 
+                                           <td colspan="2" align="right" style="font-size:8pt;"> 
+                                             <a style="text-decoration:none;" href="../../../../spatial/kml.jsp">
+                                               <br/> 
+                                               Download Google Earth KML
+                                               <img border="0" src="../../../../style/images/kml.gif">
+                                             </a>
+                                           </td>
+                                          </tr> 
+                                        </table>
+                                      </td>
+                                      
+                                    </tr> 
+                    </table>
+
+                    </td>
+            </tr>
+    </table>
+
+
+</body>
+</html>

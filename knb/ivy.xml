@@ -1,0 +1,11 @@
+<ivy-module version="2.0">
+	<info organisation="au.edu.qut.ife" module="qut-metacat" revision="${artifact.version}" />
+
+	<publications>
+		<artifact name="qut-metacat" type="war" />
+	</publications>
+	<dependencies>
+		<dependency org="edu.ucsb.nceas" name="utilities" rev="1.0.1" />
+		<dependency org="edu.ucsb.nceas" name="httpclient" rev="1.0.1" />
+	</dependencies>
+</ivy-module>

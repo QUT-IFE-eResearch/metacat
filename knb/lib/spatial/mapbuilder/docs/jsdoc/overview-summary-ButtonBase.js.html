@@ -1,0 +1,489 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Frameset//EN""http://www.w3.org/TR/REC-html40/frameset.dtd">
+<html>
+<head>
+<title>
+<a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008 Overview
+</title>
+<link rel ="stylesheet" type="text/css" href="stylesheet.css" title="Style">
+<script>
+function asd() {
+	
+		parent.document.title="ButtonBase.js Overview";
+	
+}
+</script>
+</head>
+<body bgcolor="white" onload="asd();">
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> 	<font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top">
+<em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<center>
+	
+	   <h2>ButtonBase.js</h2>
+	
+</center>
+
+	
+
+
+<h4>Summary</h4>
+<p>
+	
+		No overview generated for 'ButtonBase.js'<BR/><BR/>
+	
+</p>
+
+<hr>
+
+
+    <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+    <td colspan=2><font size="+2">
+    
+        <b>Class Summary</b>
+    
+    </font></td>
+    </tr>
+    
+    <tr bgcolor="white" class="TableRowColor">
+    <td width="15%"><b><a href="ButtonBase.html">ButtonBase</a></b></td>
+    <td>&nbsp;</td>
+    </tr>
+    
+    </table>
+    <hr/> 
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<!-- ========== END METHOD SUMMARY =========== -->
+
+
+        <pre class="sourceview"><span class="comment">/*
+License: LGPL as per: http://www.gnu.org/copyleft/lesser.html
+$Id: ButtonBase.js 3879 2008-02-27 14:20:29Z gjvoosten $
+*/</span>
+<span class="comment">
+// Ensure this object's dependancies are loaded.</span>
+mapbuilder.loadScript(baseDir+<span class="literal">"/util/Util.js"</span>);
+mapbuilder.loadScript(baseDir+<span class="literal">"/widget/WidgetBase.js"</span>);
+
+<span class="comment">/**
+ * Abstract base button object that all Buttons extend.  
+ * A Button is a widget which renders an image and an optional second image 
+ * for the enabled state.
+ * <span class="attrib">@constructor</span>
+ * <span class="attrib">@base</span> WidgetBase
+ * <span class="attrib">@author</span> Mike Adair mike.adairATccrs.nrcan.gc.ca
+ * <span class="attrib">@param</span> widgetNode The tool node from the Config XML file.
+ * <span class="attrib">@param</span> model The parent model object (optional).
+ */</span>
+<span class="reserved">function</span> ButtonBase(widgetNode, model) {
+  WidgetBase.apply(<span class="reserved">this</span>, new Array(widgetNode, model));
+
+  <span class="reserved">this</span>.htmlTagId = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:buttonBar"</span>);
+  <span class="reserved">if</span> (!<span class="reserved">this</span>.htmlTagId) {
+    <span class="reserved">this</span>.htmlTagId = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:htmlTagId"</span>);
+  }    
+  <span class="reserved">if</span> (!<span class="reserved">this</span>.htmlTagId) {
+    alert(mbGetMessage(<span class="literal">"buttonBarRequired"</span>, widgetNode.nodeName));
+  }
+<span class="comment">  // Set button text values as parameters</span>
+  <span class="reserved">if</span> (config.widgetText) {
+    var textNodeXpath = <span class="literal">"/mb:WidgetText/mb:widgets/mb:"</span> + widgetNode.nodeName;
+    var textParams = config.widgetText.selectNodes(textNodeXpath+<span class="literal">"/*"</span>);
+    <span class="reserved">for</span> (var j=0;j&lt;textParams.length;j++) {
+      <span class="reserved">this</span>[textParams[j].nodeName]=getNodeValue(textParams[j]);
+    }
+  }
+<span class="comment">  // html tag id of the div where OL places its panel code</span>
+  <span class="reserved">this</span>.panelHtmlTagId = <span class="reserved">this</span>.htmlTagId+<span class="literal">'_panel'</span>;
+<span class="comment">
+  // load controlPanel.css for button base styles</span>
+  loadCss(<span class="literal">'controlPanel.css'</span>);
+<span class="comment">
+  //set the button type</span>
+  <span class="reserved">this</span>.buttonType = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:class"</span>)
+  <span class="reserved">this</span>.buttonType = <span class="reserved">this</span>.buttonType ? <span class="reserved">this</span>.buttonType.toUpperCase() : null;
+  <span class="reserved">if</span> (<span class="reserved">this</span>.buttonType == <span class="literal">"RADIOBUTTON"</span>) <span class="reserved">this</span>.enabled = false;
+<span class="comment">  
+  // map between MB and OL button types</span>
+  <span class="reserved">this</span>.olButtonType = {
+      <span class="literal">"RADIOBUTTON"</span> : OpenLayers.Control.TYPE_TOOL,
+      <span class="literal">"TOOL"</span>        : OpenLayers.Control.TYPE_TOOL,
+      <span class="literal">"BUTTON"</span>      : OpenLayers.Control.TYPE_BUTTON,
+      <span class="literal">"TOGGLE"</span>      : OpenLayers.Control.TYPE_TOGGLE
+  }
+<span class="comment">
+  //set the button action</span>
+  <span class="reserved">this</span>.action = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:action"</span>);
+<span class="comment">  
+  // set the button tooltip</span>
+  var tooltip = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:tooltip"</span>);
+  <span class="reserved">if</span> (tooltip) {
+    <span class="reserved">this</span>.tooltip = tooltip;
+  }
+<span class="comment">
+  //pre-load the button bar images; add them to the config</span>
+  var disabledImage = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:disabledSrc"</span>);
+  <span class="reserved">if</span> (disabledImage) {
+    <span class="reserved">this</span>.disabledImage = config.skinDir + disabledImage;
+  }
+<span class="comment">
+  //optional second image to be displayed in the enabled state</span>
+  var enabledImage = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:enabledSrc"</span>);
+  <span class="reserved">if</span> (enabledImage) {
+    <span class="reserved">this</span>.enabledImage = config.skinDir + enabledImage;
+  }
+
+  <span class="reserved">this</span>.cursor = <span class="literal">'default'</span>;
+<span class="comment">
+  // Check for cursor override</span>
+  <span class="reserved">this</span>.cursor = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:cursor"</span>);
+<span class="comment">
+  //a button may be set as selected in the config file</span>
+  <span class="reserved">this</span>.selected = Mapbuilder.parseBoolean(<span class="reserved">this</span>.getProperty(<span class="literal">"mb:selected"</span>, false));
+
+  <span class="comment">/**
+   * Gets the css classname for this button. We use this
+   * to define the button styles.
+   * <span class="attrib">@param</span> objRef Reference to this object.
+   * <span class="attrib">@param</span> state 'Active' or 'Inactive' (case sensitive!)
+   */</span>
+  <span class="reserved">this</span>.getButtonClass = <span class="reserved">function</span>(objRef, state) {
+    var cssName;
+    <span class="reserved">if</span> (objRef.control.displayClass) {
+      cssName = objRef.control.displayClass;
+    } <span class="reserved">else</span> {
+      cssName = objRef.control.CLASS_NAME;
+      cssName = cssName.replace(/OpenLayers/, <span class="literal">'ol'</span>).replace(/\./g, <span class="literal">''</span>);
+    }
+    cssName += <span class="literal">'Item'</span>;
+    <span class="reserved">return</span> <span class="literal">'.'</span> + cssName + state;
+  }
+
+  <span class="comment">/**
+   * OpenLayers control for this button.
+   * This will be filled with the instance of the control
+   * by the attachToOL method.
+   */</span>
+  <span class="reserved">this</span>.control = null;
+<span class="comment">
+  //TBD This is never called, but I think we can drop it</span>
+<span class="comment">  // if we get rid of MB mouse handlers</span>
+  <span class="comment">/**
+   * Override this in buttons which inherit from this object to carry out the action.
+   * This is the function that will be called either when the button is selected
+   * via the select() method or on a mouseup event if there is an associated 
+   * mouseHandler property in config.
+   */</span>
+  <span class="reserved">this</span>.doAction = <span class="reserved">function</span>() {}
+
+  <span class="comment">/**
+   * Select this button. Enables and disables associated tools,
+   * then the control.trigger()/activate() methods make OL call
+   * the doSelect method defined in derived classes.
+   */</span>
+  <span class="reserved">this</span>.select = <span class="reserved">function</span>() {
+    <span class="reserved">if</span> (<span class="reserved">this</span>.control.type == OpenLayers.Control.TYPE_BUTTON) {
+      <span class="reserved">this</span>.control.trigger();
+    } <span class="reserved">else</span> {
+      <span class="reserved">this</span>.panel.activateControl(<span class="reserved">this</span>.control);
+    }
+  }
+
+  <span class="comment">/**
+   * Method overriden by subclasses
+   * <span class="attrib">@param</span> objRef Reference to this object.
+   * <span class="attrib">@param</span> selected True when selected, false when deselected.
+   */</span>
+  <span class="reserved">this</span>.doSelect = <span class="reserved">function</span>(objRef, selected) {
+  }
+  
+  <span class="comment">/**
+   * Attaches the control for this button to OpenLayers
+   * and add it to the buttonBar. When this method is called,
+   * everything of the OL map is available.
+   * <span class="attrib">@param</span> {OpenLayers.Control} control to add.
+   * <span class="attrib">@param</span> objRef Reference to this object.
+   */</span>
+  <span class="reserved">this</span>.attachToOL = <span class="reserved">function</span>(objRef,refreshId) {
+    <span class="reserved">if</span> (objRef.control) {
+      <span class="reserved">return</span>;
+    }
+<span class="comment">  
+    //pass in a widget ID to refresh only that widget</span>
+    <span class="reserved">if</span> (refreshId &amp;&amp; (refreshId!=objRef.id)) <span class="reserved">return</span>;
+<span class="comment">    
+    // nothing to do here if subclass does not have a</span>
+<span class="comment">    // createControl method</span>
+    <span class="reserved">if</span> (!objRef.createControl) <span class="reserved">return</span>;
+<span class="comment">
+    // override the control from the subclass to add</span>
+<span class="comment">    // MB-stuff to the activate and deactivate methods</span>
+    var SubclassControl = objRef.createControl(objRef);
+    var type = objRef.olButtonType[objRef.buttonType] ||
+        SubclassControl.<span class="reserved">prototype</span>.type;
+        
+    var Control = OpenLayers.Class( SubclassControl, {
+      objRef: objRef,
+      type: type,
+      superclass: SubclassControl.<span class="reserved">prototype</span>,
+<span class="comment">      // call objRef.doSelect after OL activate from this control</span>
+      trigger: <span class="reserved">function</span>() {
+        <span class="reserved">if</span>(<span class="reserved">this</span>.superclass.trigger) {
+          <span class="reserved">this</span>.superclass.trigger.call(<span class="reserved">this</span>);
+        }
+        objRef.doSelect(objRef, true);
+      },
+      activate: <span class="reserved">function</span>() {
+        <span class="reserved">if</span> (<span class="reserved">this</span>.superclass.activate.call(<span class="reserved">this</span>)) {
+          <span class="reserved">this</span>.panel_div.style.backgroundImage = <span class="literal">"url(\"</span><span class="literal">"+objRef.enabledImage+"</span>\<span class="literal">")"</span>;
+      	  <span class="reserved">this</span>.map.div.style.cursor = objRef.cursor;
+<span class="comment">      	  // store the cursor with the map object; this will be applied</span>
+<span class="comment">      	  // to the map div again when setting the aoi on the</span>
+<span class="comment">      	  // OpenLayers moveend event</span>
+      	  <span class="reserved">this</span>.map.mbCursor = objRef.cursor;
+          objRef.enabled = true;
+          <span class="reserved">this</span>.active = true;
+          objRef.doSelect(objRef, true);
+        }
+      },
+<span class="comment">      // call objRef.doSelect after OL deactivate from this control</span>
+      deactivate: <span class="reserved">function</span>() {
+        <span class="reserved">if</span> (<span class="reserved">this</span>.superclass.deactivate.call(<span class="reserved">this</span>)) {
+          <span class="reserved">this</span>.panel_div.style.backgroundImage = <span class="literal">"url(\"</span><span class="literal">"+objRef.disabledImage+"</span>\<span class="literal">")"</span>;
+          objRef.enabled = false;
+          <span class="reserved">this</span>.active = false;
+          <span class="reserved">if</span> (map.getControlsBy(<span class="literal">"active"</span>, true).length == 0) {
+            <span class="reserved">this</span>.map.div.style.cursor = <span class="literal">""</span>;
+            <span class="reserved">this</span>.map.mbCursor = <span class="literal">""</span>;
+          }
+          objRef.doSelect(objRef, false)
+        }
+      },
+      destroy: <span class="reserved">function</span>() {
+        try {
+          <span class="reserved">this</span>.superclass.destroy.apply(<span class="reserved">this</span>, arguments);
+        } catch(e) {
+          OpenLayers.Control.<span class="reserved">prototype</span>.destroy.apply(<span class="reserved">this</span>, arguments);
+        }
+        <span class="reserved">this</span>.superclass = null;
+        OpenLayers.Event.stopObservingElement(<span class="reserved">this</span>.panel_div);
+        <span class="reserved">this</span>.objRef.panel.div.removeChild(<span class="reserved">this</span>.panel_div);
+        <span class="reserved">this</span>.objRef.control = null;
+        <span class="reserved">this</span>.objRef = null;
+        <span class="reserved">this</span>.panel_div = null;
+        <span class="reserved">this</span>.div = null;
+      }
+    });
+<span class="comment">
+    // if the subclass provides an instantiateControl() method,</span>
+<span class="comment">    // use it for instantiation. If not, instantiate directly</span>
+    <span class="reserved">if</span> (!objRef.control) {
+      objRef.control = objRef.instantiateControl ? objRef.instantiateControl(objRef, Control) : new Control();
+    }
+<span class="comment">    
+    // get the control from the createControl method of the subclass</span>
+<span class="comment">    //objRef.control = objRef.createControl(objRef);</span>
+    var map = objRef.targetContext.map;
+    objRef.panel = objRef.targetContext.buttonBars[objRef.htmlTagId];
+<span class="comment">    // create a panel, if we do not have one yet for this buttonBar</span>
+<span class="comment">    // or if the old map.panel was destroyed</span>
+    <span class="reserved">if</span> (!objRef.panel || objRef.panel.map == null) {
+<span class="comment">      // create a dom node for OL to use as panel</span>
+      <span class="reserved">if</span> (!document.getElementById(objRef.panelHtmlTagId)) {
+        var olPanelNode = document.createElement(<span class="literal">'div'</span>);
+        olPanelNode.setAttribute(<span class="literal">'id'</span>, objRef.panelHtmlTagId);
+        olPanelNode.setAttribute(<span class="literal">'class'</span>, <span class="literal">'olControlPanel'</span>);
+        var parentNode = objRef.getNode();
+        parentNode.appendChild(olPanelNode);
+        parentNode.innerHTML += <span class="literal">" "</span>;
+      }
+      var Panel = OpenLayers.Class( OpenLayers.Control.Panel, {
+        div: document.getElementById(objRef.panelHtmlTagId),
+        defaultControl: null,
+        destroy: <span class="reserved">function</span>() {
+          parentNode.removeChild(<span class="reserved">this</span>.div);
+          OpenLayers.Control.<span class="reserved">prototype</span>.destroy.apply(<span class="reserved">this</span>, arguments);
+          <span class="reserved">this</span>.div = null;
+          objRef.panel = null;
+        }
+      });
+      objRef.panel = new Panel();
+      objRef.targetContext.buttonBars[objRef.htmlTagId] = objRef.panel;
+      map.addControl(objRef.panel);
+    }
+<span class="comment">    
+    // add the control to the panel</span>
+    <span class="reserved">if</span> (OpenLayers.Util.indexOf(objRef.control, objRef.panel.controls) == -1) {
+<span class="comment">      // we do not want to stop event propagation. So we save the original</span>
+<span class="comment">      // Event.stop function...</span>
+      var originalStop = OpenLayers.Event.stop;
+<span class="comment">      // and overwrite it with a new one...</span>
+      OpenLayers.Event.stop = <span class="reserved">function</span>(){};
+<span class="comment">      // now, thanks to boxing, this one will be assigned in addControls...</span>
+      objRef.panel.addControls(objRef.control);
+<span class="comment">      // and we can switch back to the original one.</span>
+      OpenLayers.Event.stop = originalStop;
+    }
+<span class="comment">     
+    // set tooltip for the button</span>
+    <span class="reserved">if</span> (objRef.tooltip) {
+      objRef.control.panel_div.title=objRef.tooltip;
+    }
+<span class="comment">    
+    //set default css style properties</span>
+    objRef.control.panel_div.style.backgroundImage = <span class="literal">"url(\"</span><span class="literal">"+objRef.disabledImage+"</span>\<span class="literal">")"</span>;
+<span class="comment">          
+    // activate the control if it is defined as selected in config</span>
+    <span class="reserved">if</span>(objRef.selected == true) {
+      objRef.control.activate();      
+    }    
+  }
+
+  <span class="comment">/**
+   * Set the target context for the button, initialise the
+   * buttonBars array in the context document and add a
+   * listener to the target model for adding controls
+   * to the OL map as soon as the map is initialized.
+   * <span class="attrib">@param</span> objRef Reference to this object.
+   */</span>  
+  <span class="reserved">this</span>.buttonInit = <span class="reserved">function</span>(objRef) {
+<span class="comment">     //set the target context</span>
+    var targetContext = objRef.widgetNode.selectSingleNode(<span class="literal">"mb:targetContext"</span>);
+    <span class="reserved">if</span> (targetContext) {
+      objRef.targetContext = window.config.objects[getNodeValue(targetContext)];
+      <span class="reserved">if</span> ( !objRef.targetModel ) {
+        alert(mbGetMessage(<span class="literal">"noTargetContext"</span>, getNodeValue(targetContext), objRef.id));
+      }
+    } <span class="reserved">else</span> {
+      objRef.targetContext = objRef.targetModel;
+    }
+<span class="comment">    
+    // initialize button bars for the context</span>
+    <span class="reserved">if</span> (!objRef.targetContext.buttonBars) {
+<span class="comment">      // this array in the context will hold all</span>
+<span class="comment">      // buttonBars used by button widgets</span>
+      objRef.targetContext.buttonBars = new Array();
+    }
+<span class="comment">    
+    // add another event listener for the loaded context,</span>
+<span class="comment">    // because we need the map to add panel and buttons,</span>
+<span class="comment">    // and we do not have tha map yet</span>
+    objRef.targetContext.addListener(<span class="literal">"refresh"</span>, objRef.attachToOL, objRef);
+  }
+
+  <span class="reserved">this</span>.model.addListener(<span class="literal">"init"</span>,<span class="reserved">this</span>.buttonInit,<span class="reserved">this</span>);
+  <span class="reserved">this</span>.model.removeListener(<span class="literal">"newNodel"</span>, <span class="reserved">this</span>.clearWidget, <span class="reserved">this</span>);
+}
+</pre>
+	<hr>
+
+
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> <font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top"><em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<font size="-1">
+
+</font>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Sun Apr 27 20:30:54 2008</div>
+</body>
+</html>

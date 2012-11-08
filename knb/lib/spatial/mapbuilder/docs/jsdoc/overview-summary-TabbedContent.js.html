@@ -1,0 +1,290 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Frameset//EN""http://www.w3.org/TR/REC-html40/frameset.dtd">
+<html>
+<head>
+<title>
+<a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008 Overview
+</title>
+<link rel ="stylesheet" type="text/css" href="stylesheet.css" title="Style">
+<script>
+function asd() {
+	
+		parent.document.title="TabbedContent.js Overview";
+	
+}
+</script>
+</head>
+<body bgcolor="white" onload="asd();">
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> 	<font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top">
+<em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<center>
+	
+	   <h2>TabbedContent.js</h2>
+	
+</center>
+
+	
+
+
+<h4>Summary</h4>
+<p>
+	
+		No overview generated for 'TabbedContent.js'<BR/><BR/>
+	
+</p>
+
+<hr>
+
+
+    <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+    <td colspan=2><font size="+2">
+    
+        <b>Class Summary</b>
+    
+    </font></td>
+    </tr>
+    
+    <tr bgcolor="white" class="TableRowColor">
+    <td width="15%"><b><a href="TabbedContent.html">TabbedContent</a></b></td>
+    <td>&nbsp;</td>
+    </tr>
+    
+    </table>
+    <hr/> 
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<!-- ========== END METHOD SUMMARY =========== -->
+
+
+        <pre class="sourceview"><span class="comment">/*
+Author:       Mike Adair/Fedele Stella
+License:      LGPL as per: http://www.gnu.org/copyleft/lesser.html
+
+$Id: TabbedContent.js 3879 2008-02-27 14:20:29Z gjvoosten $
+*/</span>
+<span class="comment">
+// Ensure this object's dependancies are loaded.</span>
+mapbuilder.loadScript(baseDir+<span class="literal">"/widget/WidgetBaseXSL.js"</span>);
+
+<span class="comment">/**
+ * Widget to display various other widgets by selecting a tab in a tab bar.
+ * 
+ * <span class="attrib">@constructor</span>
+ * <span class="attrib">@base</span> WidgetBaseXSL
+ * <span class="attrib">@param</span> widgetNode This widget's object node from the configuration document.
+ * <span class="attrib">@param</span> model The model that this widget is a view of.
+ */</span>
+
+<span class="reserved">function</span> TabbedContent(widgetNode, model) {
+  WidgetBaseXSL.apply(<span class="reserved">this</span>,new Array(widgetNode, model));
+
+  <span class="reserved">this</span>.selectedTab = null;
+  <span class="reserved">this</span>.tabList = new Array();
+  <span class="reserved">this</span>.textNodeXpath = <span class="literal">"/mb:WidgetText/mb:widgets/mb:TabbedContent"</span>;
+
+  <span class="comment">/**
+   * Initializes the tab list and sets the label for each tab
+   * <span class="attrib">@param</span> objRef a pointer to this object
+   */</span>
+  <span class="reserved">this</span>.initTabs = <span class="reserved">function</span>(objRef) {
+    var tabs = objRef.widgetNode.selectNodes(<span class="literal">"mb:tab"</span>);
+    <span class="reserved">for</span> (var i=0; i&lt;tabs.length; ++i) {
+      var tab = tabs[i];
+      var tabWidgetId = getNodeValue(tab);
+      var tabWidget = config.objects[tabWidgetId];
+      <span class="reserved">if</span> (!tabWidget) {
+        alert(mbGetMessage(<span class="literal">"tabWidgetNotFound"</span>, tabWidgetId));
+        <span class="reserved">return</span>;
+      }
+
+      objRef.tabList.push(tabWidget);
+
+      var tabLabel = tab.getAttribute(<span class="literal">"label"</span>); 
+      <span class="reserved">if</span> (!tabLabel) tabLabel = tabWidgetId;
+      var textNode = config.widgetText.selectSingleNode(objRef.textNodeXpath+<span class="literal">"/mb:"</span>+tabWidgetId);
+      <span class="reserved">if</span> (textNode) tabLabel = getNodeValue(textNode);
+      tab.setAttribute(<span class="literal">"label"</span>,tabLabel);
+      
+      tabWidget.model.addListener(<span class="literal">"refresh"</span>,objRef.paint,objRef);
+      tabWidget.model.addListener(<span class="literal">"refresh"</span>,objRef.selectTab,tabWidget);
+    }
+  }
+  <span class="reserved">this</span>.model.addListener(<span class="literal">"init"</span>,<span class="reserved">this</span>.initTabs,<span class="reserved">this</span>);
+
+  <span class="comment">/**
+   * Adds a widget to the list of tabs (TBD: not yet working/tested)
+   * <span class="attrib">@param</span> widget the widget to be added to the list of tabs
+   * <span class="attrib">@param</span> order  the order within the tabs
+   */</span>
+  <span class="reserved">this</span>.addWidget = <span class="reserved">function</span>(tabWidget,tabLabel) {
+    <span class="reserved">this</span>.tabList.push(tabWidget);
+
+    <span class="reserved">if</span> (!tabLabel) tabLabel = tabWidget.id;
+    var textNode = config.widgetText.selectSingleNode(<span class="reserved">this</span>.textNodeXpath+<span class="literal">"/mb:"</span>+tabWidget.id);
+    <span class="reserved">if</span> (textNode) tabLabel = getNodeValue(textNode);
+
+    var tabNode = <span class="reserved">this</span>.model.doc.createElementNS(mbNS,<span class="literal">"tab"</span>);
+    tabNode.appendChild(<span class="reserved">this</span>.model.doc.createTextNode(tabWidget.id));
+    tabNode.setAttribute(<span class="literal">"label"</span>,tabLabel);
+    <span class="reserved">this</span>.widgetNode.appendChild(tabNode);
+
+    <span class="reserved">this</span>.paint(<span class="reserved">this</span>);
+    <span class="reserved">this</span>.selectTab(tabWidget);
+  }
+
+  <span class="comment">/**
+   * Selects a tab, which has the effect of displaying that widget in the 
+   * workspace
+   * <span class="attrib">@param</span> tabWidget the widget to be selected
+   */</span>
+  <span class="reserved">this</span>.selectTab = <span class="reserved">function</span>(tabWidget) {
+    <span class="reserved">if</span> (!tabWidget.model.doc) {
+      alert(mbGetMessage(<span class="literal">"noDataYet"</span>));
+      <span class="reserved">return</span>;
+    }
+    var tabBar = config.objects[tabWidget.tabBarId]
+    <span class="reserved">if</span> (tabBar.selectedTab!=null) tabBar.selectedTab.className = <span class="literal">''</span>;
+    var newAnchor = document.getElementById(tabBar.id+<span class="literal">"_"</span>+tabWidget.id);
+    <span class="reserved">if</span> (newAnchor) {
+      newAnchor.className = <span class="literal">'current'</span>;
+      tabBar.selectedTab = newAnchor;
+      tabWidget.paint(tabWidget,tabWidget.id);
+    }
+    <span class="reserved">if</span> (tabWidget.tabAction) eval(tabWidget.tabAction);
+  }
+
+  <span class="comment">/**
+   * sett the doc to be styled to the TabbedContent node from config
+   * <span class="attrib">@param</span> objRef a pointer to this object
+   */</span>
+  <span class="reserved">this</span>.prePaint = <span class="reserved">function</span>(objRef){
+    objRef.resultDoc = objRef.widgetNode;
+    <span class="reserved">for</span> (var i=0; i&lt;objRef.tabList.length; ++i) {
+      var tabWidget = objRef.tabList[i];
+      tabWidget.tabBarId = <span class="reserved">this</span>.id;
+      var tabNode = objRef.resultDoc.selectSingleNode(<span class="literal">"mb:tab[text()='"</span>+tabWidget.id+<span class="literal">"']"</span>);
+      <span class="reserved">if</span> (!tabWidget.model.doc) {
+        tabNode.setAttribute(<span class="literal">"disabled"</span>, <span class="literal">"true"</span>);
+      } <span class="reserved">else</span> {
+        tabNode.removeAttribute(<span class="literal">"disabled"</span>);
+      }
+<span class="comment">
+      //specify an optional action to be performed when the tab is selected</span>
+      <span class="reserved">this</span>.tabAction = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:tabAction"</span>);
+    }
+  }
+
+}
+</pre>
+	<hr>
+
+
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> <font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top"><em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<font size="-1">
+
+</font>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Sun Apr 27 20:30:54 2008</div>
+</body>
+</html>

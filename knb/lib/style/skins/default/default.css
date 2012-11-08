@@ -1,0 +1,546 @@
+ 
+*
+  *   '$RCSfile$'
+  *     Purpose: Default style sheet for KNB project web pages 
+  *              Using this stylesheet rather than placing styles directly in 
+  *              the KNB web documents allows us to globally change the 
+  *              formatting styles of the entire site in one easy place.
+  *   Copyright: 2000 Regents of the University of California and the
+  *               National Center for Ecological Analysis and Synthesis
+  *     Authors: Matt Jones
+  *
+  *    '$Author: daigle $'
+  *      '$Date: 2008-04-03 09:28:31 +1000 (Thu, 03 Apr 2008) $'
+  *  '$Revision: 3780 $'
+  *
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+  * (at your option) any later version.
+  *
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+  *
+  * You should have received a copy of the GNU General Public License
+  * along with this program; if not, write to the Free Software
+  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  */
+
+
+/**
+ *  set the correct iframe sizes to accomodate the 
+ *  header, footer, left and right areas.
+ *  NOTE: these styles apply only to each 
+ *  container frame, *NOT* to the document within it!
+ */  
+ 
+.citation   {
+    color: black;
+    background-color: #FFFFFF;
+    font-size: 1.2em
+    padding-left: 10px;
+}    
+
+.iframeheaderclass {
+    height:   100px; 
+    width:    100%;
+    border:   0px;
+    margih:   0px;
+}
+
+.iframesearchboxclass {
+    height:   340px; 
+    width:    100%;
+    border:   0px;
+    margin:   0px;
+}
+
+.iframeadvancedsearchboxclass {
+    height:   1250px; 
+    width:    100%;
+    border:   0px;
+    margin:   0px;
+}
+
+.iframemapclass {
+    height:   570px; 
+    width:    100%;
+    border:   0px;
+    margin:   0px;
+}
+
+.iframeloginboxclass {
+    height:   250px; 
+    width:    100%;
+    border:   0px;
+    margin:   0px;
+}
+
+.iframeleftcolclass  { /* not used */ }
+.iframerightcolclass { /* not used */ }
+.iframefooterclass   { /* not used */ }
+
+/**
+ *  set the size and alignment etc of the top-level layout table
+ */  
+.templatetableclass {
+    width:   100%; 
+    border:   0px;
+    padding:  0px;
+    margin:   0px;
+}
+
+/**
+ *  set the style of the main content area and its contents
+ */ 
+.templatecontentareaclass {
+    border:   0px;
+    padding:  0px;
+    margin:   0px;
+}
+
+/**
+ *  set the correct <td> sizes to accomodate the 
+ *  header, footer, left and right iframes.
+ *  NOTE: these styles apply only to each 
+ *  container frame, *NOT* to the document in
+ *  the iframe within it!
+ */  
+.templateheaderrowclass {
+    height:   80px; 
+    /*
+      no width allowed - uses same width as table class
+    */
+    border:   0px;
+    padding:  0px;
+    margin:   0px;
+}
+
+.templateleftcolclass {
+    height:   100%; 
+    width:    0px;
+    border:   0px;
+    padding:  0px;
+    margin:   0px;
+}
+
+.templaterightcolclass {
+    height:   100%; 
+    width:    0px;
+    border:   0px;
+    padding:  0px;
+    margin:   0px;
+}
+
+.templatefooterrowclass {
+    height:   0px; 
+    /*
+      no width allowed - uses same width as
+      table class
+    */
+    border:   0px;
+    padding:  0px;
+    margin:   0px;
+}
+.sectioncorner {
+    background-image: url(images/panelhead_bg.gif);
+}
+
+.sectionheader {
+    background-image: url(images/panelhead_bg.gif);
+    text-align: center;
+    color: #0247A8; 
+    /*    font-size: 1em; 
+     *        font-weight: bold; */
+    font-size: 14px; 
+    font-weight: bold;
+     }
+
+
+.searchcat {
+    padding-left: 5px;
+    color: #0247A8;
+    font-weight: bold;
+    font-size: 11px; 
+}
+                    
+td.searchsubcat {
+    padding-left: 15px; 
+}
+
+a.searchsubcat {
+    color: #669933; 
+    font-weight: normal;
+    font-size: 11px; 
+}
+                                        
+a.searchsubcat:hover {
+    color: #ff9933;
+    text-decoration: underline; 
+}
+
+/**
+ *  then add any other styles used
+ *  by your page......
+ */
+
+body { 
+  	padding-top: 3px;
+    color: #333333; 
+    background-color: #eeeeee;
+    background-image: url(images/bgpattern.gif);
+    font-weight: normal;
+    font-size: 12px; 
+    font-family: Verdana,Arial,Helvetica,sans-serif; 
+}
+    
+a {
+    color: #669933;
+    font-weight: bold;
+    font-size: 12px; 
+    text-decoration: none; 
+		text-align: left;
+}
+		
+a:hover {
+    color: #ff9933;
+    text-decoration: underline; 
+}
+
+.pagetitle {
+    font-family: Georgia, Times New Roman, Times, serif;
+    background: #0247A8;
+    margin-left: 0.25em; 
+}
+    
+.pagesub {
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+    color: #339933;
+    margin-left: 3em;
+    margin-top: 0.5em;
+    margin-bottom: 2em; 
+}
+
+.title {
+    font-family: Georgia, Times New Roman, Times, serif;
+    color:      #eeeeee;
+    background: #0247A8;
+    font-size: 24px; 
+    font-weight: bold;
+}
+
+p.title {
+  padding-left: 15px;
+}
+
+.subtitle {
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #666666; 
+    margin-left: 3em;
+    margin-top: 0.5em;
+    margin-bottom: 2em;
+    font-weight: normal; 
+}
+    
+a.toollink {
+    color: #225522;
+		text-align: left;
+    font-size: 14px; 
+    text-decoration: none; 
+}
+    
+a.toollink:hover {
+    color: #ff9933;
+    text-decoration: underline; 
+}
+    
+a.sitelink {
+    color: #339933;
+    text-decoration: none; 
+    font-size: 12px; 
+    font-weight: bold; 
+}
+
+a.sitelink:hover {
+    color: #ff9933;
+    text-decoration: underline; 
+}
+
+h3 {
+	  font-size: 18px;
+	  font-family: Georgia, Times New Roman, Times, serif;
+	  text-align: left;
+}
+
+b {
+	  font-size: 12px;
+	  font-weight: bold;
+	  text-align: left;
+}
+	
+.tabledefault {
+    background: white;
+    color: #555555;
+		width: 790px; 
+		width: 100%; 
+    font-size: 12px; 
+		line-height: 1.2;
+    /*padding-left: 5px;
+    padding-right: 5px;*/ 
+}
+
+.div {
+    background: white;
+    color: #555555
+		width: 100%
+     }	    	
+
+.tablepanel {
+    background: #eeeeee;
+    color: #555555;
+    font-size: 12px; 
+    padding-left: 5px;
+    padding-right: 5px; 
+}
+
+.tablehead {
+    background-image: url(images/panelhead_bg.gif);
+    color: #0040A1; 
+    text-align: left;
+    font-size: 14px; 
+    font-weight: bold;
+    border-top: solid #ffffff 2px;
+    border-bottom: solid #ffffff 2px;
+    padding-left: 10px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+th.tablehead {
+
+    text-align: center;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    height:  21px;
+}
+
+.tablehead_lcorner {
+    background-image: url(images/panelhead_bg_lcorner.gif);
+    background-position: right top;
+    background-repeat: no-repeat;
+    padding: 0px;
+    margin:  0px;
+    width:   10px;
+    height:  21px;
+}    
+    
+.tablehead_rcorner {
+    background-image: url(images/panelhead_bg_rcorner.gif);
+    background-position: left top;
+    background-repeat: no-repeat;
+    padding: 0px;
+    margin:  0px;
+    width:   10px;
+    height:  21px;
+} 
+   
+
+.tableheadcontrast {
+    background: #dddddd;
+    vertical-align: baseline;
+    color: #666666;
+    font-size: 16px; 
+    font-weight: bold; 
+}
+
+.instright { 
+    color: #333333; 
+    text-align: right;
+    vertical-align: middle;
+    padding: 1em;
+    font-size: 1em; 
+    font-weight: bold; 
+}
+
+.instleft { 
+    color: #333333; 
+    text-align: left;
+    vertical-align: middle;
+    padding: 1em;
+    font-size: 1em; 
+    font-weight: bold; 
+}
+
+p { 
+    margin: 0px; 
+}
+
+.required { 
+    color: red; 
+}
+
+.emphasis { 
+    color: red;
+}
+
+p.label { 
+    color: #333333; 
+    font-weight: bold; 
+}
+
+p.contact { 
+    color: #333333; 
+    padding: 1em;
+    font-size: 0.75em; 
+    font-weight: normal;
+    font-style: italic; 
+}
+
+p.header {
+    color: #333333; 
+    padding: 5px;
+    font-size: 12px; 
+    font-weight: bold; 
+}
+
+p.emphasis {
+  font-size: 18px;
+  color: #dd7744; 
+  font-weight: bold;
+  font-style:  normal;
+}
+
+.roweven {
+    background: white; 
+}
+
+.rowodd {
+    background: white; 
+}
+
+.plaintext {
+    color: #555555;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.boldtext {
+    color: #333333;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.searchresultslead {
+    background-color: #fff;
+}
+
+.searchresultsdivider {
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.maintable {
+    background: #ffffff;
+}
+
+.subpanel {
+  background:   #ffffff;
+  border-left:   solid #cccccc 1px;
+  border-right:  solid #cccccc 1px;
+  border-bottom: solid #cccccc 1px;
+}
+
+.text_plain { 
+	  padding: 5px 5px 0px 5px;
+    color: #666666;
+    font-weight: normal;
+    font-size: 12px; 
+}
+
+.text_plain_smaller { 
+	  padding: 5px 5px 0px 5px;
+    font-weight: normal;
+    font-size: 12px; 
+}
+
+.text_example { 
+	  padding: 5px;
+    color: #999999;
+    font-weight: normal;
+    font-size: 12px; 
+}
+
+td {
+		line-height: 1.5;
+}		
+
+/******************************************************************************/  
+/******************************************************************************/  
+/**  USED BY EML STYLESHEETS ONLY - NO OTHERS                                **/
+/******************************************************************************/  
+/******************************************************************************/  
+
+
+.highlight  {
+    background-color: #dddddd; 
+    font-size: 12px;
+    border: solid #ffffff 1px;
+    text-align: right;
+    vertical-align: text-top;
+    padding-right: 4px;
+
+}
+.highlightAttrib {
+	background-color: #ffffff;
+	font-size: 12px;
+	text-align: center;
+	border-bottom: 2px solid #cccccc;
+	padding: 1px;
+	
+}
+.secondCol {
+    background-color: #ffffff; 
+    font-size: 12px; 
+    padding-left: 2px;
+}
+
+.bordered {
+    font-size: 12px; 
+    vertical-align: text-top;
+    padding: 3px;
+    width: 350px;
+    border-bottom: 1px solid #dddddd;
+}
+
+.coleven {
+    font-size: 12px;
+    border-bottom: 1px solid #dddddd;
+    
+}
+
+.colodd {
+    font-size: 12px;
+    border-bottom: 1px solid #dddddd;
+}
+.innercolodd {
+    font-size: 10px;
+    padding-left: 3px;
+}
+
+.innercoleven {
+  font-size: 10px; 
+  padding-left: 3px;
+}    
+
+.emptycolumn {
+	width: 1px;
+	border-bottom: 0px none;
+}

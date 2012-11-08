@@ -1,0 +1,96 @@
+ /*
+  *   '$RCSfile$'
+  *     Purpose: Default style sheet for KNB project web pages 
+  *              Using this stylesheet rather than placing styles directly in 
+  *              the KNB web documents allows us to globally change the 
+  *              formatting styles of the entire site in one easy place.
+  *   Copyright: 2000 Regents of the University of California and the
+  *               National Center for Ecological Analysis and Synthesis
+  *     Authors: Matt Jones
+  *
+  *    '$Author: daigle $'
+  *      '$Date: 2008-07-06 21:25:34 -0700 (Sun, 06 Jul 2008) $'
+  *  '$Revision: 4080 $'
+  *
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 2 of the License, or
+  * (at your option) any later version.
+  *
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+  *
+  * You should have received a copy of the GNU General Public License
+  * along with this program; if not, write to the Free Software
+  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  */
+
+/********************************************************************** 
+ * left nav settings
+ **********************************************************************/
+
+.left-nav-section {
+/*	display: inline; */
+/*	float: left; */
+/*	margin-left: 20px; */
+/*	height:  840px;  */
+/*	width:    175px; */
+/*	background: transparent url("images/navstrip.jpg") left 0px repeat-y; */
+}
+
+.left-nav-header {
+	margin-left: 0px;
+	height: 20px;
+	width: 175px;	
+	background: #124325;
+}
+
+.left-nav-header-item {
+	color: #FFFFFF;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 12px;
+	text-align: center;
+	padding-top: 3px;
+}
+
+.left-nav-menu-header {
+	color: #FFFFFF;
+	display: block;
+	font-weight: bold;
+	margin: 8px 5px 0px 8px;
+	padding-bottom: 5px;
+	text-decoration: none;
+}
+
+a.left-nav-menu-header:hover {
+	color: #FF3300;
+	text-decoration: underline;
+}
+
+a.left-nav-menu-item:hover {
+	color: #FF3300;
+	text-decoration: underline;
+}
+
+.left-nav-menu-line {
+	border-bottom: 1px solid #0E321D;
+	margin: 0px 7px 0px 7px;
+}
+
+.left-nav-menu-item {
+	background: transparent url("images/horns.png") left 1px no-repeat !important;
+	display: block;
+	color: #FFFFFF;
+	font-weight: normal;
+	padding: 0px 5px 0px 15px;
+	margin: 0px 0px 0px 8px;
+}
+	
+.left-nav-menu-item:hover {
+	background: transparent url("images/nav_bullets_orange.gif") left 1px no-repeat !important;
+	color: #FF3300;
+	text-decoration: underline;
+}

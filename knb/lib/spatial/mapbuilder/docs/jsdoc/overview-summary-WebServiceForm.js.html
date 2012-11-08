@@ -1,0 +1,360 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Frameset//EN""http://www.w3.org/TR/REC-html40/frameset.dtd">
+<html>
+<head>
+<title>
+<a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008 Overview
+</title>
+<link rel ="stylesheet" type="text/css" href="stylesheet.css" title="Style">
+<script>
+function asd() {
+	
+		parent.document.title="WebServiceForm.js Overview";
+	
+}
+</script>
+</head>
+<body bgcolor="white" onload="asd();">
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> 	<font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top">
+<em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<center>
+	
+	   <h2>WebServiceForm.js</h2>
+	
+</center>
+
+	
+
+
+<h4>Summary</h4>
+<p>
+	
+		No overview generated for 'WebServiceForm.js'<BR/><BR/>
+	
+</p>
+
+<hr>
+
+
+    <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+    <td colspan=2><font size="+2">
+    
+        <b>Class Summary</b>
+    
+    </font></td>
+    </tr>
+    
+    <tr bgcolor="white" class="TableRowColor">
+    <td width="15%"><b><a href="WebServiceForm.html">WebServiceForm</a></b></td>
+    <td>&nbsp;</td>
+    </tr>
+    
+    </table>
+    <hr/> 
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<!-- ========== END METHOD SUMMARY =========== -->
+
+
+        <pre class="sourceview"><span class="comment">/*
+Author:       Mike Adair mike.adairATccrs.nrcan.gc.ca
+License:      LGPL as per: http://www.gnu.org/copyleft/lesser.html
+
+$Id: WebServiceForm.js 3879 2008-02-27 14:20:29Z gjvoosten $
+*/</span>
+<span class="comment">
+// Ensure this object's dependancies are loaded.</span>
+mapbuilder.loadScript(baseDir+<span class="literal">"/widget/WidgetBaseXSL.js"</span>);
+<span class="comment">//mapbuilder.loadScript(baseDir+"/util/dojo/src/uuid/TimeBasedGenerator.js");</span>
+
+<span class="comment">/**
+ * Widget to display a form for input of parameters to generate a web service 
+ * request.  This JS object handles the form submit via HTTP Get by appending 
+ * a query string to the form's action URL.  The query string is created from
+ * all input elements and their values.
+ * The target model is then loaded from the URL created.
+ * A stylehseet must be specified as a property in config for this widget.  
+ * See widget/NtsForm.xsl for an example. 
+ *
+ * <span class="attrib">@constructor</span>
+ * <span class="attrib">@base</span> WidgetBaseXSL
+ * <span class="attrib">@param</span> widgetNode This widget's object node from the configuration document.
+ * <span class="attrib">@param</span> model The model that this widget is a view of.
+ */</span>
+
+<span class="reserved">function</span> WebServiceForm(widgetNode, model) {
+  WidgetBaseXSL.apply(<span class="reserved">this</span>,new Array(widgetNode, model));
+  <span class="reserved">this</span>.formElements = new Object();
+<span class="comment">  // We might have a request stylesheet to fill for a more complex post</span>
+  var requestStylesheet = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:requestStylesheet"</span>);
+  <span class="reserved">if</span> (requestStylesheet) {
+    <span class="reserved">this</span>.requestStylesheet = new XslProcessor(requestStylesheet, model.namespace); 
+  }
+  
+  <span class="reserved">this</span>.webServiceUrl = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:webServiceUrl"</span>);
+  
+  <span class="comment">/**
+   * Handles submission of the form (via javascript in an &lt;a&gt; tag)
+   */</span>
+  <span class="reserved">this</span>.submitForm = <span class="reserved">function</span>() {
+    <span class="reserved">this</span>.webServiceForm = document.getElementById(<span class="reserved">this</span>.formName);
+    <span class="reserved">if</span>( <span class="reserved">this</span>.webServiceForm == null ) { 
+<span class="comment">      // get it from a user div instead if present</span>
+      <span class="reserved">this</span>.webServiceForm = document.getElementById(<span class="literal">"webServiceForm_form"</span>);
+    }
+    
+    <span class="reserved">if</span>( <span class="reserved">this</span>.webServiceForm == null ) {
+        
+      <span class="reserved">return</span>;
+    }
+    
+    var httpPayload = new Object();
+    httpPayload.method = <span class="reserved">this</span>.targetModel.method;
+    httpPayload.url = <span class="reserved">this</span>.webServiceUrl;
+    
+    <span class="reserved">if</span> (httpPayload.method.toLowerCase() == <span class="literal">"get"</span>) {
+      httpPayload.url = <span class="reserved">this</span>.webServiceForm.action + <span class="literal">"?"</span>;
+      <span class="reserved">for</span> (var i=0; i&lt;<span class="reserved">this</span>.webServiceForm.elements.length; ++i) {
+        var element = <span class="reserved">this</span>.webServiceForm.elements[i];
+        webServiceUrl += element.name + <span class="literal">"="</span> + element.value + <span class="literal">"&amp;"</span>;
+        <span class="reserved">this</span>.formElements[element.name] = element.value;
+      }  
+      
+      mbDebugMessage(<span class="reserved">this</span>, httpPayload.url);
+    
+      <span class="reserved">this</span>.targetModel.newRequest(<span class="reserved">this</span>.targetModel,httpPayload);
+    
+    } <span class="reserved">else</span> { 
+<span class="comment">        // a post</span>
+<span class="comment">        // put parameters we got in request stylesheet</span>
+      <span class="reserved">for</span> (var i=0; i&lt;<span class="reserved">this</span>.webServiceForm.elements.length; ++i) {
+        var element = <span class="reserved">this</span>.webServiceForm.elements[i];
+        <span class="reserved">this</span>.formElements[element.name] = element.value;
+      }  
+      
+      <span class="reserved">this</span>.requestStylesheet.setParameter(<span class="literal">"resourceName"</span>, <span class="reserved">this</span>.formElements[<span class="literal">"feature"</span>])
+      <span class="reserved">this</span>.requestStylesheet.setParameter(<span class="literal">"fromDateField"</span>, <span class="reserved">this</span>.formElements[<span class="literal">"fromDateField"</span>])
+      <span class="reserved">this</span>.requestStylesheet.setParameter(<span class="literal">"toDateField"</span>, <span class="reserved">this</span>.formElements[<span class="literal">"toDateField"</span>])
+<span class="comment">  
+      // <span class="attrib">@TODO</span></span>
+<span class="comment">      // we need a new uuid if we wnat to uniquely identify new layers  </span>
+<span class="comment">      // var uuid = dojo_uuid_TimeBasedGenerator.generate();</span>
+       
+      var layer = <span class="reserved">this</span>.requestStylesheet.transformNodeToObject(<span class="reserved">this</span>.model.doc); 
+<span class="comment">      //layer.childNodes[0].setAttribute("id", uuid)</span>
+      <span class="reserved">if</span> (<span class="reserved">this</span>.debug) mbDebugMessage(<span class="reserved">this</span>, <span class="literal">"Transformed: "</span>+ (new XMLSerializer()).serializeToString(layer));
+<span class="comment">           
+      // extract the GetFeature out</span>
+      <span class="reserved">this</span>.namespace = <span class="literal">"xmlns:wmc='http://www.opengis.net/context' xmlns:ows='http://www.opengis.net/ows' xmlns:ogc='http://www.opengis.net/ogc' xmlns:xsl='http://www.w3.org/1999/XSL/Transform' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:gml='http://www.opengis.net/gml' xmlns:wfs='http://www.opengis.net/wfs'"</span>;
+      
+      Sarissa.setXpathNamespaces(layer, <span class="reserved">this</span>.namespace);
+      var getFeature = layer.selectSingleNode(<span class="literal">"//wfs:GetFeature"</span>)
+      
+      httpPayload.postData = (new XMLSerializer()).serializeToString( getFeature);
+      
+      mbDebugMessage(<span class="reserved">this</span>, <span class="literal">"httpPayload.postData:"</span>+ httpPayload.postData);
+      
+      <span class="reserved">this</span>.targetModel.wfsFeature = layer.childNodes[0];
+      <span class="reserved">if</span> (<span class="reserved">this</span>.debug) mbDebugMessage(<span class="reserved">this</span>, <span class="literal">"wfsFeature = "</span>+ (new XMLSerializer()).serializeToString(<span class="reserved">this</span>.targetModel.wfsFeature));
+        
+      <span class="reserved">this</span>.targetModel.newRequest(<span class="reserved">this</span>.targetModel,httpPayload);
+    }
+  }
+
+  <span class="comment">/**
+   * handles keypress events to filter out everything except "enter".  
+   * Pressing the "enter" key will trigger a form submit
+   * <span class="attrib">@param</span> event  the event object passed in for Mozilla; IE uses window.event
+   */</span>
+  <span class="reserved">this</span>.handleKeyPress = <span class="reserved">function</span>(event) {
+    var keycode;
+    var target;
+    <span class="reserved">if</span> (event){
+<span class="comment">      //Mozilla</span>
+      keycode=event.which;
+      target=event.currentTarget;
+    }<span class="reserved">else</span>{
+<span class="comment">      //IE</span>
+      keycode=window.event.keyCode;
+      target=window.event.srcElement.form;
+    }
+
+    <span class="reserved">if</span> (keycode == 13) {    //enter key
+      target.parentWidget.submitForm();
+      <span class="reserved">return</span> false;
+    }
+  }
+
+  <span class="comment">/**
+   * Refreshes the form onblur handlers when this widget is painted.
+   * <span class="attrib">@param</span> objRef Pointer to this object.
+   */</span>
+  <span class="reserved">this</span>.postPaint = <span class="reserved">function</span>(objRef) {
+    objRef.webServiceForm = document.getElementById(objRef.formName);
+    <span class="reserved">if</span>( <span class="reserved">this</span>.webServiceForm == null ) { 
+<span class="comment">      // get it from a user div instead if present</span>
+      <span class="reserved">this</span>.webServiceForm = document.getElementById(<span class="literal">"webServiceForm_form"</span>);
+    }
+    
+    objRef.webServiceForm.parentWidget = objRef;
+    objRef.webServiceForm.onkeypress = objRef.handleKeyPress;
+<span class="comment">    //objRef.WebServiceForm.onsubmit = objRef.submitForm;</span>
+<span class="comment">    //objRef.WebServiceForm.mapsheet.onblur = objRef.setMapsheet;</span>
+  }
+<span class="comment">
+  //set some properties for the form output</span>
+  <span class="reserved">this</span>.formName = <span class="literal">"WebServiceForm_"</span> + mbIds.getId();
+  <span class="reserved">this</span>.stylesheet.setParameter(<span class="literal">"formName"</span>, <span class="reserved">this</span>.formName);
+
+  <span class="comment">/**
+   * Sets value for form elements
+   * <span class="attrib">@param</span> objRef Pointer to this object.
+   */</span>
+  <span class="reserved">this</span>.prePaint = <span class="reserved">function</span>(objRef) {
+    <span class="reserved">for</span> (var elementName in objRef.formElements) {
+      objRef.stylesheet.setParameter(elementName, objRef.formElements[elementName]);
+    }
+  }
+
+  <span class="comment">/**
+    * Setup the listener for AOI changes to be used in filter if necessary
+    */</span>
+  <span class="reserved">this</span>.setAoiParameters = <span class="reserved">function</span>(objRef,bbox) {
+    <span class="reserved">if</span> (objRef.model) {
+      var featureSRS = null;
+      var containerSRS = objRef.model.getSRS();
+     
+      objRef.requestStylesheet.setParameter(<span class="literal">"bBoxMinX"</span>, bbox[0][0] );
+      objRef.requestStylesheet.setParameter(<span class="literal">"bBoxMinY"</span>, bbox[1][1] );
+      objRef.requestStylesheet.setParameter(<span class="literal">"bBoxMaxX"</span>, bbox[1][0] );
+      objRef.requestStylesheet.setParameter(<span class="literal">"bBoxMaxY"</span>, bbox[0][1] );
+      objRef.requestStylesheet.setParameter(<span class="literal">"srs"</span>, containerSRS );
+      objRef.requestStylesheet.setParameter(<span class="literal">"width"</span>, objRef.model.getWindowWidth() );
+      objRef.requestStylesheet.setParameter(<span class="literal">"height"</span>, objRef.model.getWindowHeight() );
+    }
+  }
+
+  <span class="reserved">this</span>.init = <span class="reserved">function</span>(objRef) {
+    <span class="reserved">if</span> (objRef.model) {
+      objRef.model.addListener(<span class="literal">"aoi"</span>, objRef.setAoiParameters, objRef);
+<span class="comment">      //TBD: another one for bbox</span>
+    }
+  }
+  
+  <span class="reserved">this</span>.model.addListener(<span class="literal">"init"</span>, <span class="reserved">this</span>.init, <span class="reserved">this</span>);
+
+}
+
+</pre>
+	<hr>
+
+
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> <font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top"><em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<font size="-1">
+
+</font>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Sun Apr 27 20:30:54 2008</div>
+</body>
+</html>

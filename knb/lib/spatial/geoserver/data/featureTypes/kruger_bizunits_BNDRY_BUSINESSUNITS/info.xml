@@ -1,0 +1,17 @@
+<featureType datastore = "kruger_bizunits" >
+<name>BNDRY_BUSINESSUNITS</name>
+<!--
+native wich EPGS code for the FeatureTypeInfoDTO
+-->
+<SRS>32736</SRS>
+<title>BNDRY_BUSINESSUNITS_Type</title>
+<abstract>Generated from kruger_bizunits</abstract>
+<numDecimals value = "8" />
+<keywords>kruger_bizunits BNDRY_BUSINESSUNITS</keywords>
+<latLonBoundingBox dynamic = "false" miny = "-25.535347249986696" maxy = "-22.325421658434053" maxx = "32.05331207584916" minx = "30.841566117389583"  />
+<!--
+the default style this FeatureTypeInfoDTO can be represented by.
+at least must contain the "default" attribute 
+-->
+<styles default = "simple_roads"  />
+</featureType>

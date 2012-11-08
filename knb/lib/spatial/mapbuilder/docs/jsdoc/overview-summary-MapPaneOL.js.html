@@ -1,0 +1,1214 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Frameset//EN""http://www.w3.org/TR/REC-html40/frameset.dtd">
+<html>
+<head>
+<title>
+<a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008 Overview
+</title>
+<link rel ="stylesheet" type="text/css" href="stylesheet.css" title="Style">
+<script>
+function asd() {
+	
+		parent.document.title="MapPaneOL.js Overview";
+	
+}
+</script>
+</head>
+<body bgcolor="white" onload="asd();">
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> 	<font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top">
+<em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<center>
+	
+	   <h2>MapPaneOL.js</h2>
+	
+</center>
+
+	
+
+
+<h4>Summary</h4>
+<p>
+	
+		No overview generated for 'MapPaneOL.js'<BR/><BR/>
+	
+</p>
+
+<hr>
+
+
+    <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+    <td colspan=2><font size="+2">
+    
+        <b>Class Summary</b>
+    
+    </font></td>
+    </tr>
+    
+    <tr bgcolor="white" class="TableRowColor">
+    <td width="15%"><b><a href="MapPaneOL.html">MapPaneOL</a></b></td>
+    <td>&nbsp;</td>
+    </tr>
+    
+    </table>
+    <hr/> 
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+	<a name="method_summary"><!-- --></a>
+	<table border="1" cellpadding="3" cellspacing="0" width="100%">
+		<tr bgcolor="#CCCCFF" class="TableHeadingColor">
+			<td colspan=2>
+				<font size="+2">
+					<b>Method Summary</b>
+				</font>
+			</td>
+		</tr>
+	
+		
+		   <tr bgcolor="white" class="TableRowColor">
+		      <td align="right" valign="top" width="1%">
+			 <font size="-1">
+			    <code>static&nbsp;Object</code>
+			 </font>
+		      </td>
+		      <td>
+			 <code>
+			    <b>
+			       <a href="GLOBALS.html#imageLoaded">imageLoaded</a></b>()
+			 </code>
+			 <br>
+			 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			 
+		      </td>
+		   </tr>
+		
+	
+	</table>
+    <p>
+
+<!-- ========== END METHOD SUMMARY =========== -->
+
+
+        <pre class="sourceview"><span class="comment">/*
+Author:       Cameron Shorter cameronAtshorter.net
+License:      LGPL as per: http://www.gnu.org/copyleft/lesser.html
+
+$Id: MapPaneOL.js 3935 2008-03-25 13:58:02Z ahocevar $
+*/</span>
+<span class="comment">
+// Ensure this object's dependancies are loaded.</span>
+loadCss(<span class="literal">"openlayers/style.css"</span>);
+mapbuilder.loadScript(baseDir+<span class="literal">"/util/openlayers/OpenLayers.js"</span>);
+mapbuilder.loadScript(baseDir+<span class="literal">"/util/Util.js"</span>);
+mapbuilder.loadScript(baseDir+<span class="literal">"/widget/WidgetBase.js"</span>);
+mapbuilder.loadScript(baseDir+<span class="literal">"/tool/Extent.js"</span>);
+<span class="comment">/**
+ * Widget to render a map from an OGC context document.  The layers are
+ * rendered using http://openlayers.org .
+ * <span class="attrib">@constructor</span>
+ * <span class="attrib">@base</span> WidgetBase
+ * <span class="attrib">@param</span> widgetNode  The widget's XML object node from the configuration document.
+ * <span class="attrib">@param</span> model       The model object that this widget belongs to.
+ */</span>
+<span class="reserved">function</span> MapPaneOL(widgetNode, model) {
+  WidgetBase.apply(<span class="reserved">this</span>,new Array(widgetNode, model));
+
+  OpenLayers.ImgPath = config.skinDir + <span class="literal">'/images/openlayers/'</span>;
+  OpenLayers.ProxyHost = config.proxyUrl+<span class="literal">"/?url="</span>;
+<span class="comment">  
+
+  // replacement for deprecated MapContainerBase</span>
+  <span class="reserved">this</span>.containerNodeId = <span class="reserved">this</span>.htmlTagId;
+  model.containerModel = <span class="reserved">this</span>.model;
+<span class="comment">
+  //Make sure the Extent is attached to the context and initialized</span>
+  <span class="reserved">if</span>(!<span class="reserved">this</span>.model.extent){
+    <span class="reserved">this</span>.model.extent = new Extent (<span class="reserved">this</span>.model);
+    <span class="reserved">this</span>.model.addFirstListener( <span class="literal">"loadModel"</span>, <span class="reserved">this</span>.model.extent.firstInit, <span class="reserved">this</span>.model.extent );
+  }
+
+  <span class="comment">/**
+   * For tiled wms layers: Overlap of map tiles in pixels. Useful for
+   * preventing rendering artefacts at tile edges. Recommended values:
+   * 0-15, default is 0 (no gutter at all).
+   */</span>
+  <span class="reserved">this</span>.tileGutter = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:tileGutter"</span>, 0);
+  
+  <span class="comment">/**
+   * For tiled wms layers: how many rows of tiles should be preloaded
+   * outside the visible map? Large values mean slow loading, small
+   * ones mean longer delays when panning. Recommended values: 1-3,
+   * default is 2.
+   */</span>
+  <span class="reserved">this</span>.tileBuffer = parseInt(<span class="reserved">this</span>.getProperty(<span class="literal">"mb:tileBuffer"</span>, 2));
+  
+   <span class="comment">/**
+    * For WMS layers: should they be regarded as normal WMS layers, 
+    * with a single tile for the entire boundingbox or as a tiled
+    * WMS layer
+   */</span>
+  <span class="reserved">this</span>.singleTile = Mapbuilder.parseBoolean(<span class="reserved">this</span>.getProperty(<span class="literal">"mb:singleTile"</span>, true));
+  
+  <span class="comment">/**
+   * For tiled wms layers: how many pixels should the size of one tile
+   * be? Default is 256.
+   */</span>
+  <span class="reserved">this</span>.tileSize = parseInt(<span class="reserved">this</span>.getProperty(<span class="literal">"mb:tileSize"</span>, 256));
+  
+  <span class="comment">/**
+   * For WMS on top of Google Maps you need to reproject the WMS image. This will stretch
+   * the WMS images to fit the odd sized google tiles. Default is false
+   */</span>
+  <span class="reserved">this</span>.imageReproject = Mapbuilder.parseBoolean(
+      <span class="reserved">this</span>.getProperty(<span class="literal">"mb:imageReproject"</span>, false));
+  
+  <span class="comment">/**
+   * for untiled wms layers: how many times should the map image be
+   * larger than the visible map. Large values mean slow loading, small
+   * ones mean many reloads when panning. Recommended values: 1-3,
+   * default is 2.
+   */</span>
+  <span class="reserved">this</span>.imageBuffer = parseInt(<span class="reserved">this</span>.getProperty(<span class="literal">"mb:imageBuffer"</span>, 2));
+  
+  <span class="comment">/**
+   * Should layers also be rendered outside the map extent? Default is false.
+   */</span>
+  <span class="reserved">this</span>.displayOutsideMaxExtent = Mapbuilder.parseBoolean(
+      <span class="reserved">this</span>.getProperty(<span class="literal">"mb:displayOutsideMaxExtent"</span>, false));
+  
+  <span class="comment">/**
+   * Number of layers that are currently being loaded
+   */</span>
+  <span class="reserved">this</span>.loadingLayers = 0;
+
+  <span class="comment">/**
+   * Called after a feature has been added to a WFS.  This function triggers
+   * the WMS basemaps to be redrawn.  A timestamp param is added to the URL
+   * to ensure the basemap image is not cached.
+   * This function is triggered by the refreshWmsLayers event. If this event
+   * is fired with a &lt;layerId&gt; as param, only that layer will be refreshed.
+   * <span class="attrib">@param</span> objRef reference to this widget
+   */</span>
+  <span class="reserved">this</span>.refreshWmsLayers = <span class="reserved">function</span>(objRef) {
+    var layerId = objRef.model.getParam(<span class="literal">"refreshWmsLayers"</span>);
+    var uniqueId = (new Date()).getTime();
+    var layers = layerId ?
+        [objRef.getLayer(objRef, layerId)] :
+        objRef.model.map.layers;
+    <span class="reserved">for</span> (var i in layers) {
+      <span class="reserved">if</span> (layers[i].CLASS_NAME.indexOf(<span class="literal">'OpenLayers.Layer.WMS'</span>) == 0) {
+        layers[i].mergeNewParams({uniqueId: uniqueId});
+      }
+    }
+  }
+  <span class="reserved">this</span>.model.addListener(<span class="literal">"refreshWmsLayers"</span>,<span class="reserved">this</span>.refreshWmsLayers,<span class="reserved">this</span>);
+
+  <span class="reserved">this</span>.model.addListener(<span class="literal">"refresh"</span>,<span class="reserved">this</span>.paint, <span class="reserved">this</span>);
+  <span class="reserved">this</span>.model.addFirstListener(<span class="literal">"newModel"</span>, <span class="reserved">this</span>.clear, <span class="reserved">this</span>);
+  <span class="reserved">this</span>.model.addListener(<span class="literal">"hidden"</span>,<span class="reserved">this</span>.hidden, <span class="reserved">this</span>);
+  <span class="reserved">this</span>.model.addListener(<span class="literal">"addLayer"</span>,<span class="reserved">this</span>.addLayer, <span class="reserved">this</span>);
+  <span class="reserved">this</span>.model.addListener(<span class="literal">"deleteLayer"</span>,<span class="reserved">this</span>.deleteLayer, <span class="reserved">this</span>);
+  <span class="reserved">this</span>.model.addListener(<span class="literal">"moveLayerUp"</span>,<span class="reserved">this</span>.moveLayerUp, <span class="reserved">this</span>);
+  <span class="reserved">this</span>.model.addListener(<span class="literal">"moveLayerDown"</span>,<span class="reserved">this</span>.moveLayerDown, <span class="reserved">this</span>);
+  <span class="reserved">this</span>.model.addListener(<span class="literal">"opacity"</span>,<span class="reserved">this</span>.setOpacity,<span class="reserved">this</span>);
+  <span class="reserved">this</span>.model.addListener(<span class="literal">"bbox"</span>, <span class="reserved">this</span>.zoomToBbox, <span class="reserved">this</span>);
+<span class="comment">  //this.model.addListener( "zoomOut", this.zoomOut, this );</span>
+<span class="comment">  //this.model.addListener( "zoomIn", this.zoomIn, this );</span>
+<span class="comment">  // this.model.addListener( "zoomToMaxExtent", this.zoomToMaxExtent, this );</span>
+<span class="comment"> //this.model.addFirstListener("loadModel",this.paint,this);</span>
+
+}
+
+<span class="comment">/**
+ * Render the widget.
+ * <span class="attrib">@param</span> objRef Pointer to widget object.
+ */</span>
+MapPaneOL.<span class="reserved">prototype</span>.paint = <span class="reserved">function</span>(objRef, refresh) {
+<span class="comment">  
+  // Create an OpenLayers map</span>
+<span class="comment">
+  //Test if context exist</span>
+  <span class="reserved">if</span>(objRef.model.doc.selectSingleNode(<span class="literal">"//wmc:OWSContext"</span>))
+    objRef.context=<span class="literal">"OWS"</span>;
+  <span class="reserved">else</span> <span class="reserved">if</span>(objRef.model.doc.selectSingleNode(<span class="literal">"//wmc:ViewContext"</span>))
+    objRef.context=<span class="literal">"View"</span>;
+  <span class="reserved">else</span>
+    alert(mbGetMessage(<span class="literal">"noContextDefined"</span>));
+
+  var proj=objRef.model.proj;
+<span class="comment">
+  //maxExtent</span>
+  var maxExtent=null;
+  maxExtent=objRef.getProperty(<span class="literal">"mb:maxExtent"</span>);
+  maxExtent=(maxExtent)?maxExtent.split(<span class="literal">" "</span>):null;
+<span class="comment">  // If the maxExtentis not specified in the config</span>
+<span class="comment">  // calculate it from the BBox  in the Context.</span>
+  <span class="reserved">if</span>(!maxExtent){
+    maxExtent=objRef.model.getBoundingBox();
+  }
+  maxExtent=(maxExtent)?new OpenLayers.Bounds(maxExtent[0],maxExtent[1],maxExtent[2],maxExtent[3]):null;
+  <span class="reserved">if</span>(maxExtent==null)alert(mbGetMessage(<span class="literal">"noBboxInContext"</span>));
+<span class="comment">
+  //maxResolution</span>
+  var maxResolution=null;
+  maxResolution=objRef.getProperty(<span class="literal">"mb:maxResolution"</span>);
+  maxResolution=(maxResolution) ? parseFloat(maxResolution) : <span class="literal">"auto"</span>;
+<span class="comment">
+  //minResolution</span>
+  var minResolution=null;
+  minResolution=objRef.getProperty(<span class="literal">"mb:minResolution"</span>);
+  minResolution=(minResolution) ? parseFloat(minResolution) : undefined;
+<span class="comment">  
+  //transitionEffect</span>
+  objRef.transitionEffect = objRef.getProperty(<span class="literal">"mb:transitionEffect"</span>, undefined);
+<span class="comment">  
+  //units</span>
+  var units = proj.getUnits() == <span class="literal">'meters'</span> ? <span class="literal">'m'</span> : proj.getUnits();
+<span class="comment">  
+  //resolutions</span>
+<span class="comment">  //TBD: if resolutions is both set here and for the baselayer and they are different weird things may happen</span>
+<span class="comment">  //     this needs to be solved</span>
+  var resolutions=objRef.getProperty(<span class="literal">"mb:resolutions"</span>);
+  resolutions = resolutions ? resolutions.split(<span class="literal">","</span>) : null;
+  <span class="reserved">if</span> (resolutions) {
+    <span class="reserved">for</span> (var r=0; r&lt;resolutions.length; r++) {
+      resolutions[r] = parseFloat(resolutions[r]);
+    }
+  }
+<span class="comment">
+  //fixed scales - overrides resolutions</span>
+  var scales = objRef.getProperty(<span class="literal">"mb:scales"</span>);
+  <span class="reserved">if</span>(scales){
+    scales = scales.split(<span class="literal">","</span>);
+    resolutions = new Array();
+    <span class="reserved">for</span> (var s=0; s&lt;scales.length; s++) {
+      resolutions.push(OpenLayers.Util.getResolutionFromScale(scales[s], units));
+    }
+  }
+  <span class="reserved">if</span>(resolutions){
+    objRef.model.extent.setZoomLevels(true,resolutions);
+  }
+  <span class="reserved">else</span> objRef.model.extent.setZoomLevels(false);
+<span class="comment">
+  //get the output DIV and set it to context-size</span>
+  var node = document.getElementById(objRef.containerNodeId);
+  var fixedSize = Mapbuilder.parseBoolean(objRef.getProperty(<span class="literal">"mb:fixedSize"</span>, false));
+  <span class="reserved">if</span>(fixedSize){
+    node.style.width = objRef.model.getWindowWidth()+<span class="literal">"px"</span>;
+    node.style.height = objRef.model.getWindowHeight()+<span class="literal">"px"</span>;
+  }
+<span class="comment">  
+  //default map options</span>
+  var mapOptions = {
+        controls:[],
+        projection: proj,
+        units: units,
+        fractionalZoom: true,
+        maxExtent: maxExtent,
+        maxResolution: maxResolution,
+        minResolution: minResolution,
+        resolutions: resolutions,
+        theme: null, // we have the theme loaded by Mapbuilder
+        destroy: <span class="reserved">function</span>(destroy){
+                   <span class="reserved">if</span> (destroy != true) {
+                     <span class="reserved">this</span>.mbMapPane.model.setParam(<span class="literal">"newModel"</span>, true);
+                   } <span class="reserved">else</span> {
+                     <span class="reserved">this</span>.mbMapPane = null;
+                     <span class="reserved">this</span>.mbCursor = null;
+                     OpenLayers.Map.<span class="reserved">prototype</span>.destroy.apply(<span class="reserved">this</span>, arguments);
+                     <span class="reserved">this</span>.layerContainerDiv = null;
+                     <span class="reserved">this</span>.baseLayer = null;
+                   }}
+      };
+
+  <span class="reserved">if</span> (!objRef.model.map) {
+    objRef.model.map = new OpenLayers.Map(node, mapOptions);
+<span class="comment">
+    // Increase hight of Control layers to allow for lots of layers.</span>
+    objRef.model.map.Z_INDEX_BASE.Control=10000;
+    var baseLayer = null;
+<span class="comment">    
+    //If we have an OWSContext and we have a BaseLayer we need to use this layer</span>
+<span class="comment">    //for more information have a look at http://docs.codehaus.org/display/MAP/Using+Google-layers</span>
+    <span class="reserved">if</span>(objRef.context==<span class="literal">"OWS"</span>&amp;&amp;objRef.model.getBaseLayer()){
+      var baseLayerNode = objRef.model.getBaseLayer();
+<span class="comment">     
+      //overrule the SRS in the Context with the one from the BaseLayer</span>
+      var baseSrs = baseLayerNode.selectSingleNode(<span class="literal">"ows:TileSet/ows:SRS"</span>);
+      <span class="reserved">if</span>(baseSrs) objRef.model.setSRS(getNodeValue(baseSrs));
+<span class="comment">      //overrule the units in the Context with the updated SRS units</span>
+      units = proj.getUnits() == <span class="literal">'meters'</span> ? <span class="literal">'m'</span> : proj.getUnits();
+<span class="comment">      //overrule the boundingbox in the Context with the maxExtent from the BaseLayer</span>
+      var maxExtentNode = baseLayerNode.selectSingleNode(<span class="literal">"ows:TileSet/ows:BoundingBox"</span>);
+      <span class="reserved">if</span>(maxExtentNode) maxExtent = new OpenLayers.Bounds(maxExtentNode.selectSingleNode(<span class="literal">'@minx'</span>).nodeValue,maxExtentNode.selectSingleNode(<span class="literal">'@miny'</span>).nodeValue,maxExtentNode.selectSingleNode(<span class="literal">'@maxx'</span>).nodeValue,maxExtentNode.selectSingleNode(<span class="literal">'@maxy'</span>).nodeValue);
+<span class="comment">      //overrule resolutions in the Context with the one from BaseLayer</span>
+<span class="comment">      //<span class="attrib">@TODO</span>: check if the firstChild is really needed</span>
+      var resolutions =baseLayerNode.selectSingleNode(<span class="literal">"ows:TileSet/ows:Resolutions"</span>);
+      resolutions = resolutions ? getNodeValue(resolutions).split(<span class="literal">","</span>) : null;
+      <span class="reserved">if</span> (resolutions) {
+        <span class="reserved">for</span> (var r=0; r&lt;resolutions.length; r++) {
+           resolutions[r] = parseFloat(resolutions[r]);
+        }
+      }
+<span class="comment">      //overrule tileSize in the Context with the one from the BaseLayer</span>
+<span class="comment">      //right now we only support square tiles which are defined by their width:		  </span>
+      var tileSize =baseLayerNode.selectSingleNode(<span class="literal">"ows:TileSet/ows:Width"</span>);
+      <span class="reserved">if</span>(tileSize) objRef.tileSize = parseInt(tileSize.nodeValue);
+<span class="comment">      //check if there's a format defined for the BaseLayer</span>
+      var format = baseLayerNode.selectSingleNode(<span class="literal">"ows:TileSet/ows:Format"</span>);
+      <span class="reserved">if</span>(format) format = format.nodeValue;
+<span class="comment">      
+      //Initialising the baseLayer</span>
+<span class="comment">      // Test service of the baseLayer</span>
+      var service=baseLayerNode.selectSingleNode(<span class="literal">"wmc:Server/@service"</span>);
+      service=(service)?service.nodeValue:<span class="literal">""</span>;
+<span class="comment">      // Test title of the baseLayer</span>
+      var title=Mapbuilder.getProperty(baseLayerNode, <span class="literal">"wmc:Title"</span>, <span class="literal">""</span>);
+<span class="comment">      // Get the name of the baseLayer</span>
+      var baseLayerName = Mapbuilder.getProperty(baseLayerNode, <span class="literal">"wmc:Name"</span>, <span class="literal">""</span>);
+<span class="comment">      // get the layer-type of the BaseLayer (this allows specifying if is is a arial,road or hybrid map)</span>
+      var baseLayerType = Mapbuilder.getProperty(baseLayerNode, <span class="literal">"ows:TileSet/ows:Layers"</span>, <span class="literal">"hybrid"</span>);
+<span class="comment">      // it might be that the baseLayer is a WMS so we need to fetch the url</span>
+      var href=Mapbuilder.getProperty(baseLayerNode, <span class="literal">"wmc:Server/wmc:OnlineResource/@xlink:href"</span>, <span class="literal">""</span>);
+      
+      var baseLayerOptions = {
+              units: units,
+              projection: proj,
+              maxExtent: maxExtent,
+             
+              alpha: false,            //option <span class="reserved">for</span> png transparency with ie6
+              isBaseLayer: true,
+              displayOutsideMaxExtent: objRef.displayOutsideMaxExtent,
+              ratio: 1
+              
+         };
+         
+      switch(service){
+<span class="comment">        // WMS Layer (Untiled)</span>
+        case <span class="literal">"OGC"</span>:
+        case <span class="literal">"WMS"</span>:
+        case <span class="literal">"wms"</span>:
+        case <span class="literal">"OGC:WMS"</span>:
+          
+          baseLayerOptions.ratio = objRef.imageBuffer;
+    
+          var params = new Array();
+
+         
+         baseLayer= new OpenLayers.Layer.WMS(title,href,{
+              layers: baseLayerName,
+              format: format
+              },
+            baseLayerOptions
+          );
+        break;
+<span class="comment">    
+        // WMS-C Layer (Tiled)</span>
+        case <span class="literal">"WMS-C"</span>:
+        case <span class="literal">"OGC:WMS-C"</span>:
+          baseLayerOptions.gutter = objRef.tileGutter;
+          baseLayerOptions.buffer = objRef.tileBuffer;
+          baseLayerOptions.tileSize = new OpenLayers.Size(objRef.tileSize, objRef.tileSize);
+          
+          baseLayer= new OpenLayers.Layer.WMS(title,href,{
+              layers: baseLayerName,
+              format: format
+            },
+            baseLayerOptions
+          );
+          objRef.model.map.fractionalZoom = false;
+        break;
+    
+        case <span class="literal">"GMAP"</span>:
+        case <span class="literal">"Google"</span>:       
+          <span class="reserved">if</span>(maxExtent) baseLayerOptions.maxExtent=maxExtent;
+<span class="comment">          //check if we have spherical projection</span>
+          var sphericalMercator = (objRef.model.getSRS()==<span class="literal">'EPSG:900913'</span>)?true:false;
+<span class="comment">          //check if we have a layertype</span>
+          switch(baseLayerType){
+            case <span class="literal">"aerial"</span>:
+            case <span class="literal">"satellite"</span>:            
+              baseLayerType=G_SATELLITE_MAP;
+            break;
+            case <span class="literal">"road"</span>:
+            case <span class="literal">"normal"</span>:            
+              baseLayerType=G_NORMAL_MAP;
+            break;
+            default:
+              baseLayerType=G_HYBRID_MAP;
+          }
+          baseLayer = new OpenLayers.Layer.Google( baseLayerName , {type: baseLayerType, minZoomLevel: 0, maxZoomLevel:19, sphericalMercator: sphericalMercator, maxResolution: 156543.0339 }, baseLayerOptions );
+          objRef.model.map.numZoomLevels = 20;
+          objRef.model.map.fractionalZoom = false;
+        break;
+    
+        case <span class="literal">"YMAP"</span>:
+        case <span class="literal">"Yahoo"</span>:
+<span class="comment">          //Yahoo-layer doesn't support layerTypes</span>
+          <span class="reserved">if</span>(maxExtent) baseLayerOptions.maxExtent=maxExtent;
+<span class="comment">          //check if we have spherical projection</span>
+          var sphericalMercator = (objRef.model.getSRS()==<span class="literal">'EPSG:900913'</span>)?true:false;          
+          baseLayer = new OpenLayers.Layer.Yahoo(  baseLayerName , { maxZoomLevel:21, sphericalMercator: sphericalMercator }, baseLayerOptions );
+          objRef.model.map.fractionalZoom = false;
+        break;
+    
+        case <span class="literal">"VE"</span>:
+        case <span class="literal">"Microsoft"</span>:
+          <span class="reserved">if</span>(maxExtent) baseLayerOptions.maxExtent=maxExtent;
+<span class="comment">          //check if we have spherical projection</span>
+          var sphericalMercator = (objRef.model.getSRS()==<span class="literal">'EPSG:900913'</span>)?true:false;
+<span class="comment">          //check if we have a layertype</span>
+          switch(baseLayerType){
+            case <span class="literal">"aerial"</span>:
+            case <span class="literal">"satellite"</span>:
+              baseLayerType=VEMapStyle.Aerial;
+            break;
+            case <span class="literal">"road"</span>:
+            case <span class="literal">"normal"</span>:
+              baseLayerType=VEMapStyle.Road;
+            break;
+            default:
+              baseLayerType=VEMapStyle.Hybrid;
+          }
+          baseLayer = new OpenLayers.Layer.VirtualEarth( baseLayerName,{minZoomLevel: 0, maxZoomLevel: 21,type: baseLayerType});
+          objRef.model.map.fractionalZoom = false;
+        break;
+    
+        case <span class="literal">"MultiMap"</span>:
+           <span class="reserved">if</span>(maxExtent) baseLayerOptions.maxExtent=maxExtent;
+<span class="comment">           //check if we have spherical projection</span>
+          var sphericalMercator = (objRef.model.getSRS()==<span class="literal">'EPSG:900913'</span>)?true:false;          
+          baseLayer = new OpenLayers.Layer.MultiMap( baseLayerName , { maxZoomLevel:21, sphericalMercator: sphericalMercator }, baseLayerOptions );
+          objRef.model.map.fractionalZoom = false;
+        break;
+        default:
+          alert(mbGetMessage(<span class="literal">"layerTypeNotSupported"</span>, service));
+        }
+    }
+<span class="comment">    //Otherwise we will just use a bogus WMS layer as BaseLayer</span>
+    <span class="reserved">else</span> {
+      var baseLayerOptions = {
+              units: units,
+              projection: proj.srsCode,
+              maxExtent: maxExtent,
+              maxResolution: maxResolution,  //<span class="literal">"auto"</span> <span class="reserved">if</span> not defined in the context
+              minResolution: minResolution,
+              resolutions: resolutions,
+              alpha: false,            //option <span class="reserved">for</span> png transparency with ie6
+              isBaseLayer: true,
+              displayOutsideMaxExtent: objRef.displayOutsideMaxExtent,
+              ratio: 1,
+              singleTile: true,
+              transitionEffect: objRef.transitionEffect,
+              visibility: false,
+              moveTo: <span class="reserved">function</span>(){<span class="reserved">return</span> true}
+         };
+      baseLayer = new OpenLayers.Layer.WMS(<span class="literal">"baselayer"</span>,
+              config.skinDir+<span class="literal">"/images/openlayers/blank.gif"</span>, null, baseLayerOptions);
+      
+    }
+    objRef.model.map.addLayer(baseLayer); 
+  }
+  <span class="reserved">else</span> {
+    objRef.deleteAllLayers(objRef);
+  }
+    
+  var layers = objRef.model.getAllLayers();
+  <span class="reserved">if</span> (!objRef.oLlayers){
+    objRef.oLlayers = {};
+  }
+
+  <span class="reserved">for</span> (var i=0;i&lt;=layers.length-1;i++){
+    objRef.addLayer(objRef,layers[i]);
+  }
+  var bbox=objRef.model.getBoundingBox();
+<span class="comment">
+  // set objRef as attribute of the OL map, so we have a reference</span>
+<span class="comment">  // to MapPaneOL available when handling OpenLayers events.</span>
+  objRef.model.map.mbMapPane = objRef;
+<span class="comment">
+  // register OpenLayers event to keep the context updated</span>
+  objRef.model.map.events.register(<span class="literal">'moveend'</span>, objRef.model.map, objRef.updateContext);
+<span class="comment">  // register OpenLayers event to do updates onmouseup</span>
+  objRef.model.map.events.register(<span class="literal">'mouseup'</span>, objRef.model.map, objRef.updateMouse);
+  
+  objRef.model.callListeners(<span class="literal">"bbox"</span>);
+  
+}
+
+<span class="comment">/**
+ * remove OpenLayers events and layers
+ * <span class="attrib">@param</span> objRef reference to this widget
+ */</span>
+MapPaneOL.<span class="reserved">prototype</span>.clear = <span class="reserved">function</span>(objRef) {
+  <span class="reserved">if</span> (objRef.model.map) {
+    OpenLayers.Event.stopObservingElement(window);
+    objRef.model.map.destroy(true);
+    objRef.model.map = null;
+    objRef.oLlayers = {};
+  }
+}
+
+<span class="comment">/**
+ * Event handler to keep the modelStatus updated when an OpenLayers layer
+ * starts loading.
+ * <span class="attrib">@param</span> e OpenLayers event
+ */</span>
+MapPaneOL.<span class="reserved">prototype</span>.increaseLoadingLayers = <span class="reserved">function</span>(e) {
+  ++<span class="reserved">this</span>.loadingLayers;
+  var message = mbGetMessage((<span class="reserved">this</span>.loadingLayers&gt;1) ? <span class="literal">"loadingLayers"</span> : <span class="literal">"loadingLayer"</span>,
+    <span class="reserved">this</span>.loadingLayers);
+  <span class="reserved">this</span>.model.setParam(<span class="literal">"modelStatus"</span>, message);
+}
+
+<span class="comment">/**
+ * Event handler to keep the modelStatus updated when an OpenLayers layer
+ * finished loading.
+ * <span class="attrib">@param</span> e OpenLayers event
+ */</span>
+MapPaneOL.<span class="reserved">prototype</span>.decreaseLoadingLayers = <span class="reserved">function</span>(e) {
+  --<span class="reserved">this</span>.loadingLayers;
+  var message = <span class="reserved">this</span>.loadingLayers &gt; 0 ?
+          mbGetMessage((<span class="reserved">this</span>.loadingLayers&gt;1) ? <span class="literal">"loadingLayers"</span> : <span class="literal">"loadingLayer"</span>,
+                  <span class="reserved">this</span>.loadingLayers) :
+          null;
+  <span class="reserved">this</span>.model.setParam(<span class="literal">"modelStatus"</span>, message);
+}
+
+<span class="comment">/**
+ * Event handler to keep the Mapbuilder context updated. It also
+ * sets the map cursor to the previously stored value.
+ * This is called by OpenLayers.
+ * <span class="attrib">@param</span> e OpenLayers event
+ */</span>
+MapPaneOL.<span class="reserved">prototype</span>.updateContext = <span class="reserved">function</span>(e) {
+<span class="comment">  // get objRef from the event originator object (e.object),</span>
+<span class="comment">  // where it was stored as mbPane property by paint().</span>
+  var objRef = e.object.mbMapPane;
+
+  var bboxOL = objRef.model.map.getExtent().toBBOX().split(<span class="literal">','</span>);
+  var ul = new Array(bboxOL[0],bboxOL[3]);
+  var lr = new Array(bboxOL[2],bboxOL[1]);
+
+  <span class="reserved">if</span>(objRef.model.getWindowWidth()!=e.element.offsetWidth)
+    objRef.model.setWindowWidth(e.element.offsetWidth);
+  <span class="reserved">if</span>(objRef.model.getWindowHeight()!=e.element.offsetHeight)
+    objRef.model.setWindowHeight(e.element.offsetHeight);	
+
+  var currentAoi = objRef.model.getParam(<span class="literal">'aoi'</span>);
+  var newAoi = new Array(ul, lr);
+  <span class="reserved">if</span> (!currentAoi || currentAoi.toString() != newAoi.toString()) {
+    objRef.model.setBoundingBox( new Array(ul[0], lr[1], lr[0], ul[1]) );
+    objRef.model.extent.setSize(objRef.model.map.getResolution());
+    objRef.model.setParam(<span class="literal">"aoi"</span>, newAoi);
+  }
+}
+
+<span class="comment">/**
+ * Restore the map cursor stored by buttons. This has to be done
+ * in an OpenLayers mouseup event, because the mouseup event
+ * in OpenLayers resets the cursor to default.
+ * <span class="attrib">@param</span> e OpenLayers event
+ */</span>
+MapPaneOL.<span class="reserved">prototype</span>.updateMouse = <span class="reserved">function</span>(e) {
+<span class="comment">  // get objRef from the event originator object (e.object),</span>
+<span class="comment">  // where it was stored as mbPane property by paint().</span>
+  var objRef = e.object.mbMapPane;
+<span class="comment">
+  // update map pane cursor</span>
+  <span class="reserved">if</span> (objRef.model.map.mbCursor) {
+    objRef.model.map.div.style.cursor = objRef.model.map.mbCursor;
+  }
+}
+
+<span class="comment">/**
+ * Zoom to the current Bounding Box.
+ * <span class="attrib">@param</span> objRef reference to this widget
+ */</span>
+MapPaneOL.<span class="reserved">prototype</span>.zoomToBbox = <span class="reserved">function</span>(objRef) {
+  <span class="reserved">if</span> (objRef.model.map) {
+    var bbox = objRef.model.getBoundingBox();
+    var displayBbox = [];
+    var extent = objRef.model.map.getExtent();
+    <span class="reserved">if</span> (extent) {
+      displayBbox = extent.toBBOX();
+    }
+<span class="comment">    // only perform zoom operation if not already at bbox</span>
+    <span class="reserved">if</span> (bbox.toString() != displayBbox.toString()) {
+      objRef.model.map.zoomToExtent(new OpenLayers.Bounds(bbox[0],bbox[1],bbox[2],bbox[3]));
+    }
+  }
+}
+
+<span class="comment">/**
+ * Hide/unhide a layer. Called by Context when the hidden attribute changes.
+ * <span class="attrib">@param</span> objRef Pointer to widget object.
+ * <span class="attrib">@param</span> layerId Id of the layer to hide/unhide.
+ */</span>
+MapPaneOL.<span class="reserved">prototype</span>.hidden = <span class="reserved">function</span>(objRef, layerId) {
+  var vis=objRef.model.getHidden(layerId);
+  <span class="reserved">if</span>(vis==<span class="literal">"1"</span>){ var hidden=false; }
+  <span class="reserved">else</span> {var hidden=true; }
+  var  tmpLayer=objRef.getLayer(objRef,layerId)
+  <span class="reserved">if</span>(tmpLayer)tmpLayer.setVisibility(hidden);
+}
+
+<span class="comment">/**
+  * Returns OL layer node from LayerMgr
+  * <span class="attrib">@param</span> layerId The layer Id (or layerName)
+  */</span>
+MapPaneOL.<span class="reserved">prototype</span>.getLayer = <span class="reserved">function</span>(objRef,layerId) {
+<span class="comment">
+  // If layer cannot be found then layerId might actually be layerName</span>
+<span class="comment">  // We then try to fetch the <span class="attrib">@id</span> of the layer from the model</span>
+  <span class="reserved">if</span> (!objRef.oLlayers[layerId]) {
+    layerId = objRef.model.getLayerIdByName(layerId) || layerId;
+  }
+
+  <span class="reserved">if</span>(objRef.oLlayers[layerId] &amp;&amp; objRef.oLlayers[layerId].id) {
+    <span class="reserved">return</span> objRef.model.map.getLayer(objRef.oLlayers[layerId].id);
+  } <span class="reserved">else</span> {
+    <span class="reserved">return</span> false;
+  }
+}
+<span class="comment">
+
+//####################################################</span>
+<span class="comment">/**
+ * Removes a layer from the output
+/**
+ * Removes a layer from the output
+ * <span class="attrib">@param</span> objRef Pointer to this object.
+ * <span class="attrib">@param</span> layerId the WMS name for the layer to be removed
+ */</span>
+MapPaneOL.<span class="reserved">prototype</span>.deleteLayer = <span class="reserved">function</span>(objRef, layerId) {
+  <span class="reserved">if</span>(objRef.oLlayers[layerId])objRef.model.map.removeLayer(objRef.oLlayers[layerId]);
+}
+<span class="comment">/**
+ * Removes all layers from the output
+ * <span class="attrib">@param</span> objRef Pointer to this object.
+ * <span class="attrib">@param</span> objRef Pointer to this object.
+ */</span>
+MapPaneOL.<span class="reserved">prototype</span>.deleteAllLayers = <span class="reserved">function</span>(objRef) {
+  <span class="reserved">for</span> (var i in objRef.oLlayers) {
+    var layer = objRef.oLlayers[i];
+    layer.destroy();
+  }
+  objRef.oLlayers = {};
+}
+<span class="comment">
+//#############################################TDO</span>
+<span class="comment">/**
+ * Moves a layer up in the stack of map layers
+ * <span class="attrib">@param</span> objRef Pointer to this object.
+ * <span class="attrib">@param</span> layerId the WMS name for the layer to be removed
+ */</span>
+MapPaneOL.<span class="reserved">prototype</span>.moveLayerUp = <span class="reserved">function</span>(objRef, layerId) {
+  var map=objRef.model.map;
+  map.raiseLayer(map.getLayer(objRef.oLlayers[layerId].id), 1);
+}
+
+<span class="comment">/**
+ * Moves a layer up in the stack of map layers
+ * <span class="attrib">@param</span> objRef Pointer to this object.
+ * <span class="attrib">@param</span> layerId the WMS name for the layer to be removed
+ */</span>
+MapPaneOL.<span class="reserved">prototype</span>.moveLayerDown = <span class="reserved">function</span>(objRef, layerId) {
+  objRef.model.map.raiseLayer(objRef.getLayer(objRef,layerId), -1);
+}
+<span class="comment">//###############################################</span>
+<span class="comment">/**
+   * Called when the context's opacity attribute changes.
+/**
+   * Called when the context's opacity attribute changes.
+   * <span class="attrib">@param</span> objRef This object.
+   * <span class="attrib">@param</span> layerId  The id of the layer that was toggled.
+   */</span>
+MapPaneOL.<span class="reserved">prototype</span>.setOpacity=<span class="reserved">function</span>(objRef, layerId){
+  var _opacity=<span class="literal">"1"</span>;
+  _opacity=objRef.model.getOpacity(layerId);
+  objRef.getLayer(objRef,layerId).setOpacity(_opacity);
+}
+<span class="comment">/**
+ * Adds a layer into the output
+   * <span class="attrib">@param</span> objRef This object.
+   * <span class="attrib">@param</span> layerNode  The node of the layer
+ */</span>
+MapPaneOL.<span class="reserved">prototype</span>.addLayer = <span class="reserved">function</span>(objRef, layerNode) {
+<span class="comment">  // OpenLayers doesn't contain information about projection, so if the</span>
+<span class="comment">  // baseLayer projection is not standard lat/long, it needs to know</span>
+<span class="comment">  // maxExtent and maxResolution to calculate the zoomLevels.</span>
+  var layer = layerNode;
+<span class="comment">
+  // Test service of the layer</span>
+  var service=layer.selectSingleNode(<span class="literal">"wmc:Server/@service"</span>);service=(service)?service.nodeValue:<span class="literal">""</span>;
+<span class="comment">
+  // Test title of the layer</span>
+  var title=Mapbuilder.getProperty(layer, <span class="literal">"wmc:Title"</span>, <span class="literal">""</span>);
+<span class="comment">
+  // Get the name of the layer</span>
+  layerName = Mapbuilder.getProperty(layer, <span class="literal">"wmc:Name"</span>, <span class="literal">""</span>);
+<span class="comment">
+  // Get the layerId. Fallback to layerName if non-existent</span>
+  var layerId;
+  <span class="reserved">if</span> (layer.selectSingleNode(<span class="literal">"@id"</span>) &amp;&amp; layer.selectSingleNode(<span class="literal">"@id"</span>).nodeValue) {
+    layerId = layer.selectSingleNode(<span class="literal">"@id"</span>).nodeValue;
+  } <span class="reserved">else</span> {
+    layerId = layerName;
+  }
+
+  <span class="reserved">if</span> (objRef.context==<span class="literal">"OWS"</span>){
+    var href=Mapbuilder.getProperty(layer, <span class="literal">"wmc:Server/wmc:OnlineResource/@xlink:href"</span>, <span class="literal">""</span>);
+  }
+  <span class="reserved">else</span> {
+     <span class="reserved">if</span>(_SARISSA_IS_SAFARI){
+     var nodehref=layer.selectSingleNode(<span class="literal">"wmc:Server/wmc:OnlineResource"</span>);
+     var href=nodehref.attributes[1].nodeValue;
+     }
+   <span class="reserved">else</span>{
+     <span class="reserved">if</span>(_SARISSA_IS_OPERA){
+       var href=layer.selectSingleNode(<span class="literal">"wmc:Server/wmc:OnlineResource"</span>).getAttributeNS (<span class="literal">"http://www.w3.org/1999/xlink"</span>,<span class="literal">"href"</span>);// <span class="reserved">for</span> opera
+     }<span class="reserved">else</span>{
+       var href=layer.selectSingleNode(<span class="literal">"wmc:Server/wmc:OnlineResource"</span>).getAttribute(<span class="literal">"xlink:href"</span>);
+     }
+    }
+  }
+<span class="comment">
+  // Test format of the layer</span>
+  var format=layer.selectSingleNode(<span class="literal">"wmc:FormatList/wmc:Format[@current='1']"</span>);
+  <span class="reserved">if</span> (!format) {
+    format = layer.selectSingleNode(<span class="literal">"wmc:FormatList/wmc:Format"</span>);
+  }
+  format = format ? getNodeValue(format) : <span class="literal">"image/gif"</span>;
+<span class="comment">
+  // Test visibility of the layer</span>
+  var vis=layer.selectSingleNode(<span class="literal">"@hidden"</span>);
+  <span class="reserved">if</span> (vis) {
+    <span class="reserved">if</span>(vis.nodeValue==<span class="literal">"1"</span>)
+      vis=false;
+    <span class="reserved">else</span>
+      vis=true;
+  }
+<span class="comment">  // Test if layer is queryable</span>
+  var query=layer.selectSingleNode(<span class="literal">"@queryable"</span>);
+  <span class="reserved">if</span> (query){
+    <span class="reserved">if</span>(query.nodeValue==<span class="literal">"1"</span>)
+      query=true;
+    <span class="reserved">else</span>
+      query=false;
+  }
+<span class="comment">
+  // Test if opacity is specified</span>
+  var opacity=layer.selectSingleNode(<span class="literal">"@opacity"</span>);
+  <span class="reserved">if</span> (opacity)
+    opacity=opacity.nodeValue;
+  <span class="reserved">else</span>
+    opacity=false;
+<span class="comment">  
+  // Get current style node of the layer</span>
+  var currentStyle = layer.selectSingleNode(<span class="literal">'wmc:StyleList/wmc:Style[@current=1]'</span>);
+<span class="comment">
+  // will be true for IE6, false for later versions of IE</span>
+  objRef.IE6 = false <span class="comment">/*<span class="attrib">@cc_on</span> || <span class="attrib">@_jscript_version</span> &lt; 5.7 @*/</span>;
+<span class="comment">  
+  //default option value for a layer</span>
+  var layerOptions = {
+          visibility: vis,
+          projection: objRef.model.map.baseLayer.projection,
+          queryable: query,
+          maxExtent: objRef.model.map.baseLayer.maxExtent,
+          maxResolution: objRef.model.map.baseLayer.maxResolution,  //<span class="literal">"auto"</span> <span class="reserved">if</span> not defined in the context
+          minResolution: objRef.model.map.baseLayer.minResolution,  //<span class="literal">"auto"</span> <span class="reserved">if</span> not defined in the context
+          alpha: format.indexOf(<span class="literal">"png"</span>) != -1 ? objRef.IE6 : false,         //option <span class="reserved">for</span> png transparency with ie6
+          isBaseLayer: false,
+          displayOutsideMaxExtent: objRef.displayOutsideMaxExtent
+     };
+     
+  switch(service){
+<span class="comment">    // WMS Layer (Untiled)</span>
+    case <span class="literal">"OGC"</span>:
+    case <span class="literal">"WMS"</span>:
+    case <span class="literal">"wms"</span>:
+    case <span class="literal">"OGC:WMS"</span>:
+      <span class="reserved">if</span>(!objRef.model.map.baseLayer){
+        layerOptions.isBaseLayer=true;
+      }
+      <span class="reserved">else</span> {
+<span class="comment">        //TBD what if we have layers with different projections in the context?</span>
+        layerOptions.reproject=objRef.imageReproject;
+        layerOptions.isBaseLayer=false;
+      }
+
+      layerOptions.ratio = objRef.imageBuffer;
+      layerOptions.singleTile = objRef.singleTile;
+      <span class="reserved">if</span> (objRef.singleTile == true) {
+        layerOptions.transitionEffect = objRef.transitionEffect;
+      }
+
+      var params = new Array();
+      params = sld2UrlParam(currentStyle);
+      <span class="reserved">if</span> (objRef.model.timestampList &amp;&amp; objRef.model.timestampList.getAttribute(<span class="literal">"layerId"</span>) == layerId) { 
+        var ts = objRef.model.timestampList.childNodes[0];
+
+        objRef.oLlayers[layerId]= new OpenLayers.Layer.WMS(title,href,{
+            layers: layerName,
+<span class="comment">            // "TRUE" in upper case else the context doc boston.xml</span>
+<span class="comment">            // (i.c. the IONIC WMS/WFS) doesn't work.</span>
+<span class="comment">            // Note that this is in line with the WMS standard (OGC 01-068r2),</span>
+<span class="comment">            // section 6.4.1 Parameter Ordering and Case:</span>
+<span class="comment">            // "Parameter names shall not be case sensitive,</span>
+<span class="comment">            //  but parameter values shall be case sensitive."</span>
+            transparent: format.indexOf(<span class="literal">"jpeg"</span>) == -1 ? <span class="literal">"TRUE"</span> : <span class="literal">"FALSE"</span>,
+            <span class="literal">"TIME"</span>: getNodeValue(ts),	          
+            format: format,
+            sld:params.sld,
+            sld_body:params.sld_body,
+            styles:params.styles
+          },
+          layerOptions
+        );      
+<span class="comment">        // Turn on timestamp listenet</span>
+          <span class="reserved">this</span>.model.addListener(<span class="literal">"timestamp"</span>,<span class="reserved">this</span>.timestampListener,<span class="reserved">this</span>);	      
+      }
+      <span class="reserved">else</span> {
+        objRef.oLlayers[layerId]= new OpenLayers.Layer.WMS(title,href,{
+            layers: layerName,
+<span class="comment">            // "TRUE" in upper case else the context doc boston.xml</span>
+<span class="comment">            // (i.c. the IONIC WMS/WFS) doesn't work.</span>
+<span class="comment">            // Note that this is in line with the WMS standard (OGC 01-068r2),</span>
+<span class="comment">            // section 6.4.1 Parameter Ordering and Case:</span>
+<span class="comment">            // "Parameter names shall not be case sensitive,</span>
+<span class="comment">            //  but parameter values shall be case sensitive."</span>
+            transparent: format.indexOf(<span class="literal">"jpeg"</span>) == -1 ? <span class="literal">"TRUE"</span> : <span class="literal">"FALSE"</span>,
+            format: format,
+            sld:params.sld,
+            sld_body:params.sld_body,
+            styles:params.styles
+          },
+          layerOptions
+        );
+      }
+    break;
+<span class="comment">
+    // WMS-C Layer (Tiled)</span>
+    case <span class="literal">"WMS-C"</span>:
+    case <span class="literal">"OGC:WMS-C"</span>:
+      <span class="reserved">if</span>(!objRef.model.map.baseLayer){
+        layerOptions.isBaseLayer=true;
+      }
+      <span class="reserved">else</span> {
+<span class="comment">        //TBD what if we have layers with different projections in the context?</span>
+        layerOptions.reproject=objRef.imageReproject;
+        layerOptions.isBaseLayer=false;
+      }
+
+      layerOptions.gutter = objRef.tileGutter;
+      layerOptions.buffer = objRef.tileBuffer;
+      layerOptions.tileSize = new OpenLayers.Size(objRef.tileSize, objRef.tileSize);
+      
+      var params = new Array();
+      params = sld2UrlParam(currentStyle);
+      objRef.oLlayers[layerId]= new OpenLayers.Layer.WMS(title,href,{
+          layers: layerName,
+          transparent: format.indexOf(<span class="literal">"jpeg"</span>) == -1 ? <span class="literal">"TRUE"</span> : <span class="literal">"FALSE"</span>,
+          format: format,
+          sld:params.sld,
+          sld_body:params.sld_body,
+          styles:params.styles
+        },
+        layerOptions
+      );
+      objRef.model.map.fractionalZoom = false;
+    break;
+<span class="comment">
+    // WFS Layer</span>
+    case <span class="literal">"WFS"</span>:
+    case <span class="literal">"wfs"</span>:
+    case <span class="literal">"OGC:WFS"</span>:
+      style = sld2OlStyle(currentStyle);
+      <span class="reserved">if</span>(style){
+        layerOptions.styleMap=new OpenLayers.StyleMap(style);
+      }
+      <span class="reserved">else</span>{
+        layerOptions.style=objRef.getWebSafeStyle(objRef, 2*i+1);
+      }
+      layerOptions.featureClass=OpenLayers.Feature.WFS;
+
+      objRef.oLlayers[layerId]= new OpenLayers.Layer.WFS(
+        title,
+        href,{
+          typename: layerId,
+          maxfeatures: 1000},
+          layerOptions
+        );
+    break;
+<span class="comment">
+    // GML Layer</span>
+    case <span class="literal">"gml"</span>:
+    case <span class="literal">"OGC:GML"</span>:
+      style = sld2OlStyle(currentStyle);
+      <span class="reserved">if</span>(style){
+        layerOptions.styleMap=new OpenLayers.StyleMap(style);
+      }
+      <span class="reserved">else</span>{
+        layerOptions.style=objRef.getWebSafeStyle(objRef, 2*i+1);
+      }
+      objRef.oLlayers[layerId] = new OpenLayers.Layer.GML(title,href,layerOptions);
+
+    break;
+<span class="comment">
+     // KML Layer</span>
+    case <span class="literal">"KML"</span>:
+    case <span class="literal">"kml"</span>:
+      objRef.oLlayers[layerId]= new OpenLayers.Layer.GML(
+        title,
+        href,{
+          format: OpenLayers.Format.KML
+          }
+        );
+    break;
+<span class="comment">    
+  // Currently the following layertypes are only supported in a OwsContext doc as a BaseLayer</span>
+<span class="comment">  // for more information see http://docs.codehaus.org/display/MAP/Using+Google-layers</span>
+   <span class="comment">/* case "GMAP":
+    case "Google":
+      //the empty baseLayer has to be destroyed when you want to use google
+      objRef.model.map.baseLayer.destroy();
+      layerOptions.maxExtent=new OpenLayers.Bounds("-20037508", "-20037508", "20037508", "20037508.34");
+       objRef.oLlayers[layerId] = new OpenLayers.Layer.Google( "Google Satellite" , {type: G_HYBRID_MAP, maxZoomLevel:18, sphericalMercator: true }, layerOptions );
+    break;
+
+    case "YMAP":
+    case "Yahoo":
+      // &lt;script src="http://api.maps.yahoo.com/ajaxymap?v=3.0&amp;appid=euzuro-openlayers"&gt;&lt;/script&gt;
+      layerOptions.isBaseLayer=true;
+      objRef.oLlayers[layerId] = new OpenLayers.Layer.Yahoo( "Yahoo");
+    break;
+
+    case "VE":
+    case "Microsoft":
+      //&lt;script src='http://dev.virtualearth.net/mapcontrol/v3/mapcontrol.js'&gt;&lt;/script&gt;
+      layerOptions.isBaseLayer=true;
+      objRef.oLlayers[layerId] = new OpenLayers.Layer.VirtualEarth( "VE",{minZoomLevel: 0, maxZoomLevel: 18,type: VEMapStyle.Hybrid});
+    break;
+
+    case "MultiMap":
+      //&lt;script type="text/javascript" src="http://clients.multimap.com/API/maps/1.1/metacarta_04"&gt;&lt;/script&gt;
+      layerOptions.isBaseLayer=true;
+      objRef.oLlayers[layerId] = new OpenLayers.Layer.MultiMap( "MultiMap");
+    break;*/</span>
+    default:
+      alert(mbGetMessage(<span class="literal">"layerTypeNotSupported"</span>, service));
+  }
+  <span class="reserved">if</span>(opacity &amp;&amp; objRef.oLlayers[layerId]){
+    objRef.oLlayers[layerId].setOpacity(opacity);
+  }
+  
+  objRef.oLlayers[layerId].events.register(<span class="literal">'loadstart'</span>, objRef, objRef.increaseLoadingLayers);
+  objRef.oLlayers[layerId].events.register(<span class="literal">'loadend'</span>, objRef, objRef.decreaseLoadingLayers);
+<span class="comment">  
+  // Here the OL layer gets added to the OL map</span>
+  objRef.model.map.addLayer(objRef.oLlayers[layerId]);
+}
+
+<span class="comment">/**
+ * gets an OpenLayers vector style with web safe colors.
+ * <span class="attrib">@param</span> objRef reference to this object
+ * <span class="attrib">@param</span> colorNumber number of a color from which to generate websafe color
+ * <span class="attrib">@return</span> {OpenLayers.Style} style for OpenLayers vector rendering
+ */</span>
+MapPaneOL.<span class="reserved">prototype</span>.getWebSafeStyle = <span class="reserved">function</span>(objRef, colorNumber) {
+  colors=new Array(<span class="literal">"00"</span>,<span class="literal">"33"</span>,<span class="literal">"66"</span>,<span class="literal">"99"</span>,<span class="literal">"CC"</span>,<span class="literal">"FF"</span>);
+  colorNumber=(colorNumber)?colorNumber:0;
+  colorNumber=(colorNumber&lt;0)?0:colorNumber;
+  colorNumber=(colorNumber&gt;215)?215:colorNumber;
+  i=parseInt(colorNumber/36);
+  j=parseInt((colorNumber-i*36)/6);
+  k=parseInt((colorNumber-i*36-j*6));
+  var color=<span class="literal">"#"</span>+colors[i]+colors[j]+colors[k];
+  var defaultStyle = {
+            fillColor: <span class="literal">"#808080"</span>,
+            fillOpacity: 1,
+            strokeColor: <span class="literal">"#000000"</span>,
+            strokeOpacity: 1,
+            strokeWidth: 1,
+            pointRadius: 6};
+  var style=OpenLayers.Util.extend(defaultStyle,OpenLayers.Feature.Vector.style[<span class="literal">"default"</span>]);
+  style.fillColor = color;
+  style.strokeColor = color;
+  style.map = objRef.model.map;
+  <span class="reserved">return</span> style;
+}
+
+<span class="comment">/**
+   * Called for refreshing one layer.
+   * <span class="attrib">@param</span> objRef This object.
+   * <span class="attrib">@param</span> layerId  The id of the layer that was toggled.
+   */</span>
+MapPaneOL.<span class="reserved">prototype</span>.refreshLayer = <span class="reserved">function</span>(objRef, layerId , newParams){
+  newParams[<span class="literal">'version'</span>] = Math.random(); //necessary <span class="reserved">for</span> see change in certain case
+  objRef.getLayer(objRef,layerId).mergeNewParams(newParams);
+}
+  
+  <span class="comment">/**
+   * Called when the map timestamp is changed so set the layer visiblity.
+   * <span class="attrib">@param</span> objRef This object.
+   * <span class="attrib">@param</span> timestampIndex  The array index for the layer to be displayed. 
+   */</span>
+MapPaneOL.<span class="reserved">prototype</span>.timestampListener=<span class="reserved">function</span>(objRef, timestampIndex){
+  <span class="reserved">if</span> (window.movieLoop.frameIsLoading == true) {
+    <span class="reserved">return</span>;
+  }
+  var layerId = objRef.model.timestampList.getAttribute(<span class="literal">"layerId"</span>);
+  var ts = objRef.model.timestampList.childNodes[timestampIndex];
+
+  <span class="reserved">if</span> (layerId &amp;&amp; ts) {				
+    var curLayer = objRef.oLlayers[layerId]; //TBD: please check <span class="reserved">if</span> <span class="reserved">this</span> still works now we<span class="literal">'ve moved to layerId
+    if (!curLayer.grid) {
+      return;
+    }
+    div = curLayer.grid[0][0].imgDiv;
+    // Perform URL substitution via regexps
+    var oldImageUrl = div.src || div.firstChild.src;
+    var newImageUrl = oldImageUrl.replace(/TIME\=.*?\&amp;/,'</span>TIME=<span class="literal">' + getNodeValue(ts) + '</span>&amp;<span class="literal">');
+    if (oldImageUrl == newImageUrl) {
+      return;
+    }
+
+    function imageLoaded() {
+      window.movieLoop.frameIsLoading = false;
+      if(element.removeEventListener) { // Standard
+        element.removeEventListener("load", imageLoaded, false);
+      } else if(element.detachEvent) { // IE
+        element.detachEvent('</span>onload<span class="literal">', imageLoaded);
+      }
+    }
+
+    window.movieLoop.frameIsLoading = true;
+    var element = div.nodeName.toUpperCase() == "IMG" ? div : div.firstChild;
+    if(element.addEventListener) { // Standard
+      element.addEventListener("load", imageLoaded, false);
+    } else if(element.attachEvent) { // IE
+      element.attachEvent('</span>onload', imageLoaded);
+    }
+    <span class="reserved">if</span> (objRef.IE6) {
+      OpenLayers.Util.modifyAlphaImageDiv(div,
+            null, null, null, newImageUrl);
+    } <span class="reserved">else</span> {
+      element.src = newImageUrl;
+    }
+  }
+      
+}
+</pre>
+	<hr>
+
+
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> <font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top"><em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<font size="-1">
+
+</font>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Sun Apr 27 20:30:54 2008</div>
+</body>
+</html>

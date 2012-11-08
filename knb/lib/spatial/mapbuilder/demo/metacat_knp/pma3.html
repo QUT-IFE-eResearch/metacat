@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+
+<html>
+<head>
+<title>Metacat Spatial Option Demo</title>
+
+
+<link rel="stylesheet" href="../../../../style.css" type="text/css">
+<link rel="stylesheet" href="../../lib/skin/default/html.css" type="text/css">
+<link href="http://nebulous.msi.ucsb.edu:9999/knp/style/skins/knp/map.css" type="text/css" rel="stylesheet">
+<script src="http://nebulous.msi.ucsb.edu:9999/knp/style/common/prototype.js" type="text/JavaScript" language="Javascript"></script>
+<script src="http://nebulous.msi.ucsb.edu:9999/knp/style/common/effects.js" type="text/JavaScript" language="Javascript"></script>
+
+<!--link href="./knb/style/skins/knb/knb.css" type="text/css" rel="stylesheet"-->
+<!--script src="/knb/style/skins/knb/knb.js" type="text/JavaScript" language="Javascript"></script-->
+<script src="./knb/style/common/branding.js" type="text/JavaScript" language="Javascript"></script>
+<script language="JavaScript">
+          function submitform(action,form_ref) {
+            form_ref.action.value=action;
+            form_ref.sessionid.value="";
+            form_ref.qformat.value="knb";
+            form_ref.submit();
+          }
+</script>
+
+<script type="text/javascript">
+      // URL of Mapbuilder configuration file.
+      var mbConfigUrl='kruger_frame_config.xml';
+    </script>
+<script type="text/javascript" src="../../lib/Mapbuilder.js"></script>
+
+<script language="JavaScript">
+	function show_map() {
+		Element.show('mapControlHide')
+		Element.hide('mapControlShow')
+		do_move_anim(-212);
+	}
+
+	function hide_map() {
+		Element.show('mapControlShow')
+		Element.hide('mapControlHide')
+		do_move_anim(212);
+	}
+
+	function do_move_anim(xdelta) {
+		var element = $('mapContainer')
+		var old_right = Element.getStyle(element, 'right')
+		old_right = old_right.substring(0,old_right.indexOf("px"));
+		var new_right = old_right + xdelta;
+		new_right = new_right + "px";
+		//todo:  figure out how to make the right: 220px
+		//alert(new_right);
+
+
+		var newStyle = {
+			top: Element.getStyle(element, 'top'),
+			right: new_right};
+			//left: Element.getStyle(element, 'left')};
+		//alert(newStyle.right);
+
+		//Element.setStyle(element, newStyle)
+
+		new Effect.Move(element, { x: xdelta, y: 0, duration: 0.3, 
+			afterFinishInternal: function(effect) { with(Element) {
+				undoPositioned(effect.element); setStyle(effect.element, newStyle);	}}})
+	}
+
+
+
+
+</script>
+</head>
+<!--
+ <body onload="document.location='../../../wms/GetCapabilities'">
+ -->
+<body onload="mbDoLoad()">
+
+<div id="mapContainer">
+	<div id="mapControl">
+		<div id="mapControlShow"><a href="#" onclick="show_map();return false;">&nbsp;</a></div>
+		<div id="mapControlHide" style="display:none"><a href="#" onclick="hide_map();return false;">&nbsp;</a></div>
+	</div>
+
+<table border="0">
+	<tr>
+    <td rowspan="2" valign="top" />
+		<table border="0">
+			<tr> 
+			</tr>
+			<tr>
+				<td colspan="2" id="mainMapPane" style="background-color: white;" />
+			</tr>
+			<tr align="right">
+
+        <table border="0">
+          <tr>
+            <!--<td align="center" id="mapScaleText"/>
+				    <td colspan="1"></td>
+            <td align="center" id="cursorTrack" />-->
+          </tr>
+      			<tr> <td id="locatorMap" style="display:none"/> </tr>
+      			<tr> <td id="mainButtonBar" />  </tr>
+      			<tr> <td id="legend" valign="top"/> </tr> 
+      			<tr> <td colspan="3" id="featureList" /> </tr>
+        </table>
+			</tr>
+      
+      
+		</table>
+		</td>
+	</tr>
+</table>
+</div>
+
+<div id="debug"></div>
+
+</body>
+</html>

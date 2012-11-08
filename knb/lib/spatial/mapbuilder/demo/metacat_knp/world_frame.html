@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+
+<html>
+<head>
+<title>Metacat Spatial Option Demo</title>
+
+
+<link rel="stylesheet" href="../../../../style.css" type="text/css">
+<link rel="stylesheet" href="../../lib/skin/default/html.css" type="text/css">
+
+<link href="./knb/style/skins/knb/knb.css" type="text/css" rel="stylesheet">
+<script src="./knb/style/skins/knb/knb.js" type="text/JavaScript" language="Javascript"></script>
+<script src="./knb/style/common/branding.js" type="text/JavaScript" language="Javascript"></script><script language="JavaScript">
+          function submitform(action,form_ref) {
+            form_ref.action.value=action;
+            form_ref.sessionid.value="";
+            form_ref.qformat.value="knb";
+            form_ref.submit();
+          }
+</script>
+
+<script type="text/javascript">
+      // URL of Mapbuilder configuration file.
+      var mbConfigUrl='world_frame_config.xml';
+    </script>
+<script type="text/javascript" src="../../lib/Mapbuilder.js"></script>
+</head>
+<!--
+ <body onload="document.location='../../../wms/GetCapabilities'">
+ -->
+<body onload="mbDoLoad()">
+
+<table border="0">
+	<tr>
+    <td rowspan="2" valign="top" />
+		<table border="0">
+			<tr> 
+			</tr>
+			<tr>
+				<td colspan="2" id="mainMapPane" style="background-color: white;" />
+			</tr>
+			<tr align="right">
+
+        <table border="0">
+          <tr>
+            <!-- <td align="center" id="mapScaleText"/>
+				    <td colspan="1"></td>
+            <td align="center" id="cursorTrack" /> -->
+          </tr>
+      			<tr> <td id="locatorMap" style="display:none"/> </tr>
+      			<tr> <td id="mainButtonBar" />  </tr>
+      			<tr> <td id="legend" valign="top"/> </tr> 
+      			<tr> <td colspan="3" id="featureList" /> </tr>
+        </table>
+			</tr>
+      
+      
+		</table>
+		</td>
+	</tr>
+</table>
+
+<div id="debug"></div>
+
+</body>
+</html>

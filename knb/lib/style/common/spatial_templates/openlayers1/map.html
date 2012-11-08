@@ -1,0 +1,100 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <style type="text/css">
+        body { background-color:white; }
+        #map {
+            width: 760px;
+            height: 380px;
+            border: 1px solid #cccccc;
+        }
+    </style>
+    <!-- <script src='http://dev.virtualearth.net/mapcontrol/v3/mapcontrol.js'></script> -->
+
+    <!-- <script src="../../../../spatial/openlayers/lib/OpenLayers.js"></script> -->
+    <script src="http://openlayers.org/api/2.1/OpenLayers.js"></script>
+    <script type="text/javascript">
+        <!--
+function round(number,decplaces) {
+  var multiplier = '1';
+  for (i=0; i < decplaces; i++ ) {
+    multiplier = multiplier + '0';
+  }
+  var rounded = Math.round(number * parseFloat(multiplier)) / parseFloat(multiplier);
+  return rounded;
+
+}
+
+        function init(){
+            var bounds = new OpenLayers.Bounds(-180,-90,180,90);
+            var map = new OpenLayers.Map('map', { 'maxExtent':bounds, 'maxResolution':'auto'});
+            //var map = new OpenLayers.Map('map', { controls: [] });
+
+            var metacat_points = new OpenLayers.Layer.WMS( "Metacat Doc Points",
+                "../../../../wms",
+                {layers: "data_points",
+                 transparent: "true", format: "image/gif"} );
+
+            var metacat_bounds = new OpenLayers.Layer.WMS( "Metacat Doc Bounds",
+                "../../../../wms",
+                {layers: "data_bounds",
+                 transparent: "true", format: "image/gif"} );
+
+            var world_borders = new OpenLayers.Layer.WMS( "World Borders",
+                "../../../../wms",
+                {layers: "world_borders",
+                 format: "image/jpeg"} );
+
+            /* 
+             *   Other possible WMS base layers to include
+             */
+
+            var ol_wms = new OpenLayers.Layer.WMS( "OpenLayers WMS", 
+                "http://labs.metacarta.com/wms/vmap0",
+                {layers: 'basic'} );
+
+            var jpl_wms = new OpenLayers.Layer.WMS( "NASA Landsat Mosaic",
+                "http://wms.jpl.nasa.gov/wms.cgi", 
+                {layers: "modis,global_mosaic"});
+
+            var demis = new OpenLayers.Layer.WMS( "Demis World Map",
+                "http://www2.demis.nl/WMS/wms.asp?wms=WorldMap",
+                {layers: 'Bathymetry,Countries,Topography,Hillshading,Coastlines,Waterbodies,Inundated,Rivers,Streams,Builtup+areas,Railroads,Highways,Roads,Trails,Borders,Cities,Settlements,Airports'} );
+
+            jpl_wms.setVisibility(false);
+            ol_wms.setVisibility(false);
+            demis.setVisibility(false);
+
+
+            map.addLayers([world_borders,jpl_wms, ol_wms, demis, metacat_points, metacat_bounds]);
+            //map.addControl(new OpenLayers.Control.PanZoomBar());
+            //map.addControl(new OpenLayers.Control.MouseToolbar());
+            map.addControl(new OpenLayers.Control.LayerSwitcher());
+            //map.addControl(new OpenLayers.Control.Permalink());
+            //map.addControl(new OpenLayers.Control.Permalink($('permalink')));
+            if (!map.getCenter()) map.zoomToMaxExtent();
+
+map.events.register('click', map, function (e) {
+    var tolerance = new OpenLayers.Pixel(3, 3);
+    var min_px = new OpenLayers.Pixel( e.xy.x - tolerance.x, e.xy.y + tolerance.y);
+    var max_px = new OpenLayers.Pixel( e.xy.x + tolerance.x, e.xy.y - tolerance.y);
+    var mid_px = new OpenLayers.Pixel( e.xy.x , e.xy.y );
+    var min_ll = map.getLonLatFromPixel(min_px);
+    var max_ll = map.getLonLatFromPixel(max_px);
+    var mid_ll = map.getLonLatFromPixel(mid_px);
+    //alert("longitude:&nbsp; " + round(mid_ll.lon,3) + " , latitude:&nbsp; " + round(mid_ll.lat,3) );
+    url = '../../../../metacat?action=spatial_query&xmin='+min_ll.lon+'&ymin='+min_ll.lat+'&xmax='+max_ll.lon+'&ymax='+max_ll.lat+'&skin=default';
+    OpenLayers.ProxyHost = '';
+    newwindow = window.open(url,'queryWin',
+                  'height=600,width=800,status=yes,toolbar=yes,menubar=no,location=yes,resizable=yes,scrollbars=yes');
+
+});
+
+        }
+        // -->
+    </script>
+  </head>
+  <body onload="init()">
+    <!-- <a style="float:right" href="" id="permalink">Permalink</a> -->
+    <div id="map"></div>
+  </body>
+</html>

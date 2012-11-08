@@ -1,0 +1,74 @@
+Custom changes for Institute for Future Environment, Queensland University of Technology
+========================================================================================
+
+Release 1.9.5_IFE_1.1.2
+-----------------------
+
+1. RIF-CS 1.3 feed 
+	* Licence elements, licences abreviations.
+
+Release 1.9.5_IFE_1.1.1
+-----------------------
+
+1. Address issues in RIF-CS 1.3 feed
+   * ABS Field of Research codes implemented as qualified subject:anzsrc-for records
+   * Individual dateModified attribute on each RIF-CS record
+   * More detailed debug and error logging
+2. LDAP principals web service extended to deliver JSONP format, for front end consumption
+3. Australian Supersites skin extended to query IFE DOI registry, to augment EML records
+4. Australian Supersites skin: 
+   * Javascript improvements: Added linkify URIs on abstract field
+   
+Release 1.9.5_IFE_1.1
+---------------------
+
+1. Upgrade OAI-PMH Provider RIF-CS feed to 1.3
+2. Address issues in RIF-CS
+   * Group name made configurable per instance
+   * Party keys made into unique URN
+   * Spatial coordinates provided in 'kmlPolyCoords' format for point data
+   * An 'originatingSource' element is provided for each record, to identify the authoritative source of the record
+   * The default granularity of the identify service consistent with default from date, as YYYY-MM-dd 
+3. Skins for N2O and ASN changed in structure to be consistent with the RELRP repository skin, for ease of maintenance
+4. Data Access Request enhancement implemented for ASN skin, enabling a user to request access of 
+   a protected resource via  a configured dataa manager
+5. Build scripts altered to use Ivy for dependency management and release management
+6. Problem with RELRP skin not working for spacial queries fixed 
+
+Release 1.9.5_IFE_1.0
+---------------------
+
+1.  Add OAI RIF-CS Provider
+    Added files:
+    * Eml2oai_rif.java 
+      in package:edu.ucsb.nceas.metacat.oaipmh.provider.server.crosswalk
+    * xsl file to transform xml to rif-cs
+      [metacat source root]\lib\oaipmh\eml210toRifCs12.xsl
+
+    Modified files:
+    * MetacatCatalog.java  in package: edu.ucsb.nceas.metacat.oaipmh.provider.server.catalog
+    * OAIHandler.java  in package: edu.ucsb.nceas.metacat.oaipmh.provider.server
+    * metacat.properties
+      added a line: Crosswalks.oai_rif=edu.ucsb.nceas.metacat.oaipmh.provider.server.crosswalk.Eml2oai_rif
+
+2.  Add skins
+    Modified files:
+    * metacat.properties
+      316  skin.names=default,nceas,esa,knb,kepler,lter,ltss,obfs,nrs,sanparks,saeon,first,parc,n2o,asn,mla
+    Added folders: n2o,asn,mla
+
+BUG FIXES
+lib\style\common\common-settings.jsp
+	String LDAP_DOMAIN = ","+PropertyService.getProperty("auth.base");
+
+fixed getDefaultStyleURL() method in SystemUtil.java to point to the right skin folder.
+
+
+How to create a new skin:
+copy the default skin folder and files
+rename the default.xxx files to skinname.xxx : 
+  default.properties
+  default.properties.metadata.xml
+  default.xml
+Modify some entries in skinname.properties file. 
+  

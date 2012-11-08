@@ -1,0 +1,109 @@
+<?config.xml version="1.0" encoding="UTF-8"?>
+<catalog>
+
+
+<!--
+a datastore configuration element serves as a common data source connection
+parameters repository for all featuretypes it holds.
+-->
+<datastores>
+<datastore namespace = "metacat" enabled = "true" id = "Data_Points" >
+<connectionParams>
+<parameter value = "metacat" name = "namespace"  />
+<parameter value = "file:data/metacat_shps/data_points.shp" name = "url"  />
+</connectionParams>
+</datastore>
+
+<datastore namespace = "metacat" enabled = "true" id = "Metacat_test" >
+<connectionParams>
+<parameter value = "metacat" name = "namespace"  />
+<parameter value = "file:data/metacat_shps/metacat_testdata.shp" name = "url"  />
+</connectionParams>
+</datastore>
+
+<datastore namespace = "metacat" enabled = "true" id = "Data_Bounds" >
+<connectionParams>
+<parameter value = "metacat" name = "namespace"  />
+<parameter value = "file:data/metacat_shps/data_bounds.shp" name = "url"  />
+</connectionParams>
+</datastore>
+
+<datastore namespace = "metacat" enabled = "true" id = "countries" >
+<connectionParams>
+<parameter value = "metacat" name = "namespace"  />
+<parameter value = "file:data/shp/world_borders.shp" name = "url"  />
+</connectionParams>
+</datastore>
+
+<datastore namespace = "metacat" enabled = "true" id = "states_shp" >
+<connectionParams>
+<parameter value = "metacat" name = "namespace"  />
+<parameter value = "file:data/shp/states.shp" name = "url"  />
+</connectionParams>
+</datastore>
+
+<datastore namespace = "knp" enabled = "true" id = "kruger_boundary" >
+<connectionParams>
+<parameter value = "knp" name = "namespace"  />
+<parameter value = "file:data/shp/BNDRY_KRUGERNP.shp" name = "url"  />
+</connectionParams>
+</datastore>
+<datastore namespace = "knp" enabled = "true" id = "kruger_soils" >
+<connectionParams>
+<parameter value = "knp" name = "namespace"  />
+<parameter value = "file:data/shp/SOILS_VENTER.shp" name = "url"  />
+</connectionParams>
+</datastore>
+<datastore namespace = "knp" enabled = "true" id = "kruger_roads" >
+<connectionParams>
+<parameter value = "knp" name = "namespace"  />
+<parameter value = "file:data/shp/INFRA_ROADSPUBLIC_VIEW.shp" name = "url"  />
+</connectionParams>
+</datastore>
+<datastore namespace = "knp" enabled = "true" id = "kruger_bizunits" >
+<connectionParams>
+<parameter value = "knp" name = "namespace"  />
+<parameter value = "file:data/shp/BNDRY_BUSINESSUNITS.shp" name = "url"  />
+</connectionParams>
+</datastore>
+<datastore namespace = "sanparks" enabled = "true" id = "SANParks_Boundaries_gcs_wgs84" >
+<connectionParams>
+<parameter value = "sanparks" name = "namespace"  />
+<parameter value = "file:data/shp/sanparks/SANParks_Boundaries_gcs_wgs84.shp" name = "url"  />
+</connectionParams>
+</datastore>
+
+</datastores>
+
+
+<!--
+Defines namespaces to be used by the datastores.
+-->
+<namespaces>
+<namespace uri = "http://knb.ecoinformatics.org/metacat" prefix = "metacat" default = "true"  />
+<namespace uri = "http://dataknp.sanparks.org/knp" prefix = "knp" default = "false"  />
+<namespace uri = "http://www.sanparks.org/" prefix = "sanparks" default = "false"  />
+</namespaces>
+
+
+<!--
+Defines the style ids to be used by the wms.  The files must be
+contained in geoserver/misc/wms/styles.  We're working on finding
+a better place for them, but for now that's where you must put them
+if you want them on the server.
+-->
+<styles>
+<style filename = "NamedPlaces.sld" id = "cite_named_places"  />
+<style filename = "capitals.sld" id = "capitals"  />
+<style filename = "green.sld" id = "green"  />
+<style filename = "data_bounds_style.sld" id = "data_bounds_style"  />
+<style filename = "data_points_style.sld" id = "data_points_style"  />
+<style filename = "simpleRoads.sld" id = "simple_roads"  />
+<style filename = "popshade.sld" id = "population"  />
+<style filename = "Lakes.sld" id = "cite_lakes"  />
+<style filename = "knp_roads.sld" id = "knp_roads"  />
+<style filename = "knp_soils.sld" id = "knp_soils"  />
+<style filename = "default_polygon.sld" id = "defaultPolygon"  />
+<style filename = "SANParks_Boundaries_gcs_wgs84_style.sld" id = "SANParks_Boundaries_gcs_wgs84_style"  />
+</styles>
+</catalog>

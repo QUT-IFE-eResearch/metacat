@@ -1,0 +1,286 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Frameset//EN""http://www.w3.org/TR/REC-html40/frameset.dtd">
+<html>
+<head>
+<title>
+<a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008 Overview
+</title>
+<link rel ="stylesheet" type="text/css" href="stylesheet.css" title="Style">
+<script>
+function asd() {
+	
+		parent.document.title="WidgetBaseXSL.js Overview";
+	
+}
+</script>
+</head>
+<body bgcolor="white" onload="asd();">
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> 	<font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top">
+<em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<center>
+	
+	   <h2>WidgetBaseXSL.js</h2>
+	
+</center>
+
+	
+
+
+<h4>Summary</h4>
+<p>
+	
+		No overview generated for 'WidgetBaseXSL.js'<BR/><BR/>
+	
+</p>
+
+<hr>
+
+
+    <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+    <td colspan=2><font size="+2">
+    
+        <b>Class Summary</b>
+    
+    </font></td>
+    </tr>
+    
+    <tr bgcolor="white" class="TableRowColor">
+    <td width="15%"><b><a href="WidgetBaseXSL.html">WidgetBaseXSL</a></b></td>
+    <td>&nbsp;</td>
+    </tr>
+    
+    </table>
+    <hr/> 
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<!-- ========== END METHOD SUMMARY =========== -->
+
+
+        <pre class="sourceview"><span class="comment">/*
+License: LGPL as per: http://www.gnu.org/copyleft/lesser.html
+$Id: WidgetBaseXSL.js 3892 2008-02-29 18:21:12Z ahocevar $
+*/</span>
+
+mapbuilder.loadScript(baseDir+<span class="literal">"/widget/WidgetBase.js"</span>);
+
+<span class="comment">/**
+ * Base Class for widgets.  Associates a node on the page with a stylesheet and
+ * model.  All widgets must extend this base class.
+ * Defines the default paint() method for all widgets which is where the 
+ * stylesheet is applied to the model XML document.
+ * To override widget.paint(), define it before calling this constructor.
+ * The stylesheet URL defaults to "widget/&lt;widgetName&gt;.xsl" if it is not defined
+ * in config file.  Set a stylesheet property containing an XSL URL in config
+ * to customize the stylesheet used.
+ * All stylesheets will have "modelId" and "widgetId" parameters set when called.
+ *
+ * <span class="attrib">@constructor</span>
+ * <span class="attrib">@base</span> WidgetBase
+ * <span class="attrib">@author</span> Mike Adair 
+ * <span class="attrib">@param</span> widget      Pointer to the widget instance being created
+ * <span class="attrib">@param</span> widgetNode  The widget's XML object node from the configuration document.
+ * <span class="attrib">@param</span> model       The model object that this widget belongs to.
+ */</span>
+<span class="reserved">function</span> WidgetBaseXSL(widgetNode,model) {
+<span class="comment">  // Extend WidgetBase</span>
+  WidgetBase.apply(<span class="reserved">this</span>, new Array(widgetNode, model));
+<span class="comment">
+  // Set this.stylesheet</span>
+<span class="comment">  // Defaults to "widget/&lt;widgetName&gt;.xsl" if not defined in config file.</span>
+  <span class="reserved">if</span> ( !<span class="reserved">this</span>.stylesheet ) {
+    <span class="reserved">this</span>.stylesheet = new XslProcessor(<span class="reserved">this</span>.getProperty(<span class="literal">"mb:stylesheet"</span>, baseDir+<span class="literal">"/widget/"</span>+widgetNode.nodeName+<span class="literal">".xsl"</span>, model.namespace));
+  }
+<span class="comment">
+  // Do we allow to parse HTML nodes?</span>
+  <span class="reserved">this</span>.parseHTMLNodes = Mapbuilder.parseBoolean(<span class="reserved">this</span>.getProperty(<span class="literal">"mb:parseHTMLNodes"</span>, false));
+<span class="comment">
+  // Set widget text values as parameters </span>
+  <span class="reserved">if</span> (config.widgetText) {
+    var textNodeXpath = <span class="literal">"/mb:WidgetText/mb:widgets/mb:"</span> + widgetNode.nodeName;
+    var textParams = config.widgetText.selectNodes(textNodeXpath+<span class="literal">"/*"</span>);
+    <span class="reserved">for</span> (var j=0;j&lt;textParams.length;j++) {
+      <span class="reserved">this</span>.stylesheet.setParameter(textParams[j].nodeName,getNodeValue(textParams[j]));
+    }
+  }
+<span class="comment">
+  // Set stylesheet parameters for all the child nodes from the config file</span>
+  <span class="reserved">for</span> (var j=0;j&lt;widgetNode.childNodes.length;j++) {
+    <span class="reserved">if</span> (widgetNode.childNodes[j].firstChild)
+    {
+      <span class="reserved">this</span>.stylesheet.setParameter(
+        widgetNode.childNodes[j].nodeName, widgetNode.childNodes[j].firstChild.nodeValue);
+    }
+  }
+<span class="comment">
+  //all stylesheets will have these properties available</span>
+  <span class="reserved">this</span>.stylesheet.setParameter(<span class="literal">"modelId"</span>, <span class="reserved">this</span>.model.id );
+  <span class="reserved">this</span>.stylesheet.setParameter(<span class="literal">"modelTitle"</span>, <span class="reserved">this</span>.model.title );
+  <span class="reserved">this</span>.stylesheet.setParameter(<span class="literal">"widgetId"</span>, <span class="reserved">this</span>.id );
+  <span class="reserved">this</span>.stylesheet.setParameter(<span class="literal">"skinDir"</span>, config.skinDir );
+  <span class="reserved">this</span>.stylesheet.setParameter(<span class="literal">"lang"</span>, config.lang );
+
+  <span class="comment">/**
+   * Render the widget.
+   * <span class="attrib">@param</span> objRef Pointer to widget object.
+   */</span>
+  <span class="reserved">this</span>.paint = <span class="reserved">function</span>(objRef, refreshId) {
+<span class="comment">
+    //pass in a widget ID to refresh only that widget</span>
+    <span class="reserved">if</span> (refreshId &amp;&amp; (refreshId!=objRef.id)) <span class="reserved">return</span>;
+
+    <span class="reserved">if</span> (objRef.model.doc &amp;&amp; objRef.getNode()) {
+      objRef.stylesheet.setParameter(<span class="literal">"modelUrl"</span>, objRef.model.url);
+      objRef.stylesheet.setParameter(<span class="literal">"targetModelId"</span>, objRef.targetModel.id );
+<span class="comment">
+      //if (objRef.debug) mbDebugMessage(objRef, "source:"+(new XMLSerializer()).serializeToString(objRef.model.doc));</span>
+      objRef.resultDoc = objRef.model.doc; // resultDoc sometimes modified by prePaint()
+      objRef.model.setParam(<span class="literal">"prePaint"</span>, objRef);
+      objRef.prePaint(objRef);
+<span class="comment">
+      //confirm inputs</span>
+      <span class="reserved">if</span> (objRef.debug) mbDebugMessage(objRef, <span class="literal">"prepaint:"</span>+(new XMLSerializer()).serializeToString(objRef.resultDoc));
+      <span class="reserved">if</span> (objRef.debug) mbDebugMessage(objRef, <span class="literal">"stylesheet:"</span>+(new XMLSerializer()).serializeToString(objRef.stylesheet.xslDom));
+<span class="comment">
+      //set to output to a temporary node</span>
+<span class="comment">      //hack to get by doc parsing problem in IE</span>
+<span class="comment">      //the firstChild of tempNode will be the root element output by the stylesheet</span>
+      var outputNode = document.getElementById( objRef.outputNodeId );
+      var tempNode = document.createElement(<span class="literal">"DIV"</span>);
+<span class="comment">
+      //process the doc with the stylesheet</span>
+      var s = objRef.stylesheet.transformNodeToString(objRef.resultDoc);
+      <span class="reserved">if</span> (config.serializeUrl &amp;&amp; objRef.debug) postLoad(config.serializeUrl, s);
+      <span class="reserved">if</span> (objRef.debug) mbDebugMessage(objRef, <span class="literal">"painting:"</span>+objRef.id+<span class="literal">":"</span>+s);
+      tempNode.innerHTML = objRef.parseHTMLNodes ? Sarissa.unescape(s) : s;
+      <span class="reserved">if</span>( tempNode.firstChild != null ) { //Could be null!
+        tempNode.firstChild.setAttribute(<span class="literal">"id"</span>, objRef.outputNodeId);
+<span class="comment">
+  	    //look for this widgets output and replace if found,</span>
+<span class="comment">  	    //otherwise append it</span>
+  	    <span class="reserved">if</span> (outputNode) {
+  	      objRef.getNode().replaceChild(tempNode.firstChild,outputNode);
+  	    } <span class="reserved">else</span> {
+  	      objRef.getNode().appendChild(tempNode.firstChild);
+  	    }
+      }
+      objRef.postPaint(objRef);
+      objRef.model.setParam(<span class="literal">"postPaint"</span>, objRef);
+    }
+  }
+<span class="comment">  // Call paint when model changes</span>
+  <span class="reserved">this</span>.model.addListener(<span class="literal">"refresh"</span>,<span class="reserved">this</span>.paint, <span class="reserved">this</span>);
+
+}
+</pre>
+	<hr>
+
+
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> <font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top"><em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<font size="-1">
+
+</font>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Sun Apr 27 20:30:54 2008</div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+#!/bin/bash
+#
+# /etc/init.d/tomcat5.5 -- startup script for the Tomcat 5 servlet engine customixed
+# for Metacat
+#
+# Written by Michael Daigle <daigle@nceas.ucsb.edu>.
+#
+
+DESC="Tomcat servlet engine"
+export JAVA_HOME=/usr/lib/jvm/java-1.5.0-sun
+export CATALINA_HOME=/usr/share/tomcat5.5
+
+if [ `id -u` -ne 0 ]; then
+	echo "You need root privileges to run this script"
+	exit 1
+fi
+         
+# Make sure tomcat is started with system locale
+if [ -r /etc/default/locale ]; then
+	. /etc/default/locale
+	export LANG
+fi
+
+function start {
+	if [ -z "$JAVA_HOME" ]; then
+		echo "no JDK found - please set JAVA_HOME"
+		exit 1
+	fi
+
+	if [ ! -d "$CATALINA_HOME/conf" ]; then
+		echo "invalid CATALINA_HOME specified"
+		exit 1
+	fi
+
+	log_daemon_msg "Starting $DESC" 
+	$CATALINA_HOME/bin/startup.sh
+	echo 0
+}  
+
+function stop {
+	echo "Stopping $DESC"
+	$CATALINA_HOME/bin/shutdown.sh
+	echo 0
+}
+	
+case "$1" in
+  start)
+	start
+	;;
+  stop)
+	stop
+	;;
+  restart|force-reload)
+	stop
+	sleep 5
+	start
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+	;;
+esac
+
+exit 0

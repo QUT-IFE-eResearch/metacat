@@ -1,0 +1,45 @@
+<!--         
+       '$RCSfile: eml-attribute.dtd,v $'
+       Copyright: 2000 Regents of the University of California and the
+                  National Center for Ecological Analysis and Synthesis
+     For Details: http://knb.ecoinformatics.org/
+
+        '$Author: cjones $'
+          '$Date: 2001-12-18 04:45:54 $'
+      '$Revision: 1.13 $'
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+-->
+<!ELEMENT eml-attribute (identifier+, attribute+)>
+<!ELEMENT identifier (#PCDATA)>
+<!ATTLIST identifier system CDATA #IMPLIED>
+<!ELEMENT attribute (attributeName, attributeLabel*, attributeDefinition, unit?, dataType?, attributeDomain, missingValueCode*, precision?)>
+<!ELEMENT attributeName (#PCDATA)>
+<!ELEMENT attributeLabel (#PCDATA)>
+<!ELEMENT attributeDefinition (#PCDATA)>
+<!ELEMENT unit (#PCDATA)>
+<!ELEMENT dataType (#PCDATA)>
+<!ELEMENT attributeDomain ((enumeratedDomain | textDomain)+ | numericDomain+)>
+<!ELEMENT missingValueCode (#PCDATA)>
+<!ELEMENT precision (#PCDATA)>
+<!ELEMENT enumeratedDomain (code, definition, source?)>
+<!ELEMENT textDomain (definition, pattern*, source?)>
+<!ELEMENT numericDomain (minimum?, maximum?)>
+<!ELEMENT code (#PCDATA)>
+<!ELEMENT definition (#PCDATA)>
+<!ELEMENT source (#PCDATA)>
+<!ELEMENT pattern (#PCDATA)>
+<!ELEMENT minimum (#PCDATA)>
+<!ELEMENT maximum (#PCDATA)>

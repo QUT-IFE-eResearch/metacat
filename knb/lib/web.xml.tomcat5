@@ -1,0 +1,507 @@
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"
+        "http://java.sun.com/j2ee/dtds/web-app_2_2.dtd">
+
+<web-app>
+
+ <display-name>Metacat</display-name>
+
+    <context-param>
+      <param-name>jones</param-name>
+      <param-value>jones@nceas.ucsb.edu</param-value>
+      <description>
+      </description>
+    </context-param>
+    
+    <context-param>
+      <param-name>propertyClassName</param-name>
+      <param-value>edu.ucsb.nceas.metacat.properties.EnvironmentallyConfigurableProperties</param-value>
+      <description>
+      </description>
+    </context-param>
+    
+    <context-param>
+      <param-name>configFileName</param-name>
+      <param-value>metacat.properties</param-value>
+      <description>The main configuration file for application</description>
+    </context-param>
+    
+      
+  <context-param>
+    <param-name>serviceStratagy</param-name>
+    <!-- Meaning of the different values :
+    	 
+    	 PARTIAL-BUFFER
+    	 - Partially buffers the first xKb to disk. Once that has buffered, the the 
+    	   result is streamed to the user. This will allow for most errors to be caught
+    	   early.
+    	   
+         BUFFER
+         - stores the entire response in memory first, before sending it off to
+           the user (may run out of memory)
+
+         SPEED
+         - outputs directly to the response (and cannot recover in the case of an
+           error)
+
+         FILE
+         - outputs to the local filesystem first, before sending it off to the user
+      -->
+    <param-value>PARTIAL-BUFFER</param-value>
+  </context-param>
+  <context-param>
+	<param-name>PARTIAL_BUFFER_STRATEGY_SIZE</param-name>
+	<param-value>50</param-value>
+  </context-param>
+  
+
+        <!-- pick up all spring application contexts -->
+        <context-param>
+                <param-name>contextConfigLocation</param-name>
+                <param-value>classpath*:/applicationContext.xml</param-value>
+        </context-param>
+
+   
+ <filter>
+    <filter-name>Set Character Encoding</filter-name>
+    <filter-class>org.vfny.geoserver.filters.SetCharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>Set Character Encoding</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+
+
+  <!-- MPTODO testing  leave out for geoserver 1.4 and use a spring/geoserver plugin instead??
+   
+ <filter>
+    <filter-name>WmsFilter</filter-name>
+    <filter-class>edu.ucsb.nceas.metacat.spatial.WmsFilter</filter-class>
+ </filter>
+
+  <filter-mapping>
+    <filter-name>WmsFilter</filter-name>
+    <url-pattern>/metacatwms/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
+  -->
+
+  <!-- Filter for alerting data managers of record update/insertion -->
+  <filter>
+    <filter-name>WriteAlertFilter</filter-name>
+    <filter-class>edu.ucsb.nceas.metacat.WriteAlertFilter</filter-class>
+    <description>Alerts Data Managers of Metacat record writes</description>
+  </filter> 
+
+  <filter-mapping>
+    <filter-name>WriteAlertFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping> 
+  <!-- -->
+
+  
+  <!-- Get Prinicpals servlet, returns LDAP principals as JSON -->
+  <servlet>
+    <servlet-name>getPrincipalsJson</servlet-name>
+    <servlet-class>edu.ucsb.nceas.metacat.GetPrincipalsJsonServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getPrincipalsJson</servlet-name>
+    <url-pattern>/principals</url-pattern>
+  </servlet-mapping>
+       
+  <!-- spring dispatcher servlet, dispatches incoming requests to controllers -->
+  <servlet>
+    <servlet-name>dispatcher</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  </servlet>
+     
+   <!-- Struts config needs to load before all the other servlets... except spring-->
+   <servlet>
+    <servlet-name>action</servlet-name>
+    <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+    <init-param>
+      <param-name>config</param-name>
+      <param-value>/WEB-INF/struts-config.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>debug</param-name>
+      <param-value>2</param-value>
+    </init-param>
+    <init-param>
+      <param-name>detail</param-name>
+      <param-value>2</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet> 
+ 
+  <servlet>
+   <servlet-name>TestWfsPost</servlet-name>
+   <servlet-class>org.vfny.geoserver.wfs.servlets.TestWfsPost</servlet-class>
+  </servlet>
+
+
+
+  <!-- MPTODO testing -->
+  <servlet>
+    <servlet-name>SldFactory</servlet-name>
+    <servlet-class>edu.ucsb.nceas.metacat.spatial.SldFactory</servlet-class>
+  </servlet>
+
+   <!--<servlet>
+      <servlet-name>gwt</servlet-name>
+      <servlet-class>org.kepler.web.service.KeplerServiceServlet</servlet-class>
+      <init-param>
+        <param-name>debug</param-name>
+        <param-value>1</param-value>
+      </init-param>
+      <init-param>
+        <param-name>listings</param-name>
+        <param-value>true</param-value>
+      </init-param>
+      <load-on-startup>2</load-on-startup>
+    </servlet>-->
+
+
+    <servlet>
+      <servlet-name>metacat</servlet-name>
+      <servlet-class>edu.ucsb.nceas.metacat.MetaCatServlet</servlet-class>
+      <init-param>
+        <param-name>debug</param-name>
+        <param-value>1</param-value>
+      </init-param>
+      <init-param>
+        <param-name>listings</param-name>
+        <param-value>true</param-value>
+      </init-param>
+      <load-on-startup>2</load-on-startup>
+    </servlet>
+    
+    <servlet>
+      <servlet-name>MetacatAdmin</servlet-name>
+      <servlet-class>edu.ucsb.nceas.metacat.admin.MetacatAdminServlet</servlet-class>
+      <init-param>
+        <param-name>debug</param-name>
+        <param-value>1</param-value>
+      </init-param>
+      <init-param>
+        <param-name>listings</param-name>
+        <param-value>true</param-value>
+      </init-param>
+      <load-on-startup>3</load-on-startup>
+    </servlet>
+    
+     <servlet>
+      <servlet-name>replication</servlet-name>
+      <servlet-class>edu.ucsb.nceas.metacat.replication.ReplicationServlet</servlet-class>
+      <init-param>
+        <param-name>debug</param-name>
+        <param-value>1</param-value>
+      </init-param>
+      <init-param>
+        <param-name>listings</param-name>
+        <param-value>true</param-value>
+      </init-param>
+      <load-on-startup>3</load-on-startup>
+    </servlet>
+
+    <servlet>
+      <servlet-name>HarvesterRegistrationLogin</servlet-name>
+      <servlet-class>edu.ucsb.nceas.metacat.harvesterClient.HarvesterRegistrationLogin</servlet-class>
+      <init-param>
+        <param-name>debug</param-name>
+        <param-value>1</param-value>
+      </init-param>
+      <init-param>
+        <param-name>listings</param-name>
+        <param-value>true</param-value>
+      </init-param>
+      <load-on-startup>3</load-on-startup>
+    </servlet>
+
+    <servlet>
+      <servlet-name>HarvesterRegistration</servlet-name>
+      <servlet-class>edu.ucsb.nceas.metacat.harvesterClient.HarvesterRegistration</servlet-class>
+      <init-param>
+        <param-name>debug</param-name>
+        <param-value>1</param-value>
+      </init-param>
+      <init-param>
+        <param-name>listings</param-name>
+        <param-value>true</param-value>
+      </init-param>
+      <load-on-startup>3</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>AdvancedSearchServlet</servlet-name>
+        <servlet-class>edu.ucsb.nceas.metacat.advancedsearch.AdvancedSearchServlet</servlet-class>
+        <load-on-startup>3</load-on-startup>
+    </servlet>
+
+    <!--
+    <servlet>
+      <servlet-name>HarvesterServlet</servlet-name>
+      <servlet-class>edu.ucsb.nceas.metacat.harvesterClient.HarvesterServlet</servlet-class>
+      <init-param>
+        <param-name>debug</param-name>
+        <param-value>1</param-value>
+      </init-param>
+      <init-param>
+        <param-name>listings</param-name>
+        <param-value>true</param-value>
+      </init-param>
+      <load-on-startup>3</load-on-startup>
+    </servlet>
+    -->
+    
+    <servlet>
+      <servlet-name>DataProvider</servlet-name>
+      <description>Processes OAI verbs for Metacat OAI-PMH Data Provider (MODP)
+      </description>
+      <servlet-class>edu.ucsb.nceas.metacat.oaipmh.provider.server.OAIHandler</servlet-class>
+      <load-on-startup>4</load-on-startup>
+    </servlet>
+
+<servlet>
+      <servlet-name>AxisServlet</servlet-name>
+      <display-name>Apache-Axis Servlet</display-name>
+      <servlet-class>
+          org.apache.axis.transport.http.AxisServlet
+      </servlet-class>
+      <load-on-startup>3</load-on-startup>
+    </servlet>
+
+  <servlet>
+    <servlet-name>AdminServlet</servlet-name>
+    <display-name>Axis Admin Servlet</display-name>
+    <servlet-class>
+        org.apache.axis.transport.http.AdminServlet
+    </servlet-class>
+    <load-on-startup>100</load-on-startup>
+  </servlet>
+
+  <servlet>
+    <servlet-name>SOAPMonitorService</servlet-name>
+    <display-name>SOAPMonitorService</display-name>
+    <servlet-class>
+        org.apache.axis.monitor.SOAPMonitorService
+    </servlet-class>
+    <init-param>
+      <param-name>SOAPMonitorPort</param-name>
+      <param-value>5001</param-value>
+    </init-param>
+    <load-on-startup>100</load-on-startup>
+  </servlet>
+
+  <!--<servlet-mapping>
+        <servlet-name>gwt</servlet-name>
+        <url-pattern>/gwt</url-pattern>
+    </servlet-mapping>-->
+  
+    <servlet-mapping>
+        <servlet-name>metacat</servlet-name>
+        <url-pattern>/metacat</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>metacat</servlet-name>
+        <url-pattern>/metacat/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>metacat</servlet-name>
+        <url-pattern>/servlet/metacat</url-pattern>
+    </servlet-mapping>
+
+        
+    <servlet-mapping>
+        <servlet-name>MetacatAdmin</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>replication</servlet-name>
+        <url-pattern>replication</url-pattern>
+    </servlet-mapping> 
+   
+    <servlet-mapping>
+        <servlet-name>replication</servlet-name>
+        <url-pattern>/servlet/replication</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>HarvesterRegistrationLogin</servlet-name>
+        <url-pattern>/harvesterRegistrationLogin</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>HarvesterRegistration</servlet-name>
+        <url-pattern>/harvesterRegistration</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>AdvancedSearchServlet</servlet-name>
+        <url-pattern>/advancedSearchServlet</url-pattern>
+    </servlet-mapping>
+     
+    <servlet-mapping>
+    <servlet-name>AxisServlet</servlet-name>
+    <url-pattern>/servlet/AxisServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>AxisServlet</servlet-name>
+    <url-pattern>*.jws</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>AxisServlet</servlet-name>
+    <url-pattern>/services/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>SOAPMonitorService</servlet-name>
+    <url-pattern>/SOAPMonitor</url-pattern>
+  </servlet-mapping>
+
+ <!-- uncomment this if you want the admin servlet -->
+  <servlet-mapping>
+    <servlet-name>AdminServlet</servlet-name>
+    <url-pattern>/servlet/AdminServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>DataProvider</servlet-name>
+    <url-pattern>/dataProvider</url-pattern>
+  </servlet-mapping>
+
+ <!-- MPTODO testing -->
+  <servlet-mapping>
+    <servlet-name>SldFactory</servlet-name>
+    <url-pattern>/sldfactory</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>action</servlet-name>
+    <url-pattern>*.do</url-pattern>
+   </servlet-mapping>
+  <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/wms/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/wfs/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/ows/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+   <servlet-name>TestWfsPost</servlet-name>
+   <url-pattern>/TestWfsPost/*</url-pattern>
+  </servlet-mapping>
+
+      
+    <session-config>
+      <session-timeout>30000</session-timeout>
+    </session-config>
+
+    
+   <!-- currently the W3C havent settled on a media type for WSDL;
+    http://www.w3.org/TR/2003/WD-wsdl12-20030303/#ietf-draft
+    for now we go with the basic 'it's XML' response -->
+  <mime-mapping>
+    <extension>wsdl</extension>
+     <mime-type>text/xml</mime-type>
+  </mime-mapping>
+  
+  <mime-mapping>
+    <extension>xsd</extension>
+    <mime-type>text/xml</mime-type>
+  </mime-mapping>
+  
+  <mime-mapping>
+   <extension>xsl</extension>
+   <mime-type>text/xml</mime-type>
+  </mime-mapping>
+
+		      
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+ 
+ 
+  <taglib>
+     <taglib-uri>http://jakarta.apache.org/taglibs/xtags-1.0</taglib-uri>
+     <taglib-location>/WEB-INF/xtags.tld</taglib-location>
+  </taglib>   
+
+  <taglib>
+    <taglib-uri>/tags/struts-bean</taglib-uri>
+    <taglib-location>/WEB-INF/struts-bean.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>/tags/struts-html</taglib-uri>
+    <taglib-location>/WEB-INF/struts-html.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>/tags/struts-logic</taglib-uri>
+    <taglib-location>/WEB-INF/struts-logic.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>/tags/struts-nested</taglib-uri>
+    <taglib-location>/WEB-INF/struts-nested.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>/tags/struts-tiles</taglib-uri>
+    <taglib-location>/WEB-INF/struts-tiles.tld</taglib-location>
+  </taglib>  
+  
+  <!-- spring taglib -->
+  <taglib>
+        <taglib-uri>/tags/spring</taglib-uri>
+        <taglib-location>/WEB-INF/tld/spring.tld</taglib-location>
+  </taglib>
+
+<!-- 
+  <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+                <location>/WEB-INF/pages/errors/Exception.jsp</location>
+  </error-page>
+  <error-page>
+        <exception-type>javax.servlet.ServletException</exception-type>
+                <location>/WEB-INF/pages/errors/Exception.jsp</location>
+  </error-page>
+  <error-page>
+        <exception-type>org.vfny.geoserver.global.ConfigurationException</exception-type>
+                <location>/WEB-INF/pages/errors/Exception.jsp</location>
+  </error-page>
+-->
+
+<security-constraint>
+	<web-resource-collection>
+		<web-resource-name>PROPERTIES</web-resource-name>
+		<url-pattern>*.properties</url-pattern>
+	</web-resource-collection>
+	<auth-constraint/>
+</security-constraint>
+
+</web-app>

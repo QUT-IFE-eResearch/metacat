@@ -1,0 +1,277 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Frameset//EN""http://www.w3.org/TR/REC-html40/frameset.dtd">
+<html>
+<head>
+<title>
+<a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008 Overview
+</title>
+<link rel ="stylesheet" type="text/css" href="stylesheet.css" title="Style">
+<script>
+function asd() {
+	
+		parent.document.title="GetFeatureInfoWSR.js Overview";
+	
+}
+</script>
+</head>
+<body bgcolor="white" onload="asd();">
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> 	<font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top">
+<em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<center>
+	
+	   <h2>GetFeatureInfoWSR.js</h2>
+	
+</center>
+
+	
+
+
+<h4>Summary</h4>
+<p>
+	
+		No overview generated for 'GetFeatureInfoWSR.js'<BR/><BR/>
+	
+</p>
+
+<hr>
+
+
+    <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+    <td colspan=2><font size="+2">
+    
+        <b>Class Summary</b>
+    
+    </font></td>
+    </tr>
+    
+    <tr bgcolor="white" class="TableRowColor">
+    <td width="15%"><b><a href="GetFeatureInfoWSR.html">GetFeatureInfoWSR</a></b></td>
+    <td>&nbsp;</td>
+    </tr>
+    
+    </table>
+    <hr/> 
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<!-- ========== END METHOD SUMMARY =========== -->
+
+
+        <pre class="sourceview"><span class="comment">/*
+License: LGPL as per: http://www.gnu.org/copyleft/lesser.html
+Dependancies: Context
+$Id: GetFeatureInfoWSR.js 3887 2008-02-27 18:18:53Z ahocevar $
+*/</span>
+<span class="comment">
+// Ensure this object's dependancies are loaded.</span>
+mapbuilder.loadScript(baseDir+<span class="literal">"/widget/ButtonBase.js"</span>);
+<span class="comment">/**
+ * Implements GetFeatureInfo functionality, using the WebServiceRequest
+ * tool. This will work with the WMS:GetFeatureInfo request as well as
+ * with WFS:GetFeature. This widget can be used as an example on how to
+ * write widgets that use the WebServiceRequest functionality.
+ * <span class="attrib">@constructor</span>
+ * <span class="attrib">@base</span> ButtonBase
+ * <span class="attrib">@author</span> adair
+ * <span class="attrib">@constructor</span>
+ * <span class="attrib">@param</span> widgetNode The XML node in the Config file referencing this object.
+ * <span class="attrib">@param</span> model The widget object which this widget is associated with.
+ */</span>
+<span class="reserved">function</span> GetFeatureInfoWSR(widgetNode, model) {
+<span class="comment">  // Extend ButtonBase</span>
+  ButtonBase.apply(<span class="reserved">this</span>, new Array(widgetNode, model));
+  
+  <span class="comment">/** WebServiceRequest controller for this widget */</span>
+  <span class="reserved">this</span>.controller = <span class="reserved">this</span>.getProperty(<span class="literal">"mb:controller"</span>);
+  
+  <span class="comment">/**
+   * tolerance in pixels around the click point for WFS:GetFeature
+   * default is 3
+   */</span>
+  <span class="reserved">this</span>.tolerance = parseFloat(<span class="reserved">this</span>.getProperty(<span class="literal">"mb:tolerance"</span>, 3));
+  
+  <span class="comment">/**
+   * GetFeatureInfoWSR control
+   * <span class="attrib">@param</span> objRef reference to this object.
+   * <span class="attrib">@return</span> {OpenLayers.Control} class of the OL control.
+   */</span>
+  <span class="reserved">this</span>.createControl = <span class="reserved">function</span>(objRef) {
+    var Control = OpenLayers.Class( OpenLayers.Control, {
+      CLASS_NAME: <span class="literal">'mbControl.GetFeatureInfoWSR'</span>,
+      type: OpenLayers.Control.TYPE_TOOL
+    });
+    <span class="reserved">return</span> Control;
+  }
+  
+  <span class="comment">/**
+   * Register click event when button is selected, unregister it when
+   * unselected
+   * <span class="attrib">@param</span> objRef reference to this widget
+   * <span class="attrib">@param</span> selected true if button is selected, false otherwise
+   */</span>
+  <span class="reserved">this</span>.doSelect = <span class="reserved">function</span>(objRef, selected) {
+    <span class="reserved">if</span> (selected) {
+      objRef.targetModel.map.events.register(<span class="literal">'click'</span>, objRef, objRef.doOnClick);  
+    } <span class="reserved">else</span> {
+      objRef.targetModel.map.events.unregister(<span class="literal">'click'</span>, objRef, objRef.doOnClick);  
+    }
+  }
+  
+  <span class="comment">/**
+   * For GetFeatureInfo, we want to check for queryable layers and only use
+   * those.
+   * <span class="attrib">@param</span> e OpenLayers click event
+   */</span>
+  <span class="reserved">this</span>.doOnClick = <span class="reserved">function</span>(e) {
+    objRef = <span class="reserved">this</span>;
+    <span class="reserved">if</span> (!objRef.enabled) <span class="reserved">return</span>;
+    var controller = config.objects[objRef.controller];
+    var layerNameList = new Array();
+    var selectedLayer=objRef.targetModel.getParam(<span class="literal">"selectedLayer"</span>);
+    var queryList;
+    <span class="reserved">if</span> (!selectedLayer) {
+      queryList = objRef.targetModel.getQueryableLayers();
+      <span class="reserved">if</span> (queryList.length==0) {
+         alert(mbGetMessage(<span class="literal">"noQueryableLayers"</span>));
+         <span class="reserved">return</span>;
+      }
+    } <span class="reserved">else</span> {
+      queryList = [objRef.targetModel.getLayer(selectedLayer)];
+    }
+    
+    var llPx = e.xy.add(-objRef.tolerance, objRef.tolerance);
+    var urPx = e.xy.add(objRef.tolerance, -objRef.tolerance);
+    
+    var ll = objRef.targetModel.map.getLonLatFromPixel(llPx);
+    var ur = objRef.targetModel.map.getLonLatFromPixel(urPx);
+    
+    <span class="reserved">for</span> (var i=0; i&lt;queryList.length; ++i) {
+      var layerNode = queryList[i];
+<span class="comment">
+      // Get the name of the layer</span>
+      var layerName = Mapbuilder.getProperty(layerNode, <span class="literal">"wmc:Name"</span>, <span class="literal">""</span>);
+
+      var hidden = objRef.targetModel.getHidden(layerName);
+      <span class="reserved">if</span> (hidden == 0) { //query only visible layers
+        controller.requestStylesheet.setParameter(<span class="literal">"bBoxMinX"</span>, ll.lon);
+        controller.requestStylesheet.setParameter(<span class="literal">"bBoxMinY"</span>, ll.lat);
+        controller.requestStylesheet.setParameter(<span class="literal">"bBoxMaxX"</span>, ur.lon);
+        controller.requestStylesheet.setParameter(<span class="literal">"bBoxMaxY"</span>, ur.lat);
+        controller.requestStylesheet.setParameter(<span class="literal">"queryLayer"</span>, layerName);
+        objRef.targetModel.setParam(controller.requestName.replace(/:/,<span class="literal">"_"</span>), layerName);
+      }
+    }
+  }
+}
+</pre>
+	<hr>
+
+
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> <font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top"><em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<font size="-1">
+
+</font>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Sun Apr 27 20:30:54 2008</div>
+</body>
+</html>

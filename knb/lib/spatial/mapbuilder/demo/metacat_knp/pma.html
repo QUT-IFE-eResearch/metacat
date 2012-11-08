@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+
+<html>
+<head>
+<title>Metacat Spatial Option Demo</title>
+
+<link rel="stylesheet" href="../../../../style.css" type="text/css"/>
+<link rel="stylesheet" href="../../lib/skin/default/html.css" type="text/css"/>
+
+<link href="./knp/style/skins/knp/knp.css" type="text/css" rel="stylesheet"/>
+<script src="./knp/style/skins/knp/knp.js" type="text/JavaScript" language="Javascript"></script>
+
+<link href="http://dataknp.sanparks.org/knp/style/skins/knp/map.css" type="text/css" rel="stylesheet"/>
+
+<script src="http://dataknp.sanparks.org/knp/style/common/prototype.js" type="text/JavaScript" language="Javascript"></script>
+<script src="http://dataknp.sanparks.org/knp/style/common/effects.js" type="text/JavaScript" language="Javascript"></script>
+
+<script language="JavaScript">
+          function submitform(action,form_ref) {
+            form_ref.action.value=action;
+            form_ref.sessionid.value="";
+            form_ref.qformat.value="knp";
+            form_ref.submit();
+          }
+</script>
+
+<script type="text/javascript">
+  var mbConfigUrl="africa_frame_config.xml";
+</script>
+<script type="text/javascript" src="../../lib/Mapbuilder.js"></script>
+
+
+<script language="JavaScript">
+function show_map() {
+	Element.show('mapControlHide')
+	Element.hide('mapControlShow')
+
+	// reset the map position in the iframe
+	$("mapContainer").setAttribute("style", "right:-212px;");
+
+	// expand the iframe
+	var frm = top.getMapFrame();
+	frm.setAttribute("style", "width:295px;right:0;");
+
+	var element = $('mapContainer')
+	new Effect.Move(element, { x: -212, y: 0, duration: 0.2})
+
+	//setTimeout('$("mapContainer").setAttribute("style", "position:absolute;left:0;")', 300);
+
+	//alert('moved');
+	//do_move_anim(-260);
+}
+
+/*
+ * Don't animate.  Just shrink the outer frame and make left:0.
+ */
+function hide_map() {
+	Element.show('mapControlShow')
+	Element.hide('mapControlHide')
+	var element = $('mapContainer')
+	//new Effect.Move(element, { x: 260, y: 0, duration: 0.1})
+	$("mapContainer").setAttribute("style", "left:0px;");
+
+
+
+	//alert('moved');
+	//setTimeout('getElementsByClassName(top.document, "iframe", "iframeMap")[0].setAttribute("style", "width:35px;right:0;")', 200);
+
+	// shrink the iframe
+	var frm = top.getMapFrame();
+	frm.setAttribute("style", "width:35px;right:-3px;");
+
+
+	//alert('closed');
+	//alert('now');
+	//setTimeout('$("mapContainer").setAttribute("style", "left:0;")', 400);
+	//$("mapContainer").setAttribute("style", "right:-212px;");
+	//alert($("mapContainer").getAttribute("style"));
+	//alert('adjusted');
+
+	//do_move_anim(260);
+}
+
+
+//
+// animate the drawer
+//
+function do_move_anim(xdelta) {
+
+	var element = $('mapContainer')
+	var old_right = Element.getStyle(element, 'right')
+	//alert("right:" + old_right);
+	old_right = old_right.substring(0,old_right.indexOf("px"));
+	var new_right = old_right + xdelta;
+	new_right = new_right + "px";
+	new_right = "0px";
+	var new_left;
+
+	if (xdelta > 0) {
+		// hide
+		new_left = "0px";
+		new_right = "0px";
+	} else {
+		// show
+		new_left = "0px";
+		new_right = "0px";
+	}
+
+	var newStyle = {
+		left: new_left,
+		right: new_right};
+	Element.setStyle(element, newStyle);
+		
+
+	//alert(xdelta + ": " + Element.getStyle(element, 'left') + "=l R=" + Element.getStyle(element, 'right'));
+/*
+*/
+	//new Effect.Move(element, { x: xdelta, y: 0, duration: 0.3})
+
+	/*
+	new Effect.Move(element, { x: xdelta, y: 0, duration: 0.3, 
+		afterFinishInternal: function(effect) { with(Element) {
+			undoPositioned(effect.element); setStyle(effect.element, newStyle);	}}})
+	new Effect.Move(element, { x: xdelta, y: 0, duration: 0.3, 
+		afterFinishInternal: function(effect) { with(Element) {
+			setStyle(effect.element, newStyle);	}}})
+			*/
+
+	//Element.setStyle(element, newStyle);
+
+
+
+	//alert(Element.getStyle(element, 'left') + "=l R=" + Element.getStyle(element, 'right'));
+}
+
+function getElementsByClassName(oElm, strTagName, strClassName){
+    var arrElements = (strTagName == "*" && document.all)? document.all : oElm.getElementsByTagName(strTagName);
+    var arrReturnElements = new Array();
+    strClassName = strClassName.replace(/\-/g, "\\-");
+    var oRegExp = new RegExp("(^|\\s)" + strClassName + "(\\s|$)");
+    var oElement;
+    for(var i=0; i<arrElements.length; i++){
+        oElement = arrElements[i];      
+        if(oRegExp.test(oElement.className)){
+            arrReturnElements.push(oElement);
+        }   
+    }
+    return (arrReturnElements)
+}
+
+
+
+</script>
+</head>
+<!--
+ <body onload="document.location='../../../wms/GetCapabilities'">
+ -->
+<body onload="mbDoLoad()">
+
+<div id="mapContainer">
+
+<table border="0" cellpadding="0" cellspacing="0">
+	<tr>
+    <td style="border-width:0;">
+		<div id="mapControl">
+			<div id="mapControlShow" style="display:none"><a href="#" onclick="show_map();return false;">&nbsp;</a></div>
+			<div id="mapControlHide"><a href="#" onclick="hide_map();return false;">&nbsp;</a></div>
+		</div>
+    </td>
+    <td valign="top">
+		<table border="0" style="border: 1px solid #525d76;">
+			<tr>
+				<td colspan="2" id="mainMapPane" style="background-color: white;" />
+			</tr>
+			<tr align="left">
+				<td>
+
+				<table border="0">
+				  <tr>
+					<!--<td align="center" id="mapScaleText"/>
+							<td colspan="1"></td>
+					<td align="center" id="cursorTrack" />-->
+				  </tr>
+						<tr> <td id="locatorMap" style="display:none"/> </tr>
+						<tr> <td id="mainButtonBar" />  </tr>
+						<tr> <td id="legend" valign="top"/> </tr> 
+						<tr> <td colspan="3" id="featureList" /> </tr>
+				</table>
+
+				</td>
+			</tr>
+      
+		</table>
+		</td>
+	</tr>
+</table>
+</div>
+
+<div id="debug"></div>
+
+</body>
+</html>

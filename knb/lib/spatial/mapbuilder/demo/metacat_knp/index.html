@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+
+<html>
+<head>
+<title>Metacat Spatial Option Demo</title>
+
+
+<link rel="stylesheet" href="../../../../style.css" type="text/css">
+<link rel="stylesheet" href="../../lib/skin/default/html.css" type="text/css">
+
+<link href="./knb/style/skins/knb/knb.css" type="text/css" rel="stylesheet">
+<script src="./knb/style/skins/knb/knb.js" type="text/JavaScript" language="Javascript"></script>
+<script src="./knb/style/common/branding.js" type="text/JavaScript" language="Javascript"></script><script language="JavaScript">
+          function submitform(action,form_ref) {
+            form_ref.action.value=action;
+            form_ref.sessionid.value="";
+            form_ref.qformat.value="knb";
+            form_ref.submit();
+          }
+</script>
+
+<script type="text/javascript">
+      // URL of Mapbuilder configuration file.
+      var mbConfigUrl='config.xml';
+    </script>
+<script type="text/javascript" src="../../lib/Mapbuilder.js"></script>
+</head>
+
+<!--
+ <body onload="document.location='../../../wms/GetCapabilities'">
+ -->
+<body onload="mbDoLoad()">
+<!-- Layout mapbuilder widgets and HTML -->
+<h1>Metacat Spatial Option Demo </h1>
+
+<table width="100" border="0">
+	<tr>
+		<td  valign="top">
+    <table border="0">
+      <tr> <td id="locatorMap"/> </tr>
+      <tr> <td id="mainButtonBar" />  </tr>
+      <tr> <td id="legend" valign="top"/> </tr> 
+      <tr> <td colspan="3" id="featureList" /> </tr>
+      <tr><td> 
+      <br>
+      <br>
+      Upload a Spatial EML Document:
+
+
+      <form action="http://sulphur.homelinux.com:7000/cgs/metacat_spatialresolver.jsp" enctype="multipart/form-data" method="post">
+      <input name="file" type="file">
+      <input type="submit" value="upload EML"> 
+      </form>
+      <br>
+      * A Spatial EML Document describes and includes a spatial dataset (eg, a .shp or .dxf file). The 
+      EML must reference the spatial dataset as a file(s).  The spatial data file(s) and the EML that references it must be combined in 
+      a standard Zip file for uploading.
+      </td></tr>
+    </table>
+		</td>
+    <td rowspan="2" valign="top" />
+		<table border="0">
+			<tr> <!--
+				<td align="left" id="mainButtonBar" />
+				<td align="right" id="cursorTrack" />
+			--> </tr>
+			<tr>
+				<td colspan="2" id="mainMapPane" style="background-color: white;" />
+			</tr>
+			<tr align="right">
+
+        <table border="0" width="600">
+          <tr>
+            <td align="center" id="mapScaleText"/>
+				    <td colspan="1"></td>
+            <td align="center" id="cursorTrack" />
+          </tr>
+        </table>
+        <!-- description and use documentation -->
+        <table width="600">
+          <tr><td> This is a demonstration of the Metacat Spatial Option (MSO) 
+          that shows the ability to select Ecological Markup Language (EML) 
+          documents stored in the Metacat server: (metacat.nceas.ucsb.edu).  
+          Additionally, the user may choose to select places in the USA - for 
+          a qualitative sense of where (spatially) the EML documents exist. 
+          <br><br>
+          1] to select the EML Document: zoom in, press the blue info 'i' button and point to a red dot.
+          <br><br>
+          2] to select a known place: zoom in, press the blue info 'i' button, press the 'circled i' (next to the USA known places layer selector) and then point to a black dot.
+          <br><br><p>
+          * Make sure to position the mouse directly over the feature while selecting it.
+          <br>
+          * Any of these features can be made selectable by a simple configuration change see: <a href="available_layers.html">selectable layers</a> 
+          <br>
+          * EML documents are represented as red dots -- the center of the dot is the geometric center of that EML data package. (a dataset comprising a global 
+          study will lie at the intersection of the equator and the prime meridian).
+          
+          </td> </tr> </table>
+        
+			</tr>
+      
+      
+		</table>
+		</td>
+	</tr>
+</table>
+
+
+</body>
+</html>

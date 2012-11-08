@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+
+<html>
+<head>
+<title>Metacat Spatial Option Demo</title>
+
+<link rel="stylesheet" href="./html.css" type="text/css"/>
+
+<link href="../sanparks.css" type="text/css" rel="stylesheet"/>
+<script src="../sanparks.js" type="text/JavaScript" language="Javascript"></script>
+
+<link href="./map.css" type="text/css" rel="stylesheet"/>
+
+<script src="../../../common/prototype.js" type="text/JavaScript" language="Javascript"></script>
+<script src="../../../common/effects.js" type="text/JavaScript" language="Javascript"></script>
+
+<script language="JavaScript">
+          function submitform(action,form_ref) {
+            form_ref.action.value=action;
+            form_ref.sessionid.value="";
+            form_ref.qformat.value="sanparks";
+            form_ref.submit();
+          }
+</script>
+
+<script type="text/javascript">
+  var mbConfigUrl="africa_frame_config.xml";
+</script>
+<script type="text/javascript" src="../../../../spatial/mapbuilder/lib/Mapbuilder.js"></script>
+
+
+<script language="JavaScript">
+
+function getElementsByClassName(oElm, strTagName, strClassName){
+    var arrElements = (strTagName == "*" && document.all)? document.all : oElm.getElementsByTagName(strTagName);
+    var arrReturnElements = new Array();
+    strClassName = strClassName.replace(/\-/g, "\\-");
+    var oRegExp = new RegExp("(^|\\s)" + strClassName + "(\\s|$)");
+    var oElement;
+    for(var i=0; i<arrElements.length; i++){
+        oElement = arrElements[i];      
+        if(oRegExp.test(oElement.className)){
+            arrReturnElements.push(oElement);
+        }   
+    }
+    return (arrReturnElements)    
+}
+
+</script>
+
+</head>
+<!--
+ <body onload="document.location='/wms/GetCapabilities'">
+ -->
+<body onload="mbDoLoad()" style="background: #FFFFFF;">
+
+<div id="mapContainer">
+
+<table border="0" cellpadding="0" cellspacing="0" style="background: #FFFFFF;">
+	<tr>
+	    <td valign="top">
+			<table border="0" style="border: 1px solid #525d76;">
+			
+				<tr valign="top">
+					
+					<td>
+						<div id="mainMapPane" style="background-color:white;" />
+						<div id="loading">
+							<p> Loading Map
+							<img src="../../../../spatial/mapbuilder/lib/skin/default/images/Loading.gif"/>
+							</p>
+						</div>
+					</td>
+					
+					<td>
+						 
+						<table border="0">
+							<tr>
+								<td id="locatorMap" style="display:none"/>
+							</tr>
+							<tr>
+								<td id="mainButtonBar" />
+							</tr>
+							<tr>
+								<td id="cursorTrack" />
+							</tr>
+							<tr>
+								<td id="legend" valign="top"/>
+							</tr> 
+							<tr>
+								<td id="featureList" />
+							</tr>
+						</table>
+					</td>
+					
+				</tr>
+				
+				<tr>
+					<td colspan="2" align="center" id="locationsSelect" />
+				</tr>
+				
+			</table>
+		</td>
+	</tr>
+</table>
+</div>
+
+<div id="debug"></div>
+
+</body>
+</html>

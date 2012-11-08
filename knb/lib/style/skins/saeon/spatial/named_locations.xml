@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- $Id: named_locations.xml 3640 2007-12-07 03:44:02Z leinfelder $ -->
+<QuickviewPresetResultSet version="1.0.0"  xmlns="http://mapbuilder.sourceforge.net/mapbuilder" xmlns:gml="http://www.opengis.net/gml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://mapbuilder.sourceforge.net/mapbuilder ../../../lib/schemas/locations.xsd">
+        <gml:description>This is the CMB preset zoom document</gml:description>
+        <gml:name>CMB:QuickViewPreset</gml:name>
+        <gml:boundedBy>
+                <gml:Null>missing</gml:Null>
+        </gml:boundedBy>
+
+        <gml:featureMember>
+                <locationDef>
+                        <gml:name> Select a Location</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>16.5,-35 32.5,-22</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                                <!-- <BoundingBox SRS="EPSG:4326" miny = "-35" maxy = "-22" maxx = "32.5" minx = "16.5"  />-->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>
+
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Addo Elephant National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>24.96,-33.77 26.66,-33.07</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>
+
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>AENP - Kuzuko Contractual Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>25.32,-33.25 25.54,-33.13</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>           
+
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>AENP - Langevlakte Contractual Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>26.31,-33.75 26.36,-33.71</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>      
+
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>AENP - Riverbend Contractual Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>25.72,-33.45 25.77,-33.41</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>        
+
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Agulhas National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>19.65,-34.83 20.02,-34.68</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>                    
+
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Augrabies Falls National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>19.88,-28.62 20.4,-28.41</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>            
+
+<!-- 
+BNP Bounbdary Position Uncertain         	20.42	-34.06	20.43	-34.06
+ -->
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Bontebok National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>20.41,-34.09 20.52,-34.04</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Camdeboo National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>24.47,-32.33 24.68,-32.17</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>                   
+
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Forestry Exit Areas (SAFCOL), South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>22.6,-33.96 23.19,-33.83</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>             
+
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Garden Route National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>22.53,-34.11 24.2,-33.81</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>               
+ 
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Garden Route National Park (Contractual), South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>23.23,-34 23.7,-33.79</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>
+
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Golden Gate Highlands National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>28.52,-28.61 28.81,-28.4</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>      
+  
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Groenkloof National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>28.2,-25.81 28.23,-25.79</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>               
+   
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Karoo National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>21.99,-32.41 22.58,-32.12</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>                   
+
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Kgalagadi Transfrontier Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>20,-26.48 22.16,-24.11</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>
+
+        <gml:featureMember>
+                <locationDef>
+                        <gml:name>Knysna National Lake Area, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>22.53,-34.11 24.2,-33.81</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>
+         
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Kruger National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>31,-26 32,-22</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>                     
+
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Mapungubwe National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>29.17,-22.31 29.53,-22.17</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>                 
+
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Marakele National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>27.4,-24.6 27.8,-24.2</gml:coordinates>
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>
+        	                   
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Marakele Parks Limited, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>27.49,-24.37 27.72,-24.23</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>                  
+
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Mokala National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>24.2,-29.25 24.5,-28.95</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>
+        
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Mountain Zebra National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>25.09,-32.32 25.53,-32.09</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>             
+       
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Namaqua National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>17.32,-30.5 17.82,-29.9</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>   
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Table Mountain National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>18.31,-34.36 18.5,-33.91</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>         
+   
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Tankwa Contractual, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>20.1,-32.28 20.23,-32.14</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>                    
+                    
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Tankwa Karoo National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>19.66,-32.38 20.22,-32.08</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>      
+
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Tsitsikamma National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>22.53,-34.11 24.2,-33.81</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>          
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Vaalbos National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>24.2,-28.72 24.48,-28.45</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>          
+                 
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>West Coast National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>17.92,-33.34 18.26,-33.04</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Wilderness National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>22.53,-34.11 24.2,-33.81</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>
+		<gml:featureMember>
+                <locationDef>
+                        <gml:name>Ai-|Ais/Richtersveld Transfrontier National Park, South Africa</gml:name>
+                        <spatialKeyword>
+                                <gml:location>
+                                        <gml:Envelope srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                                                <gml:coordinates>16.88,-28.52 17.41,-28.03</gml:coordinates>
+                                                <!-- <gml:coordinates>LL:lon,lat UR:lon,lat</gml:coordinates> -->
+                                        </gml:Envelope>
+                                </gml:location>
+                        </spatialKeyword>
+                </locationDef>
+        </gml:featureMember>
+                
+
+</QuickviewPresetResultSet>

@@ -1,0 +1,455 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Frameset//EN""http://www.w3.org/TR/REC-html40/frameset.dtd">
+<html>
+<head>
+<title>
+<a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008 Overview
+</title>
+<link rel ="stylesheet" type="text/css" href="stylesheet.css" title="Style">
+<script>
+function asd() {
+	
+		parent.document.title="FeatureSelectHandler.js Overview";
+	
+}
+</script>
+</head>
+<body bgcolor="white" onload="asd();">
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> 	<font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top">
+<em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<center>
+	
+	   <h2>FeatureSelectHandler.js</h2>
+	
+</center>
+
+	
+
+
+<h4>Summary</h4>
+<p>
+	
+		No overview generated for 'FeatureSelectHandler.js'<BR/><BR/>
+	
+</p>
+
+<hr>
+
+
+    <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+    <td colspan=2><font size="+2">
+    
+        <b>Class Summary</b>
+    
+    </font></td>
+    </tr>
+    
+    <tr bgcolor="white" class="TableRowColor">
+    <td width="15%"><b><a href="FeatureSelectHandler.html">FeatureSelectHandler</a></b></td>
+    <td>&nbsp;</td>
+    </tr>
+    
+    </table>
+    <hr/> 
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<!-- ========== END METHOD SUMMARY =========== -->
+
+
+        <pre class="sourceview"><span class="comment">/*
+License: LGPL as per: http://www.gnu.org/copyleft/lesser.html
+$Id: FeatureSelectHandler.js 3842 2008-02-13 17:22:04Z ahocevar $
+*/</span>
+<span class="comment">
+// Ensure this object's dependancies are loaded.</span>
+mapbuilder.loadScript(baseDir+<span class="literal">"/tool/ToolBase.js"</span>);
+mapbuilder.loadScript(baseDir+<span class="literal">"/util/openlayers/OpenLayers.js"</span>);
+
+<span class="comment">/**
+ * Manages mouseover and clicks on vector features in the map.
+ * This tool works with models that are linked to a OL vector layer,
+ * using eg. the GmlRendererOL widget. Models have to fire the
+ * 'gmlRendererLayer' event, which will activate the tool for the
+ * layer.
+ * This tool also fires "mouseoverFeature" and "mouseoutFeature"
+ * events, setting the fid of the feature below the mouse cursor
+ * as param of the model.
+ * <span class="attrib">@constructor</span>
+ * <span class="attrib">@base</span> ToolBase
+ * <span class="attrib">@author</span> Andreas Hocevar andreas.hocevarATgmail.com
+ * <span class="attrib">@param</span> toolNode The tool node from the config XML file.
+ * <span class="attrib">@param</span> model The model containing this tool.
+ */</span>
+<span class="reserved">function</span> FeatureSelectHandler(toolNode, model) {
+  ToolBase.apply(<span class="reserved">this</span>, new Array(toolNode, model));
+   
+  <span class="comment">/**
+   * Map for this FeatureSelectHandler. We keep a reference
+   * to the map we created the control for, to prevent ourselves
+   * from removing the control from a map that does not exist
+   * anymore.
+   */</span>
+  <span class="reserved">this</span>.map = null;
+  
+  <span class="reserved">this</span>.sourceModels = new Array();
+  
+  <span class="comment">/**
+   * Tool Initialisation - Step 1 of 3.
+   * This is called when the config finished loading, so we know
+   * our context (targetModel).
+   * <span class="attrib">@param</span> objRef This object
+   */</span>
+  <span class="reserved">this</span>.configInit = <span class="reserved">function</span>(objRef) {
+    objRef.targetModel.addListener(<span class="literal">'loadModel'</span>, objRef.contextInit, objRef);
+  }
+  <span class="reserved">this</span>.model.addListener(<span class="literal">'init'</span>, <span class="reserved">this</span>.configInit, <span class="reserved">this</span>)
+  
+  <span class="reserved">this</span>.clear = <span class="reserved">function</span>(objRef) {
+    <span class="reserved">if</span> (objRef.control) {
+      objRef.map = null;
+      objRef.control.destroy();
+      objRef.control = null;
+    }
+  }
+  <span class="reserved">this</span>.model.addListener(<span class="literal">"newModel"</span>, <span class="reserved">this</span>.clear, <span class="reserved">this</span>);
+
+  <span class="comment">/**
+   * Tool Initialisation - Step 2 of 3.
+   * This is called when the context model finished loading, so we
+   * know that we have a map available.
+   * <span class="attrib">@param</span> objRef This object
+   */</span>
+  <span class="reserved">this</span>.contextInit = <span class="reserved">function</span>(objRef) {
+    objRef.targetModel.addListener(<span class="literal">"newModel"</span>, objRef.clear, objRef);
+    objRef.model.addListener(<span class="literal">'gmlRendererLayer'</span>, objRef.init, objRef);
+<span class="comment">    // Check carefully if we have to init manually. This is the case when</span>
+<span class="comment">    // the gmlRendererLayer is rendered, but does not know about the</span>
+<span class="comment">    // FeatureSelectHandler yet.</span>
+    <span class="reserved">if</span> (objRef.targetModel.map &amp;&amp; objRef.model.getParam(<span class="literal">'gmlRendererLayer'</span>) &amp;&amp; !objRef.control) {
+      objRef.init(objRef);
+    }
+  }
+  
+  <span class="comment">/**
+   * Tool Initialisation - Step 3 of 3.
+   * Turns on feature select when the gmlRendererLayer event is fired.
+   * <span class="attrib">@param</span> objRef reference to this object.
+   * <span class="attrib">@return</span> {OpenLayers.Control} class of the OL control.
+   */</span>
+  <span class="reserved">this</span>.init = <span class="reserved">function</span>(objRef) {
+<span class="comment">    // get the source models</span>
+    var sourceModel;
+<span class="comment">    // if we have mergeModels, take sourceModels from there</span>
+    <span class="reserved">if</span> (objRef.model.mergeModels) {
+      objRef.sourceModels = objRef.model.mergeModels;
+    } <span class="reserved">else</span> {
+<span class="comment">      // if we hava a plain model, just use it</span>
+      objRef.sourceModels.push(objRef.model);
+    } 
+    <span class="reserved">for</span> (var i=0; i&lt;objRef.sourceModels.length; i++) {
+      objRef.sourceModels[i].addListener(<span class="literal">'highlightFeature'</span>, objRef.highlight, objRef);
+      objRef.sourceModels[i].addListener(<span class="literal">'dehighlightFeature'</span>, objRef.dehighlight, objRef);
+    }
+<span class="comment">    
+    // init the control</span>
+    var layer = objRef.model.getParam(<span class="literal">'gmlRendererLayer'</span>);
+    <span class="reserved">if</span> (objRef.map == objRef.targetModel.map &amp;&amp;
+        objRef.control &amp;&amp; !layer) {
+<span class="comment">      //objRef.control.deactivate();</span>
+      objRef.map.removeControl(objRef.control);
+      objRef.control.destroy();
+      objRef.control = null;
+    } <span class="reserved">else</span> <span class="reserved">if</span> (layer) {
+      <span class="reserved">if</span> (!objRef.control) {
+        objRef.control = new OpenLayers.Control.SelectFeature(layer, {
+          hover: true,
+          onSelect: objRef.onSelect,
+          onUnselect: objRef.onUnselect,
+          mbFeatureSelectHandler: objRef,
+          select: <span class="reserved">function</span>(feature) {
+            feature.mbFeatureSelectHandler = <span class="reserved">this</span>.mbFeatureSelectHandler;
+            <span class="reserved">if</span> (feature.mbSelectStyle) {
+              <span class="reserved">this</span>.selectStyle = feature.mbSelectStyle.createSymbolizer ?
+                  feature.mbSelectStyle.createSymbolizer(feature) :
+                  feature.mbSelectStyle;
+            }
+            OpenLayers.Control.SelectFeature.<span class="reserved">prototype</span>.select.apply(<span class="reserved">this</span>, arguments);
+          }
+        });
+        objRef.map = objRef.targetModel.map;
+        objRef.map.addControl(objRef.control);
+      }
+      objRef.control.activate();
+    }
+  }
+  
+  <span class="comment">/**
+   * extension for the OpenLayers.Feature.Vector.destroy method.
+   * Will be applied to features touched by this tool.
+   */</span>
+  var destroyFeature = <span class="reserved">function</span>() {
+    var featureSelectHandler = <span class="reserved">this</span>.mbFeatureSelectHandler;
+    <span class="reserved">if</span> (<span class="reserved">this</span>.layer.events &amp;&amp; featureSelectHandler) {
+      <span class="reserved">this</span>.layer.events.unregister(<span class="literal">'mousedown'</span>, <span class="reserved">this</span>, featureSelectHandler.onClick);
+      <span class="reserved">this</span>.layer.events.unregister(<span class="literal">'mousemove'</span>, <span class="reserved">this</span>, featureSelectHandler.onHover);
+    }
+    <span class="reserved">this</span>.mbFeatureSelectHandler = null;
+    OpenLayers.Feature.Vector.<span class="reserved">prototype</span>.destroy.apply(<span class="reserved">this</span>, arguments);
+  }
+
+  <span class="comment">/**
+   * This method is triggered when the mouse is over a vector
+   * feature. It registers priority events mousedown and
+   * mousemove, which will call this widget's onClick/onHover
+   * method in the context of a feature. This way we address
+   * two problems with the OpenLayers SelectFeature control:&lt;pre&gt;
+   *      - for the info popup, we need the screen coordinates
+   *        which we do not get from the handler directly.
+   *      - when the active tool changes, something in the
+   *        priority of OL event handlers changes, so the
+   *        click event on the feature gets lost. By registering
+   *        our priority handler and calling Event.stop() in
+   *        the target method, we make sure that our event is
+   *        handled and no other event handlers are triggered.
+   * &lt;/pre&gt;
+   * <span class="attrib">@param</span> feature OpenLayers feature
+   */</span>
+  <span class="reserved">this</span>.onSelect = <span class="reserved">function</span>(feature) {
+    <span class="reserved">if</span> (!feature) <span class="reserved">return</span>;
+    var objRef = <span class="reserved">this</span>.mbFeatureSelectHandler;
+    <span class="reserved">for</span> (var i=0; i&lt;objRef.sourceModels.length; i++) {
+      objRef.sourceModels[i].setParam(<span class="literal">"mouseoverFeature"</span>, feature.fid);
+    }
+<span class="comment">    // check if onSelect was triggered by a mouse event. If not, do not register for</span>
+<span class="comment">    // mousedown and mousemove events. This is the case when selection was externally</span>
+<span class="comment">    // triggered by the highlightFeature event</span>
+    <span class="reserved">if</span> (feature.layer.events &amp;&amp; !feature.mbNoMouseEvent) {
+      feature.destroy = destroyFeature;
+      feature.layer.events.registerPriority(<span class="literal">'mousedown'</span>, feature, objRef.onClick);
+      feature.layer.events.registerPriority(<span class="literal">'mousemove'</span>, feature, objRef.onHover);
+    } <span class="reserved">else</span> {
+      feature.mbNoMouseEvent = null;
+    }
+  }
+  
+  <span class="comment">/**
+   * This method is triggered when the mouse is moving out
+   * of a vector feature. It removes the event handler we
+   * registered in this widget's onSelect method.
+   * <span class="attrib">@param</span> feature OpenLayers feature
+   */</span>
+  <span class="reserved">this</span>.onUnselect = <span class="reserved">function</span>(feature) {
+    <span class="reserved">if</span> (!feature) <span class="reserved">return</span>;
+    var objRef = <span class="reserved">this</span>.mbFeatureSelectHandler || feature.mbFeatureSelectHandler;
+    <span class="reserved">for</span> (var i=0; i&lt;objRef.sourceModels.length; i++) {
+      objRef.sourceModels[i].setParam(<span class="literal">"mouseoutFeature"</span>, feature.fid);
+    }
+    objRef.model.setParam(<span class="literal">"olFeatureOut"</span>, feature);
+    <span class="reserved">if</span> (feature.layer.events) {
+      feature.layer.events.unregister(<span class="literal">'mousedown'</span>, feature, objRef.onClick);
+    }
+  }
+  
+  <span class="comment">/**
+   * This method is triggered when a user clicks on a feature.
+   * It is called by OpenLayers event handling in the context
+   * of a feature. This means that 'this' in this method refers
+   * to an {OpenLayers.Feature}. Widgets listening to the
+   * olFeatureSelect have access to the event, because setParam
+   * is used to set the reference to the event.
+   * <span class="attrib">@param</span> evt OpenLayers event
+   */</span>
+  <span class="reserved">this</span>.onClick = <span class="reserved">function</span>(evt) {
+<span class="comment">    // pass the feature to the event object</span>
+    evt.feature = <span class="reserved">this</span>;
+    var objRef = <span class="reserved">this</span>.mbFeatureSelectHandler;
+    objRef.model.setParam(<span class="literal">"olFeatureSelect"</span>, evt);
+    OpenLayers.Event.stop(evt);
+  }
+  
+  <span class="comment">/**
+   * This method is triggered when the mouse is over a feature.
+   * It is called by OpenLayers event handling in the context
+   * of a feature. This means that 'this' in this method refers
+   * to an {OpenLayers.Feature}. Widgets listening to the
+   * olFeatureHover have access to the event, because setParam
+   * is used to set the reference to the event.
+   * <span class="attrib">@param</span> evt OpenLayers event
+   */</span>
+  <span class="reserved">this</span>.onHover = <span class="reserved">function</span>(evt) {
+    var objRef = <span class="reserved">this</span>.mbFeatureSelectHandler;
+    <span class="reserved">if</span> (<span class="reserved">this</span>.layer &amp;&amp; <span class="reserved">this</span>.layer.events) {
+<span class="comment">      // unregister the mousemove event, because we already know that</span>
+<span class="comment">      // the mouse moved and we can then proceed to our hover popup.</span>
+      <span class="reserved">this</span>.layer.events.unregister(<span class="literal">'mousemove'</span>, <span class="reserved">this</span>, objRef.onHover);
+    }
+    evt.feature = <span class="reserved">this</span>;
+    objRef.model.setParam(<span class="literal">"olFeatureHover"</span>, evt);
+  }
+
+  <span class="comment">/**
+   * Highlights the specified feature. This method is usually
+   * triggered by setting the 'highlightFeature' param to the
+   * fid of a feature to be highlighted.
+   * <span class="attrib">@param</span> objRef reference to this tool object
+   * <span class="attrib">@param</span> fid GML feature id of the feature to highlight. If
+   * not specified, this is taken from the highlightFeature
+   * model param.
+   */</span>
+  <span class="reserved">this</span>.highlight = <span class="reserved">function</span>(objRef, fid) {
+    var model, feature;
+    var layer = objRef.model.getParam(<span class="literal">'gmlRendererLayer'</span>);
+    <span class="reserved">for</span> (var i=0; i&lt;objRef.sourceModels.length; i++) {
+      model = objRef.sourceModels[i]
+      <span class="reserved">if</span> (!layer) <span class="reserved">return</span>;
+      <span class="reserved">if</span> (!fid) {
+        fid = model.getParam(<span class="literal">'highlightFeature'</span>);
+      }
+      feature = layer.getFeatureByFid(fid);
+      <span class="reserved">if</span> (feature &amp;&amp; !feature.mbHidden) {
+<span class="comment">        // add a tag to the feature to indicate that it was not selected by mouse action</span>
+        feature.mbNoMouseEvent = true;
+        objRef.control.select(feature);
+      }
+    }
+  }
+  
+  <span class="comment">/**
+   * Dehighlights the specified feature. This method is usually
+   * triggered by setting the 'dehighlightFeature' param to the
+   * fid of a feature to be highlighted.
+   * <span class="attrib">@param</span> objRef reference to this tool object
+   * <span class="attrib">@param</span> fid GML feature id of the feature to highlight. If
+   * not specified, this is taken from the dehighlightFeature
+   * model param.
+   */</span>
+  <span class="reserved">this</span>.dehighlight = <span class="reserved">function</span>(objRef, fid) {
+    var model, feature;
+    var layer = objRef.model.getParam(<span class="literal">'gmlRendererLayer'</span>);
+    <span class="reserved">for</span> (var i=0; i&lt;objRef.sourceModels.length; i++) {
+      model = objRef.sourceModels[i];
+      <span class="reserved">if</span> (!layer) <span class="reserved">return</span>;
+      <span class="reserved">if</span> (!fid) {
+        fid = objRef.model.getParam(<span class="literal">'dehighlightFeature'</span>);
+      }
+      feature = layer.getFeatureByFid(fid);
+      <span class="reserved">if</span> (feature &amp;&amp; !feature.mbHidden) {
+        objRef.control.unselect(feature);
+      }
+    }
+  }
+  
+}
+</pre>
+	<hr>
+
+
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> <font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top"><em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<font size="-1">
+
+</font>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Sun Apr 27 20:30:54 2008</div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<ViewContext version="1.0.0" id="atlas_world"
+xmlns="http://www.opengis.net/context"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.opengis.net/context http://schemas.opengis.net/context/1.0.0/context.xsd">
+  <General>
+    <Window width="720" height="360" />
+    <BoundingBox SRS="EPSG:4326" minx="-180" miny="-90" maxx="180" maxy="90" />
+    <Title>Metacat Map</Title>
+    <KeywordList>
+      <Keyword>metacat</Keyword>
+      <Keyword>EML</Keyword>
+    </KeywordList>
+    <Abstract>Interactive Map of metacat datasets.</Abstract>
+  </General>
+  <LayerList>
+
+    <Layer queryable="0" hidden="0">
+      <Server service="OGC:WMS" version="1.1.1"
+      title="Countries">
+        <OnlineResource xlink:type="simple" xlink:href="../../../../wms" />
+      </Server>
+      <Name>metacat:world_borders</Name>
+      <Title>Countries</Title>
+      <SRS>EPSG:4326</SRS>
+      <FormatList>
+        <Format current="1">image/gif</Format>
+      </FormatList>
+    </Layer>
+
+        <Layer queryable="0" hidden="1">
+            <Server service="OGC:WMS" version="1.0.0" title="OGC:WMS">
+      <OnlineResource xlink:type="simple" xlink:href="http://www2.demis.nl/WMS/wms.asp?wms=WorldMap"/>
+            </Server>
+            <Name>Bathymetry,Countries,Topography,Hillshading,Coastlines,Waterbodies,Inundated,Rivers,Streams,Builtup+areas,Railroads,Highways,Roads,Trails,Borders,Cities,Settlements,Airports</Name>
+            <Title>World Map</Title>
+            <SRS>EPSG:4326</SRS>
+            <FormatList>
+                <Format current="1">image/gif</Format>
+            </FormatList>
+            <StyleList>
+                <Style current="1">
+                    <Name>default</Name>
+                    <Title>default</Title>
+                </Style>
+            </StyleList>
+        </Layer>
+
+    <Layer queryable="0" hidden="1">
+    <Server service="wms" version="1.1.0" title="wms">
+    <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink"  xlink:type="simple" xlink:href="http://wms.jpl.nasa.gov/wms.cgi?"/>
+    </Server>
+    <Name>global_mosaic</Name> 
+    <!-- <Name>BMNG</Name> -->
+    <Title>Satellite image</Title>
+    <SRS>EPSG:4326</SRS>
+    <StyleList>
+      <Style current="1"><Name>pseudo_low</Name><Title>pseudo_low</Title></Style>
+    </StyleList>
+    <FormatList>
+    <Format current="1">image/jpeg</Format>
+    </FormatList>
+    </Layer>
+
+    <Layer queryable="0" hidden="0">
+      <Server service="OGC:WMS" version="1.1.1"
+      title="DatasetBounds">
+        <OnlineResource xlink:type="simple" xlink:href="../../../../wms" />
+      </Server>
+      <Name>metacat:data_bounds</Name>
+      <Title>Dataset Bounds</Title>
+      <SRS>EPSG:4326</SRS>
+      <FormatList>
+        <Format current="1">image/gif</Format>
+      </FormatList>
+    </Layer>
+    
+    
+    <Layer queryable="0" hidden="0">
+      <Server service="OGC:WMS" version="1.1.1"
+      title="DatasetPoints">
+        <OnlineResource xlink:type="simple" xlink:href="../../../../wms" />
+      </Server>
+      <Name>metacat:data_points</Name>
+      <Title>Dataset Points</Title>
+      <SRS>EPSG:4326</SRS>
+      <FormatList>
+        <Format current="1">image/gif</Format>
+      </FormatList>
+    </Layer>
+ 
+
+  </LayerList>
+</ViewContext>

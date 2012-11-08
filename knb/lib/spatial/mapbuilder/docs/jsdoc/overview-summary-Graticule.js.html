@@ -1,0 +1,715 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Frameset//EN""http://www.w3.org/TR/REC-html40/frameset.dtd">
+<html>
+<head>
+<title>
+<a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008 Overview
+</title>
+<link rel ="stylesheet" type="text/css" href="stylesheet.css" title="Style">
+<script>
+function asd() {
+	
+		parent.document.title="Graticule.js Overview";
+	
+}
+</script>
+</head>
+<body bgcolor="white" onload="asd();">
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> 	<font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top">
+<em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<center>
+	
+	   <h2>Graticule.js</h2>
+	
+</center>
+
+	
+
+
+<h4>Summary</h4>
+<p>
+	
+		No overview generated for 'Graticule.js'<BR/><BR/>
+	
+</p>
+
+<hr>
+
+
+    <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+    <td colspan=2><font size="+2">
+    
+        <b>Class Summary</b>
+    
+    </font></td>
+    </tr>
+    
+    <tr bgcolor="white" class="TableRowColor">
+    <td width="15%"><b><a href="Graticule.html">Graticule</a></b></td>
+    <td>&nbsp;</td>
+    </tr>
+    
+    </table>
+    <hr/> 
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<!-- ========== END METHOD SUMMARY =========== -->
+
+
+        <pre class="sourceview"><span class="comment">/*
+Author:       Olivier Terral olivier.terralATgeomatys.fr
+License:      LGPL as per: http://www.gnu.org/copyleft/lesser.html
+
+$Id: Graticule.js 3879 2008-02-27 14:20:29Z gjvoosten $
+*/</span>
+<span class="comment">// Ensure this object's dependancies are loaded.</span>
+mapbuilder.loadScript(baseDir+<span class="literal">"/widget/ButtonBase.js"</span>);
+
+
+<span class="comment">/**
+ * Render a Graticule.
+ * <span class="attrib">@constructor</span>
+ * <span class="attrib">@base</span> ButtonBase
+ * <span class="attrib">@param</span> widgetNode  The widget's XML object node from the configuration document.
+ * <span class="attrib">@param</span> model       The model object that this widget belongs to.
+ */</span>
+<span class="reserved">function</span> Graticule(widgetNode, model) {
+
+	ButtonBase.apply(<span class="reserved">this</span>, new Array(widgetNode, model));
+
+	<span class="reserved">this</span>.display=false;
+	<span class="reserved">this</span>.color=<span class="reserved">this</span>.getProperty(<span class="literal">"mb:color"</span>);
+	
+	<span class="comment">/**
+   * Interactive ZoomOut control.
+   * <span class="attrib">@param</span> objRef reference to this object.
+   * <span class="attrib">@return</span> {OpenLayers.Control} class of the OL control.
+   */</span>
+  <span class="reserved">this</span>.createControl = <span class="reserved">function</span>(objRef) {
+    var Control = OpenLayers.Class( OpenLayers.Control, {
+      CLASS_NAME: <span class="literal">'mbControl.Graticule'</span>,
+      type: OpenLayers.Control.TYPE_TOGGLE,
+	  destroy : <span class="reserved">function</span>() {
+	    OpenLayers.Control.<span class="reserved">prototype</span>.destroy.apply(<span class="reserved">this</span>, arguments);
+	    <span class="reserved">if</span> (<span class="reserved">this</span>.divs) {
+	      <span class="reserved">for</span>(i = <span class="reserved">this</span>.divs.length; i &gt; 0; --i) {
+		<span class="reserved">this</span>.divs[i] = null;
+	      }
+	    }
+	    <span class="reserved">this</span>.div = null;
+	    <span class="reserved">this</span>.mapContainer = null;
+	  },
+<span class="comment">	    
+////////////////////////////ancien/////////////////////	</span>
+<span class="comment">/**
+   * Remove divs
+   * <span class="attrib">@param</span> objRef Pointer to this object.
+   */</span>
+	removeGraticules : <span class="reserved">function</span>() {
+	
+	  try{
+			  var i = 0;
+			  var div = <span class="reserved">this</span>.mapContainer;
+		
+		      <span class="reserved">if</span> (<span class="reserved">this</span>.divs) {
+		  	<span class="reserved">for</span>(i=0; i&lt; <span class="reserved">this</span>.divs.length; i++)
+		  	{
+				div.removeChild(<span class="reserved">this</span>.divs[i]);
+			}
+		      }
+	  }
+	  catch(e){
+	  }
+	
+	},
+
+	<span class="comment">/**
+   * Get bbox of MapPane with the right projection
+   * Return an object
+   * <span class="attrib">@param</span> this Pointer to this object.
+   */</span>
+	getBbox : <span class="reserved">function</span>() {
+	
+			var bbox=new Object();
+			bbox.ll=new Object();
+			bbox.ur=new Object();
+<span class="comment">			///CSCS</span>
+    		var ll=new OpenLayers.Geometry.Point(<span class="reserved">this</span>.bbox[0], <span class="reserved">this</span>.bbox[1]);
+    		var ur=new OpenLayers.Geometry.Point(<span class="reserved">this</span>.bbox[2], <span class="reserved">this</span>.bbox[3]);
+    		var wgs84 = new OpenLayers.Projection(<span class="literal">"EPSG:4326"</span>);
+    		
+    		ll.transform(<span class="reserved">this</span>.proj, wgs84);
+    		ur.transform(<span class="reserved">this</span>.proj, wgs84);
+		
+			
+			bbox.ll.lon=ll.x;		//minx
+			bbox.ll.lat=ll.y;		//miny
+			bbox.ur.lon=ur.x;		//maxx
+			bbox.ur.lat=ur.y;		//maxy
+		
+			<span class="reserved">return</span> bbox;
+		
+	},
+
+	<span class="comment">/**
+   * Calculate rounded graticule interval for supplied lat/lon span
+   * 
+   * <span class="attrib">@param</span> dDeg difference in degrees.
+   */</span>
+<span class="comment">	//</span>
+<span class="comment">	//return is in minutes</span>
+	gridIntervalMins : <span class="reserved">function</span>(dDeg) {  
+	
+	  var dDeg = dDeg/10;				//want around 10 lines in the graticule
+	  dDeg *= 6000;						//to minutes*100
+	  dDeg = Math.ceil(dDeg)/100;		//minutes and hundredths of mins
+	
+	  <span class="reserved">if</span>(dDeg &lt;= 0.06)
+		dDeg = 0.06;//0.001 degrees
+	  <span class="reserved">else</span> <span class="reserved">if</span>(dDeg &lt;= 0.12)
+		dDeg = 0.12;//0.002 degrees
+	  <span class="reserved">else</span> <span class="reserved">if</span>(dDeg &lt;= 0.3)
+		dDeg = 0.3;//0.005 degrees
+	  <span class="reserved">else</span> <span class="reserved">if</span>(dDeg &lt;= 0.6)
+		dDeg = 0.6;//0.01 degrees
+	  <span class="reserved">else</span> <span class="reserved">if</span> (dDeg &lt;=  1.2)
+		dDeg = 1.2;//0.02 degrees
+	  <span class="reserved">else</span> <span class="reserved">if</span>(dDeg &lt;= 3)
+		dDeg = 3;//0.05 degrees
+	  <span class="reserved">else</span> <span class="reserved">if</span>(dDeg &lt;= 6)
+		dDeg = 6;//0.1 degrees
+	  <span class="reserved">else</span> <span class="reserved">if</span> (dDeg &lt;=  12)
+		dDeg = 12;//0.2 degrees
+	  <span class="reserved">else</span> <span class="reserved">if</span> (dDeg &lt;=  30)
+		dDeg = 30;//0.5
+	  <span class="reserved">else</span> <span class="reserved">if</span> (dDeg &lt;=  60)
+		dDeg = 30;//1
+	  <span class="reserved">else</span> <span class="reserved">if</span> (dDeg &lt;=  (60*2))
+		dDeg = 60*2;
+	  <span class="reserved">else</span> <span class="reserved">if</span> (dDeg &lt;=  (60*5))
+		dDeg = 60*5;
+	  <span class="reserved">else</span> <span class="reserved">if</span> (dDeg &lt;=  (60*10))
+		dDeg = 60*10;
+	  <span class="reserved">else</span> <span class="reserved">if</span> (dDeg &lt;=  (60*20))
+		dDeg = 60*20;
+	  <span class="reserved">else</span> <span class="reserved">if</span> (dDeg &lt;=  (60*30))
+		dDeg = 60*30;
+	  <span class="reserved">else</span>
+		dDeg = 60*45;
+	  
+		
+	  <span class="reserved">return</span> dDeg;
+	
+},
+
+
+	
+	<span class="comment">/* Calculate grid label precision from grid interval in degrees
+	*
+	*<span class="attrib">@param</span> dDeg difference in degrees.
+	*/</span>
+	gridPrecision : <span class="reserved">function</span>(dDeg) {
+		<span class="reserved">if</span>(dDeg &lt; 0.01)
+			<span class="reserved">return</span> 3;
+		<span class="reserved">else</span> <span class="reserved">if</span>(dDeg &lt; 0.1)
+			<span class="reserved">return</span> 2;
+		<span class="reserved">else</span> <span class="reserved">if</span>(dDeg &lt; 1)
+			<span class="reserved">return</span> 1;
+		<span class="reserved">else</span> <span class="reserved">return</span> 0;
+	},
+
+	<span class="comment">/* Draw graticules
+	*
+	*<span class="attrib">@param</span> this pointer to this object.
+	*/</span>
+	addGraticules : <span class="reserved">function</span>(){
+<span class="comment">
+		//Delete old graticule</span>
+		<span class="reserved">this</span>.removeGraticules();
+		
+		var bbox=<span class="reserved">this</span>.getBbox();
+		
+		var l=bbox.ll.lon; //////ll:lower left coordinates 
+		var b=bbox.ll.lat;		//ll:lower left ,ll.long : latitude(y) de coin en bas a gauche
+		var r=bbox.ur.lon;			//ur:upper right ,ur.long : longitude de coin en haut a droite
+		var t=bbox.ur.lat;		
+<span class="comment">		
+		 //test if coords are valid</span>
+		  <span class="reserved">if</span> (b &lt; -90.0)
+			b = -90.0;
+		  <span class="reserved">if</span>(t &gt; 90.0)
+			t = 90.0;
+		  <span class="reserved">if</span>(l &lt; -180.0)
+		    l = -180.0;  
+		  <span class="reserved">if</span>(r &gt; 180.0)
+		    r = 180.0;
+		    
+		  <span class="reserved">if</span>(l == r){
+			l = -180.0;
+			r = 180.0;
+		  }
+		
+		  <span class="reserved">if</span>(t == b){
+			b = -90.0;
+			t = 90.0;
+		  }
+<span class="comment">		 
+		  
+		  
+		  //grid interval in minutes    </span>
+		  var dLat = <span class="reserved">this</span>.gridIntervalMins(t-b);
+		  var dLng; 
+		  <span class="reserved">if</span>(r&gt;l)
+			dLng = <span class="reserved">this</span>.gridIntervalMins(r-l);
+		  <span class="reserved">else</span>
+		    dLng = <span class="reserved">this</span>.gridIntervalMins((180-l)+(r+180));
+<span class="comment">		
+		  //round iteration limits to the computed grid interval</span>
+		  l = Math.floor(l*60/dLng)*dLng/60;
+		  b = Math.floor(b*60/dLat)*dLat/60;
+		  t = Math.ceil(t*60/dLat)*dLat/60;
+		  r = Math.ceil(r*60/dLng)*dLng/60;
+<span class="comment">		  
+		
+		
+		  //Tes if coords are valid</span>
+		  <span class="reserved">if</span> (b &lt;= -90.0)
+			b = -90;
+		  <span class="reserved">if</span>(t &gt;= 90.0)
+			t = 90;
+		  <span class="reserved">if</span>(l &lt; -180.0)
+		    l = -180.0;  
+		  <span class="reserved">if</span>(r &gt; 180.0)
+		    r = 180.0;
+<span class="comment">		    
+		  //to whole degrees</span>
+		  dLat /= 60;
+		  dLng /= 60;
+
+		  <span class="reserved">this</span>.dLat=dLat;
+		  <span class="reserved">this</span>.dLon=dLng;
+<span class="comment">		  
+		  //# digits after DP for labels</span>
+		  var latDecs = <span class="reserved">this</span>.gridPrecision(dLat);
+		  var lonDecs = <span class="reserved">this</span>.gridPrecision(dLng);
+<span class="comment">		 
+		  //array for divs used for lines and labels</span>
+		  <span class="reserved">this</span>.divs = new Array();
+		  var i=0;//count inserted divs
+<span class="comment">		
+		  //min and max x and y pixel values for graticule lines</span>
+		  var pbl = <span class="reserved">this</span>.fromLatLngToDivPixel(b,l);
+		  var ptr = <span class="reserved">this</span>.fromLatLngToDivPixel(t,r);
+		
+		  
+		  <span class="reserved">this</span>.maxX = ptr.x;
+		  <span class="reserved">this</span>.maxY = pbl.y;
+		  <span class="reserved">this</span>.minX = pbl.x;
+		  <span class="reserved">this</span>.minY = ptr.y;
+		  var x;//coord <span class="reserved">for</span> label
+<span class="comment">		  
+		  //labels on second column to avoid peripheral controls</span>
+		  var y = <span class="reserved">this</span>.fromLatLngToDivPixel(b+dLat+dLat,l).y + 2;//coord <span class="reserved">for</span> label
+<span class="comment">		  
+		  //pane/layer to write on</span>
+		  var mapDiv = <span class="reserved">this</span>.mapContainer;//<span class="reserved">this</span>.map_.getPane(G_MAP_MARKER_SHADOW_PANE);
+		  
+		  var lo = l;
+		  
+		  <span class="reserved">if</span>(r&lt;lo)
+		      r += 360.0;
+<span class="comment">		
+		  //vertical lines</span>
+		  <span class="reserved">while</span>(lo&lt;=r){
+				
+				 var p = <span class="reserved">this</span>.fromLatLngToDivPixel(b,lo);
+<span class="comment">				 //line</span>
+				 <span class="reserved">this</span>.divs[i] = <span class="reserved">this</span>.createVLine(p.x);
+				 <span class="reserved">this</span>.divs[i].style.zIndex = <span class="reserved">this</span>.div.style.zIndex;
+				 mapDiv.insertBefore(<span class="reserved">this</span>.divs[i],null);
+				 i++;
+<span class="comment">				  	
+				 //label	 </span>
+				 var d = document.createElement(<span class="literal">"DIV"</span>);
+				 x = p.x + 3;
+				 
+				 d.style.position = <span class="literal">"absolute"</span>;
+		         d.style.left = x.toString() + <span class="literal">"px"</span>;
+		         d.style.top = y.toString() + <span class="literal">"px"</span>;
+				 d.style.color = <span class="reserved">this</span>.color;
+				 d.style.fontFamily=<span class="literal">'Arial'</span>;
+				 d.style.fontSize=<span class="literal">'x-small'</span>;
+		         
+		         <span class="reserved">if</span> (lo==0)
+		         {
+		         	d.innerHTML = (Math.abs(lo)).toFixed(lonDecs);
+		         }
+			     <span class="reserved">else</span> <span class="reserved">if</span>(lo&lt;0)
+				{	d.title = mbGetMessage(<span class="literal">"westWgs84"</span>);
+					d.innerHTML = (Math.abs(lo)).toFixed(lonDecs)+<span class="literal">" W"</span>;
+				 }
+				 <span class="reserved">else</span> 
+				{	d.title = mbGetMessage(<span class="literal">"eastWgs84"</span>);
+					d.innerHTML = (Math.abs(lo)).toFixed(lonDecs)+<span class="literal">" E"</span>;
+				 }
+				 
+				d.style.zIndex = <span class="reserved">this</span>.div.style.zIndex;
+				 mapDiv.insertBefore(d,null);
+				 <span class="reserved">this</span>.divs[i] = d;
+			
+				 i++;
+				 lo += dLng;	
+				 <span class="reserved">if</span> (lo &gt; 180.0){
+					r -= 360.0;
+					lo -= 360.0;
+					}		 		
+  	}
+  
+
+
+	var j = 0;
+<span class="comment">	      
+	  //labels on second row to avoid controls</span>
+	  x = <span class="reserved">this</span>.fromLatLngToDivPixel(b,l+dLng+dLng).x + 3;
+<span class="comment">	  
+	  //horizontal lines</span>
+	  <span class="reserved">while</span>(b&lt;=t){
+
+			 var p = <span class="reserved">this</span>.fromLatLngToDivPixel(b,l);
+<span class="comment">			 
+			 //line</span>
+			 <span class="reserved">if</span>(r &lt; l){ //draw lines across the dateline
+				<span class="reserved">this</span>.divs[i] = <span class="reserved">this</span>.createHLine3(b);
+				<span class="reserved">this</span>.divs[i].style.zIndex = <span class="reserved">this</span>.div.style.zIndex;
+				mapDiv.insertBefore(<span class="reserved">this</span>.divs[i],null);
+				i++;
+			 }
+			 <span class="reserved">else</span> <span class="reserved">if</span> (r == l){ //draw lines <span class="reserved">for</span> world scale zooms
+			
+				<span class="reserved">this</span>.divs[i] = <span class="reserved">this</span>.createHLine3(b);
+				<span class="reserved">this</span>.divs[i].style.zIndex = <span class="reserved">this</span>.div.style.zIndex;
+				mapDiv.insertBefore(<span class="reserved">this</span>.divs[i],null);
+				i++;
+			 }
+			 <span class="reserved">else</span>{
+			 	
+				<span class="reserved">this</span>.divs[i] = <span class="reserved">this</span>.createHLine(p.y);
+				<span class="reserved">this</span>.divs[i].style.zIndex = <span class="reserved">this</span>.div.style.zIndex;
+				mapDiv.insertBefore(<span class="reserved">this</span>.divs[i],null);
+				i++;
+			 }
+<span class="comment">			 
+			 
+			 
+			 
+			 //label</span>
+			 var d = document.createElement(<span class="literal">"DIV"</span>);
+			 y = p.y + 2;
+			 d.style.position = <span class="literal">"absolute"</span>;
+			 d.style.left =x.toString() + <span class="literal">"px"</span>;
+			 d.style.top = y.toString()+ <span class="literal">"px"</span>;
+			 d.style.color = <span class="reserved">this</span>.color;
+			 d.style.fontFamily=<span class="literal">'Arial'</span>;
+			 d.style.fontSize=<span class="literal">'x-small'</span>;
+			 
+			 <span class="reserved">if</span> (b==0)
+	         {
+	         	d.innerHTML = (Math.abs(b)).toFixed(lonDecs);
+	         }
+			 <span class="reserved">else</span> <span class="reserved">if</span>(b&lt;0)
+			{	d.title = mbGetMessage(<span class="literal">"southWgs84"</span>);
+				d.innerHTML = (Math.abs(b)).toFixed(latDecs)+<span class="literal">" S"</span>;
+			}
+			 <span class="reserved">else</span> 
+			{	d.title = mbGetMessage(<span class="literal">"northWgs84"</span>);
+				d.innerHTML = (Math.abs(b)).toFixed(latDecs)+<span class="literal">" N"</span>;
+			}
+			 <span class="reserved">if</span>(j != 2)//dont put two labels in the same place
+			 {
+			 	 
+				 d.style.zIndex = <span class="reserved">this</span>.div.style.zIndex;
+				 mapDiv.insertBefore(d,null);
+				 <span class="reserved">this</span>.divs[i] = d;
+				 i++;
+			 }
+			 j++;
+			 b += dLat;
+	  }
+	 
+
+	},
+	
+	<span class="comment">/*Transform lat/lon coordinates in pixels coordinates
+	* Returns an object container pixel coordinates
+	*<span class="attrib">@param</span> this pointer to this object.
+	*<span class="attrib">@param</span> lat lon  coordiantes in degrees 
+	*/</span>
+	fromLatLngToDivPixel : <span class="reserved">function</span>(lat,lon){
+<span class="comment">		///CSCS</span>
+    var pt=new OpenLayers.Geometry.Point(lon, lat);
+    pt.transform(new OpenLayers.Projection(<span class="literal">"EPSG:4326"</span>),<span class="reserved">this</span>.proj);
+    var platlon=<span class="reserved">this</span>.map.getPixelFromLonLat(new OpenLayers.LonLat(pt.x,pt.y));
+		<span class="reserved">return</span> platlon;
+	},
+	
+	<span class="comment">/*Create a vertical line
+	* Returns a div that is a vertical single pixel line
+	*<span class="attrib">@param</span> this pointer to this object.
+	*<span class="attrib">@param</span> x left style property for div element 
+	*/</span>
+	
+	createVLine : <span class="reserved">function</span> (x) {
+
+		var div = document.createElement(<span class="literal">"DIV"</span>);
+		div.style.position = <span class="literal">"absolute"</span>;
+		div.style.overflow = <span class="literal">"hidden"</span>;
+		div.style.backgroundColor = <span class="reserved">this</span>.color;
+		div.style.left = x + <span class="literal">"px"</span>;
+		div.style.top = <span class="reserved">this</span>.minY + <span class="literal">"px"</span>;
+		div.style.width = <span class="literal">"1px"</span>;
+		div.style.height = (<span class="reserved">this</span>.maxY-<span class="reserved">this</span>.minY) +<span class="literal">"px"</span>;				
+	    <span class="reserved">return</span> div;
+	
+	},
+ 
+	<span class="comment">/*Create a horizontal line
+	* Returns a div that is a horizontal single pixel line
+	*<span class="attrib">@param</span> this pointer to this object.
+	*<span class="attrib">@param</span> y top style property for div element 
+	*/</span>  	  
+	createHLine : <span class="reserved">function</span>(y) {
+
+		var div = document.createElement(<span class="literal">"DIV"</span>);
+		div.style.position = <span class="literal">"absolute"</span>;
+		div.style.overflow = <span class="literal">"hidden"</span>;
+		div.style.backgroundColor = <span class="reserved">this</span>.color;
+		div.style.left = <span class="reserved">this</span>.minX + <span class="literal">"px"</span>;
+		div.style.top = y + <span class="literal">"px"</span>;
+		div.style.width = (<span class="reserved">this</span>.maxX-<span class="reserved">this</span>.minX) + <span class="literal">"px"</span>;
+		div.style.height = <span class="literal">"1px"</span>;
+	    <span class="reserved">return</span> div;
+	
+	},
+	<span class="comment">/*Create a horizontal line
+	* Returns a div that is a horizontal single pixel line, across the dateline  
+	* we find the start and width of a 180 degree line and draw the same amount
+	* to its left and right	
+	*<span class="attrib">@param</span> this pointer to this object.
+	*<span class="attrib">@param</span> lat latitude of  div element.
+	*/</span>  
+		createHLine3 : <span class="reserved">function</span>(lat) {
+		
+			var f = <span class="reserved">this</span>.fromLatLngToDivPixel(lat,0);
+			var t = <span class="reserved">this</span>.fromLatLngToDivPixel(lat,180);		
+		
+			var div = document.createElement(<span class="literal">"DIV"</span>);
+			div.style.position = <span class="literal">"absolute"</span>;
+			div.style.overflow = <span class="literal">"hidden"</span>;
+			div.style.backgroundColor = <span class="reserved">this</span>.color;
+			
+			var x1 = f.x;
+			var x2 = t.x;
+			
+			<span class="reserved">if</span>(x2 &lt; x1)
+			{
+				x2 = f.x;
+				x1 = t.x;
+			}
+			div.style.left = (x1-(x2-x1)) + <span class="literal">"px"</span>;
+			div.style.top = f.y + <span class="literal">"px"</span>;
+			div.style.width = ((x2-x1)*2) + <span class="literal">"px"</span>;
+			div.style.height = <span class="literal">"1px"</span>;
+			<span class="reserved">return</span> div;
+			
+			
+}  ,
+
+		<span class="comment">/*Initialize Graticule's property 
+		* 
+		*<span class="attrib">@param</span> this pointer to this object.
+		*/</span> 
+		update : <span class="reserved">function</span> (){
+		
+		
+			<span class="reserved">this</span>.width=parseInt(<span class="reserved">this</span>.objRef.targetModel.getWindowWidth());
+			<span class="reserved">this</span>.height=parseInt(<span class="reserved">this</span>.objRef.targetModel.getWindowHeight());
+			
+			<span class="reserved">this</span>.bbox=<span class="reserved">this</span>.objRef.targetModel.getBoundingBox();
+			<span class="reserved">this</span>.proj=new OpenLayers.Projection( <span class="reserved">this</span>.objRef.targetModel.getSRS());
+		
+			<span class="reserved">if</span> (<span class="reserved">this</span>.bbox[1]&lt;0)
+				<span class="reserved">if</span>(<span class="reserved">this</span>.bbox[3]&lt;0)
+					<span class="reserved">this</span>.diffLat=<span class="reserved">this</span>.bbox[1]-<span class="reserved">this</span>.bbox[3];
+				<span class="reserved">else</span>
+					<span class="reserved">this</span>.diffLat=<span class="reserved">this</span>.bbox[3]-<span class="reserved">this</span>.bbox[1];
+			<span class="reserved">else</span>
+				<span class="reserved">this</span>.diffLat=<span class="reserved">this</span>.bbox[3]+<span class="reserved">this</span>.bbox[1];
+				
+			<span class="reserved">if</span> (<span class="reserved">this</span>.bbox[0]&lt;0)
+				<span class="reserved">if</span>(<span class="reserved">this</span>.bbox[2]&lt;0)		
+					<span class="reserved">this</span>.diffLon=<span class="reserved">this</span>.bbox[0]-<span class="reserved">this</span>.bbox[2];
+				<span class="reserved">else</span>
+					<span class="reserved">this</span>.diffLon=<span class="reserved">this</span>.bbox[2]-<span class="reserved">this</span>.bbox[0];
+			<span class="reserved">else</span>
+				<span class="reserved">this</span>.diffLon=<span class="reserved">this</span>.bbox[2]+<span class="reserved">this</span>.bbox[0];
+		
+			
+		  	<span class="reserved">this</span>.addGraticules();
+
+},
+
+		<span class="comment">/*Display graticule when click on button
+		* 
+		*<span class="attrib">@param</span> this pointer to this object.
+		*<span class="attrib">@param</span> selected boolean true if button has been clicked , false if no
+		*/</span> 
+		activate: <span class="reserved">function</span>() {
+		
+		<span class="reserved">if</span>(OpenLayers.Control.<span class="reserved">prototype</span>.activate.apply(<span class="reserved">this</span>, arguments)){
+                <span class="reserved">this</span>.panel_div.style.backgroundImage = <span class="literal">"url(\"</span><span class="literal">"+objRef.enabledImage+"</span>\<span class="literal">")"</span>;
+<span class="comment">    	//this.map.div.style.cursor = objRef.cursor;</span>
+			<span class="reserved">this</span>.map.events.register(<span class="literal">'moveend'</span>, <span class="reserved">this</span>, <span class="reserved">this</span>.update);
+		 	<span class="reserved">this</span>.objRef.display=true;
+		 	<span class="reserved">this</span>.mapContainer = <span class="reserved">this</span>.div;
+		 	<span class="reserved">this</span>.color=<span class="literal">"black"</span>;
+			<span class="reserved">this</span>.update();
+		<span class="reserved">return</span> true;
+        } <span class="reserved">else</span> {
+            <span class="reserved">return</span> false;
+        }
+        },
+		deactivate: <span class="reserved">function</span>() {
+		<span class="reserved">if</span>(OpenLayers.Control.<span class="reserved">prototype</span>.deactivate.apply(<span class="reserved">this</span>, arguments)){
+		    <span class="reserved">this</span>.panel_div.style.backgroundImage = <span class="literal">"url(\"</span><span class="literal">"+objRef.disabledImage+"</span>\<span class="literal">")"</span>;
+			<span class="reserved">this</span>.map.events.unregister(<span class="literal">'moveend'</span>, <span class="reserved">this</span>, <span class="reserved">this</span>.update);
+			<span class="reserved">this</span>.objRef.display=false;
+			<span class="reserved">this</span>.removeGraticules(); 
+			objRef.enabled = false;
+      		objRef.doSelect(objRef, false); 
+       		<span class="reserved">this</span>.active=false;
+       		<span class="reserved">return</span> true;
+        } <span class="reserved">else</span> {
+            <span class="reserved">return</span> false;
+        }
+	}
+<span class="comment">/////////////////////////////////////////////////////////////</span>
+
+   });
+
+    <span class="reserved">return</span> Control;
+  }
+}
+
+</pre>
+	<hr>
+
+
+
+<!-- ========== START OF NAVBAR ========== -->
+<a name="navbar_top"><!-- --></a>
+<table border="0" width="100%" cellpadding="1" cellspacing="0">
+<tr>
+<td colspan=2 bgcolor="#EEEEFF" class="NavBarCell1">
+<a name="navbar_top_firstrow"><!-- --></a>
+<table border="0" cellpadding="0" cellspacing="3">
+  <tr align="center" valign="top">
+  
+  
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>&nbsp;</td>
+  <td bgcolor="#FFFFFF" class="NavBarCell1Rev">	&nbsp;<font class="NavBarFont1Rev"><b>File</b></font>&nbsp;</td>
+  
+
+  <td bgcolor="#FFFFFF" class="NavBarCell1"> <font class="NavBarFont1">Class</font>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="overview-tree.html"><font class="NavBarFont1"><b>Tree</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="index-all.html"--><font class="NavBarFont1"><b>Index</b></font></a>&nbsp;</td>
+  <td bgcolor="#EEEEFF" class="NavBarCell1">    <a href="help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>&nbsp;</td>
+  </tr>
+</table>
+</td>
+<td bgcolor="#EEEEFF" align="right" valign="top"><em>
+<b><a href='http://mapbuilder.sourceforge.net'>Community Map Builder</a> 27 Apr 2008</b></em>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</font></td>
+<td bgcolor="white" class="NavBarCell2"><font size="-2">
+  <a href="index.html" target="_top"><b>FRAMES</b></a>  &nbsp;
+&nbsp;<a href="overview-summary.html" target="_top"><b>NO FRAMES</b></a>
+&nbsp;&nbsp;
+<script>
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
+  }
+  //-->
+</script>
+<noscript>
+<a href="allclasses-noframe.html" target=""><b>All Classes</b></a>
+</noscript>
+</font></td>
+</tr>
+</table>
+<!-- =========== END OF NAVBAR =========== -->
+
+<hr>
+<font size="-1">
+
+</font>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Sun Apr 27 20:30:54 2008</div>
+</body>
+</html>

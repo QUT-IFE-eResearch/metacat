@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<ViewContext version="1.0.0" id="atlas_world"
+xmlns="http://www.opengis.net/context"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.opengis.net/context http://schemas.opengis.net/context/1.0.0/context.xsd">
+
+  <General>
+    <Window width="600" height="300" />
+    <BoundingBox SRS="EPSG:4326" minx="-180" miny="-90" maxx="180"
+    maxy="90" />
+    <Title>metacat data</Title>
+    <KeywordList>
+      <Keyword>metacat</Keyword>
+      <Keyword>EML</Keyword>
+    </KeywordList>
+    <Abstract>Low resolution.</Abstract>
+  </General>
+  <LayerList>
+    
+    
+    <Layer queryable="0" hidden="0">
+      <Server service="wms" version="1.1.0" title="wms">
+        <OnlineResource xlink:type="simple"
+        xlink:href="http://atlas.gc.ca/cgi-bin/mapserv?map=/home/mapdata/aoc_v3/english/pb_world.map" />
+      </Server>
+     <Name>ocean</Name>
+      <Title>ocean area</Title> 
+      <SRS>EPSG:4326</SRS>
+      <FormatList>
+        <Format current="1">image/gif</Format>
+      </FormatList>
+    </Layer>
+    
+    <Layer queryable="0" hidden="0">
+    <Server service="wms" version="1.1.0" title="wms">
+    <OnlineResource xlink:type="simple" xlink:href="http://atlas.gc.ca/cgi-bin/mapserv?map=/home/mapdata/aoc_v3/english/pb_world.map"/>
+    </Server>
+    <Name>land</Name>
+    <Title>land area</Title>
+    <SRS>EPSG:4326</SRS>
+    <FormatList>
+    <Format current="1">image/gif</Format>
+    </FormatList>
+    </Layer>
+
+
+    <Layer queryable="1" hidden="0">
+      <Server service="OGC:WMS" version="1.1.1"
+      title="metacat document data">
+        <OnlineResource xlink:type="simple"
+        xlink:href="../../../../wms" />
+      </Server>
+      <Name>topp:metacat_testdata</Name>
+      <Title>metacat documents</Title>
+      <SRS>EPSG:4326</SRS>
+      <FormatList>
+        <Format current="1">image/png</Format>
+      </FormatList>
+      
+
+      <!--
+   
+    <StyleList>
+            <Style current="1">
+                      <Name>0xb8d8f6</Name>
+                                <Title>0xb8d8f6</Title>
+                                          <LegendURL width="16" height="16" format="image/gif">
+                                                     <OnlineResource xlink:type="simple" xlink:href="../../../../wms?VERSION=1.1.1&REQUEST=GetLegendGraphic&LAYER=topp:metacat_testdata&SPATIAL_TYPE=POLYGON&STYLE=0xb8d8f6&FORMAT=image%2Fgif&SIMPLE=TRUE"/>
+       
+       </LegendURL>
+         </Style>
+       </StyleList>
+    -->
+    
+    </Layer>
+    <!-- <Layer queryable="1" hidden="0">
+      <Server service="OGC:WMS" version="1.1.1"
+      title="terraserver">
+        <OnlineResource xlink:type="simple"
+        xlink:href="http://terraserver.microsoft.com/OgcWms.aspx" />
+      </Server>
+      <Name>DOQ</Name>
+      <Title>terraserver</Title>
+      <SRS>EPSG:4326</SRS>
+      <FormatList>
+        <Format current="1">image/jpeg</Format>
+      </FormatList>
+    </Layer> -->
+    
+    
+    <Layer queryable="1" hidden="0">
+      <Server service="OGC:WMS" version="1.1.1"
+      title="esri places">
+        <OnlineResource xlink:type="simple" xlink:href="../../../../wms" />
+      </Server>
+      <Name>topp:RIVERS</Name>
+      <Title>esri world rivers</Title>
+      <SRS>EPSG:4326</SRS>
+      <FormatList>
+        <Format current="1">image/png</Format>
+      </FormatList>
+    </Layer>
+    
+    <Layer queryable="1" hidden="0">
+      <Server service="OGC:WMS" version="1.1.1"
+      title="esri places">
+        <OnlineResource xlink:type="simple" xlink:href="../../../../wms" />
+      </Server>
+      <Name>topp:country</Name>
+      <Title>esri world countries</Title>
+      <SRS>EPSG:4326</SRS>
+      <FormatList>
+        <Format current="1">image/png</Format>
+      </FormatList>
+    </Layer>
+
+
+
+    
+    <!--Layer queryable="1" hidden="0">
+      <Server service="OGC:WMS" version="1.1.1"
+      title="esri places">
+        <OnlineResource xlink:type="simple" xlink:href="../../../../wms" />
+      </Server>
+      <Name>topp:places</Name>
+      <Title>esri usa places</Title>
+      <SRS>EPSG:4326</SRS>
+      <FormatList>
+        <Format current="1">image/png</Format>
+      </FormatList>
+    </Layer-->
+    
+    <!--Layer queryable="1" hidden="0">
+      <Server service="OGC:WMS" version="1.1.1"
+      title="esri places">
+        <OnlineResource xlink:type="simple" xlink:href="../../../../wms" />
+      </Server>
+      <Name>topp:CITIES</Name>
+      <Title>esri world cities places</Title>
+      <SRS>EPSG:4326</SRS>
+      <FormatList>
+        <Format current="1">image/png</Format>
+      </FormatList>
+    </Layer-->
+
+    <!--Layer queryable="1" hidden="0">
+      <Server service="OGC:WMS" version="1.1.1"
+      title="esri places">
+        <OnlineResource xlink:type="simple" xlink:href="../../../../wms" />
+      </Server>
+      <Name>topp:latlong</Name>
+      <Title>esri world latlong</Title>
+      <SRS>EPSG:4326</SRS>
+      <FormatList>
+        <Format current="1">image/png</Format>
+      </FormatList>
+    </Layer-->
+
+    
+  </LayerList>
+</ViewContext>
